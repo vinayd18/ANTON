@@ -36,17 +36,40 @@ class FeedPortGenerator:
         z_sub_bottom = sub_layer.z_position if sub_layer else 0.0
         z_sub_top = z_sub_bottom + h_sub
 
-        # Find feed objects or feeds
-        feed_layer = next((l for l in self.project.layers.values() if l.layer_type in {"feed", "patch"}), None)
+        # Collect potential feed objects with strict prioritization:
+        # Priority 1: Objects on a layer with layer_type == "feed"
         feed_objs = []
-        if feed_layer:
-            for oid in feed_layer.object_ids:
-                o = self.project.objects.get(oid)
-                if o and ("feed" in (o.name or "").lower() or o.layer_id == feed_layer.id):
+        for layer in self.project.layers.values():
+            if layer.layer_type == "feed":
+                for oid in layer.object_ids:
+                    o = self.project.objects.get(oid)
+                    if o:
+                        feed_objs.append(o)
+
+        # Priority 2: Objects with "feed" in their name across all layers
+        if not feed_objs:
+            for o in self.project.objects.values():
+                if "feed" in (o.name or "").lower():
                     feed_objs.append(o)
 
+        # Priority 3: Connections source objects
+        if not feed_objs and getattr(self.project, "connections", None):
+            for conn in self.project.connections:
+                src_o = self.project.objects.get(conn.source_object_id)
+                if src_o:
+                    feed_objs.append(src_o)
+
+        # Priority 4: Fallback to patch layer objects if no feed object exists
+        if not feed_objs:
+            for layer in self.project.layers.values():
+                if layer.layer_type == "patch":
+                    for oid in layer.object_ids:
+                        o = self.project.objects.get(oid)
+                        if o:
+                            feed_objs.append(o)
+
         if not self.feeds and feed_objs:
-            # Default microstrip lumped port at lowest Y edge of feed object
+            # Default microstrip lumped port at lowest Y edge of the primary feed object
             primary_feed = min(feed_objs, key=lambda o: (o.center_y if o.center_y is not None else 0))
             w_f = primary_feed.width if primary_feed.width else 0.003
             h_f = primary_feed.height if primary_feed.height else 0.015
@@ -62,30 +85,51 @@ class FeedPortGenerator:
             lines.append(f"    port_h = {h_sub}")
             lines.append("")
             lines.append("    # Create port sheet in XZ plane bridging ground to feed trace")
-            lines.append(
-                "    port_sheet = app.modeler.create_rectangle("
-                "csPlane='XZ', "
-                "position=[port_x0, port_y, port_z0], "
-                "dimension_list=[port_w, port_h], "
-                "name='Port1_Sheet'"
-                ")"
-            )
-            lines.append("")
-            lines.append("    # Assign 50-Ohm Lumped Port with integration line pointing +Z from ground to patch")
             lines.append("    try:")
-            lines.append("        # PyAEDT modern lumped_port API")
-            lines.append(
-                "        app.lumped_port("
-                "assignment=port_sheet.name, "
-                "reference=ref_ground, "
-                "create_port_sheet=False, "
-                "port_name='1'"
-                ")"
-            )
-            lines.append("        print(\"  Assigned Lumped Port '1' to sheet '\" + port_sheet.name + \"'\")")
-            lines.append("    except Exception as e:")
-            lines.append("        print(f'  Lumped port assignment note: {e}')")
-            lines.append("        print('  Port sheet created. You can verify integration line in HFSS graphical interface.')")
+            lines.append("        # Modern PyAEDT orientation syntax")
+            lines.append("        port_sheet = app.modeler.create_rectangle(")
+            lines.append("            orientation='XZ',")
+            lines.append("            origin=[port_x0, port_y, port_z0],")
+            lines.append("            sizes=[port_w, port_h],")
+            lines.append("            name='Port1_Sheet',")
+            lines.append("        )")
+            lines.append("    except Exception:")
+            lines.append("        # Classic PyAEDT csPlane syntax fallback")
+            lines.append("        port_sheet = app.modeler.create_rectangle(")
+            lines.append("            csPlane='XZ',")
+            lines.append("            position=[port_x0, port_y, port_z0],")
+            lines.append("            dimension_list=[port_w, port_h],")
+            lines.append("            name='Port1_Sheet',")
+            lines.append("        )")
+            lines.append("")
+            lines.append("    # Integration line definition: pointing +Z from ground to patch feed")
+            lines.append(f"    int_line_start = [{cx}, {cy_edge}, {z_sub_bottom}]")
+            lines.append(f"    int_line_stop = [{cx}, {cy_edge}, {z_sub_top}]")
+            lines.append("")
+            lines.append("    # Assign 50-Ohm Lumped Port with integration line")
+            lines.append("    try:")
+            lines.append("        # PyAEDT lumped_port API")
+            lines.append("        app.lumped_port(")
+            lines.append("            assignment=port_sheet.name,")
+            lines.append("            reference=ref_ground,")
+            lines.append("            integration_line=[int_line_start, int_line_stop],")
+            lines.append("            create_port_sheet=False,")
+            lines.append("            port_name='1',")
+            lines.append("        )")
+            lines.append("        print(\"  Assigned Lumped Port '1' with +Z integration line to sheet '\" + port_sheet.name + \"'\")")
+            lines.append("    except Exception as e1:")
+            lines.append("        try:")
+            lines.append("            # Fallback for PyAEDT create_lumped_port_to_sheet")
+            lines.append("            app.create_lumped_port_to_sheet(")
+            lines.append("                sheet_name=port_sheet.name,")
+            lines.append("                reference_object_list=[ref_ground] if ref_ground else [],")
+            lines.append("                integration_line=[int_line_start, int_line_stop],")
+            lines.append("                portname='1',")
+            lines.append("            )")
+            lines.append("            print(\"  Assigned Lumped Port '1' via create_lumped_port_to_sheet\")")
+            lines.append("        except Exception as e2:")
+            lines.append("            print(f'  Lumped port assignment note: {e1} / {e2}')")
+            lines.append("            print('  Port sheet created. You can verify integration line in HFSS graphical interface.')")
 
         elif self.feeds:
             for idx, feed in enumerate(self.feeds):

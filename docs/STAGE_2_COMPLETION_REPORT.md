@@ -133,3 +133,4 @@ Coverage highlights:
 Stage 2 has been thoroughly implemented and verified according to all user requirements. The notebook generation engine allows any canonical ANTON antenna geometry to be exported into a standalone, reproducible Jupyter Notebook for manual verification in ANSYS HFSS.
 
 The system is fully prepared for Stage 3 upon user authorization.
+

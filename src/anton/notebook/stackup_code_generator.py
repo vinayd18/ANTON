@@ -24,7 +24,6 @@ class StackupCodeGenerator:
             "# Collect created modeler objects for verification",
             "hfss_objects = {}",
             "",
-            "if app is not None:",
         ]
 
         # Sort layers by z_position ascending
@@ -32,7 +31,7 @@ class StackupCodeGenerator:
 
         for layer in sorted_layers:
             if layer.layer_type in {"substrate", "ground"}:
-                lines.append(f"    # Layer: '{layer.name}' (Type: {layer.layer_type}, z={layer.z_position * 1e3:.4f} mm, t={layer.thickness * 1e3:.4f} mm)")
+                lines.append(f"# Layer: '{layer.name}' (Type: {layer.layer_type}, z={layer.z_position * 1e3:.4f} mm, t={layer.thickness * 1e3:.4f} mm)")
 
                 for obj_id in layer.object_ids:
                     obj = self.project.objects.get(obj_id)
@@ -49,24 +48,24 @@ class StackupCodeGenerator:
                         z0 = layer.z_position
                         t = layer.thickness if layer.thickness > 0 else 35e-6
 
-                        lines.append(f"    # Create rectangular solid for {obj_name}")
+                        lines.append(f"# Create rectangular solid for {obj_name}")
                         lines.append(
-                            f"    box_{obj_name} = app.modeler.create_box("
+                            f"box_{obj_name} = app.modeler.create_box("
                             f"origin=[{x0}, {y0}, {z0}], "
                             f"sizes=[{obj.width}, {obj.height}, {t}], "
                             f"name='{obj_name}', "
                             f"matname={mat_id_str}"
                             f")"
                         )
-                        lines.append(f"    hfss_objects['{obj.id}'] = box_{obj_name}.name")
-                        lines.append(f"    print(f\"  Created box solid: '{{box_{obj_name}.name}}' for layer '{layer.name}'\")")
+                        lines.append(f"hfss_objects['{obj.id}'] = box_{obj_name}.name")
+                        lines.append(f"print(f\"  Created box solid: '{{box_{obj_name}.name}}' for layer '{layer.name}'\")")
 
                     elif obj.object_type == "circle" and obj.radius:
                         z0 = layer.z_position
                         t = layer.thickness if layer.thickness > 0 else 35e-6
-                        lines.append(f"    # Create circular cylinder solid for {obj_name}")
+                        lines.append(f"# Create circular cylinder solid for {obj_name}")
                         lines.append(
-                            f"    cyl_{obj_name} = app.modeler.create_cylinder("
+                            f"cyl_{obj_name} = app.modeler.create_cylinder("
                             f"cs_axis='Z', "
                             f"position=[{obj.center_x}, {obj.center_y}, {z0}], "
                             f"radius={obj.radius}, "
@@ -75,29 +74,28 @@ class StackupCodeGenerator:
                             f"matname={mat_id_str}"
                             f")"
                         )
-                        lines.append(f"    hfss_objects['{obj.id}'] = cyl_{obj_name}.name")
-                        lines.append(f"    print(f\"  Created cylinder solid: '{{cyl_{obj_name}.name}}' for layer '{layer.name}'\")")
+                        lines.append(f"hfss_objects['{obj.id}'] = cyl_{obj_name}.name")
+                        lines.append(f"print(f\"  Created cylinder solid: '{{cyl_{obj_name}.name}}' for layer '{layer.name}'\")")
 
                     elif obj.vertices:
                         # Extruded polygon
                         z0 = layer.z_position
                         t = layer.thickness if layer.thickness > 0 else 35e-6
                         pts_literal = [[v.x, v.y, z0] for v in obj.vertices]
-                        lines.append(f"    # Create polygon sheet and extrude for {obj_name}")
-                        lines.append(f"    pts_{obj_name} = {pts_literal}")
+                        lines.append(f"# Create polygon sheet and extrude for {obj_name}")
+                        lines.append(f"pts_{obj_name} = {pts_literal}")
                         lines.append(
-                            f"    poly_{obj_name} = app.modeler.create_polyline("
+                            f"poly_{obj_name} = app.modeler.create_polyline("
                             f"points=pts_{obj_name}, close_surface=True, cover_surface=True, "
                             f"name='{obj_name}', matname={mat_id_str}"
                             f")"
                         )
-                        lines.append(f"    app.modeler.extrude_sheet(poly_{obj_name}.name, {t})")
-                        lines.append(f"    hfss_objects['{obj.id}'] = poly_{obj_name}.name")
-                        lines.append(f"    print(f\"  Created extruded polygon: '{{poly_{obj_name}.name}}' for layer '{layer.name}'\")")
+                        lines.append(f"app.modeler.extrude_sheet(poly_{obj_name}.name, {t})")
+                        lines.append(f"hfss_objects['{obj.id}'] = poly_{obj_name}.name")
+                        lines.append(f"print(f\"  Created extruded polygon: '{{poly_{obj_name}.name}}' for layer '{layer.name}'\")")
 
                 lines.append("")
 
-        lines.append("    print('Dielectric substrate and ground structure created successfully.')")
-        lines.append("else:")
-        lines.append("    print('Notice: app is None (offline mode). Modeler substrate generation skipped.')")
+        lines.append("print('Dielectric substrate and ground structure created successfully.')")
         return "\n".join(lines)
+

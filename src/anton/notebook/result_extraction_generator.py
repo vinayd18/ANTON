@@ -238,5 +238,3 @@ class ResultExtractionGenerator:
         ]
         return "\n".join(lines)
 
-    # Alias for convenience
-    generate_export_code = generate_data_export_code

@@ -95,6 +95,27 @@ class HFSSCodeGenerator:
                         lines.append(f"    app.modeler.set_color(solid_{obj_name}.name, [245, 158, 11])")
                         lines.append(f"    print(f\"  Created circular patch: '{{solid_{obj_name}.name}}'\")")
 
+                    elif obj.object_type == "ellipse" and (obj.semi_major or getattr(obj, "radius", None)):
+                        a = obj.semi_major or obj.radius or 0.02
+                        b = obj.semi_minor or (a * 0.7)
+                        ratio = b / a if a > 0 else 1.0
+                        lines.append(f"    # Elliptical patch solid: {obj_name}")
+                        lines.append("    try:")
+                        lines.append(
+                            f"        solid_{obj_name} = app.modeler.create_ellipse("
+                            f"csPlane='XY', position=[{obj.center_x}, {obj.center_y}, {z0}], "
+                            f"major_radius={a}, ratio={ratio}, name='{obj_name}')"
+                        )
+                        lines.append(f"        app.modeler.extrude_sheet(solid_{obj_name}.name, {t})")
+                        lines.append("    except Exception:")
+                        lines.append("        import math as _m")
+                        lines.append(f"        _el_pts = [[{obj.center_x} + {a} * _m.cos(_t), {obj.center_y} + {b} * _m.sin(_t), {z0}] for _t in [_k * 2 * _m.pi / 64 for _k in range(64)]]")
+                        lines.append(f"        solid_{obj_name} = app.modeler.create_polyline(points=_el_pts, close_surface=True, cover_surface=True, name='{obj_name}', matname={mat_id_str})")
+                        lines.append(f"        app.modeler.extrude_sheet(solid_{obj_name}.name, {t})")
+                        lines.append(f"    hfss_objects['{obj.id}'] = solid_{obj_name}.name")
+                        lines.append(f"    app.modeler.set_color(solid_{obj_name}.name, [245, 158, 11])")
+                        lines.append(f"    print(f\"  Created elliptical patch: '{{solid_{obj_name}.name}}'\")")
+
                     elif obj.object_type == "triangle":
                         pts_literal = [[v.x, v.y, z0] for v in obj.vertices]
                         lines.append(f"    # Triangular patch solid: {obj_name}")

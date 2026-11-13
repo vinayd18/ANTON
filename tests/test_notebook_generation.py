@@ -235,3 +235,4 @@ class TestNotebookValidator:
             res = validator.validate_file(nb_path)
             assert res.is_valid is True, f"Notebook '{nb_path.name}' failed validation: {res.errors}"
             assert res.syntax_valid is True
+

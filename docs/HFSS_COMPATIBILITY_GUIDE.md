@@ -95,3 +95,4 @@ An absorbing radiation boundary condition is assigned to the exterior faces of t
 ### Issue 3: "License checkout failed for HFSS"
 - **Cause**: All available ANSYS HFSS solver licenses are in use or license server is unreachable.
 - **Solution**: The notebook does not automatically trigger the solver. You can inspect the geometry and save the project file (`.aedt`). Run the analysis manually (`app.analyze_setup('Setup1')`) only when license capacity is available.
+
