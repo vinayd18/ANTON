@@ -110,59 +110,93 @@ class FeedPortGenerator:
             )
 
         if feed_obj:
-            # Determine port edge and orientation
+            # Determine port edge and orientation based on feed geometry and relative patch placement
             cx = feed_obj.center_x or 0.0
             cy = feed_obj.center_y or 0.0
             w_f = feed_obj.width or 0.003
             h_f = feed_obj.height or 0.015
 
-            # If target patch is known, find which end of the feed line contacts the patch
-            if patch_obj:
-                patch_shape = to_shapely(patch_obj)
-                p_cy = patch_obj.center_y or 0.0
-                # Contact interface is at top (contact_y > cy) or at bottom (contact_y < cy)
-                if p_cy >= cy:
-                    # Feed line contacts patch at top (+Y edge); excitation port is at outer bottom (-Y edge)
-                    port_y = cy - h_f / 2.0
+            p_cx = patch_obj.center_x if patch_obj else 0.0
+            p_cy = patch_obj.center_y if patch_obj else 0.0
+
+            # Detect whether feed line runs vertically (along Y) or horizontally (along X)
+            is_y_directed = h_f >= w_f
+
+            if is_y_directed:
+                # Vertical feed line: port sheet is in XZ plane
+                port_plane = "XZ"
+                if patch_obj:
+                    patch_shape = to_shapely(patch_obj)
+                    if p_cy >= cy:
+                        # Feed contacts patch at top (+Y); port is at bottom outer edge (-Y)
+                        port_y = cy - h_f / 2.0
+                    else:
+                        # Feed contacts patch at bottom (-Y); port is at top outer edge (+Y)
+                        port_y = cy + h_f / 2.0
+
+                    port_test_pt = Point(cx, port_y)
+                    if patch_shape.contains(port_test_pt):
+                        raise ValueError(
+                            f"Port placement ERROR: Derived port coordinate ({cx*1e3:.2f}, {port_y*1e3:.2f}) mm "
+                            f"lies inside the radiator body or cutout hole of '{patch_obj.name}'."
+                        )
                 else:
-                    # Feed line contacts patch at bottom (-Y edge); excitation port is at outer top (+Y edge)
-                    port_y = cy + h_f / 2.0
+                    port_y = cy - h_f / 2.0
 
-                # Strictly validate that port_y is NOT inside the patch or any hole
-                port_test_pt = Point(cx, port_y)
-                if patch_shape.contains(port_test_pt):
-                    raise ValueError(
-                        f"Port placement ERROR: Derived port coordinate ({cx*1e3:.2f}, {port_y*1e3:.2f}) mm "
-                        f"lies inside the radiator body or cutout hole of '{patch_obj.name}'."
-                    )
+                port_origin = [cx - w_f / 2.0, port_y, z_sub_bottom]
+                port_sizes = [w_f, h_sub]
+                int_line_start = [cx, port_y, z_sub_bottom]
+                int_line_stop = [cx, port_y, z_sub_top]
+                loc_desc = f"x={cx * 1e3:.3f} mm, y={port_y * 1e3:.3f} mm"
             else:
-                port_y = cy - h_f / 2.0
+                # Horizontal feed line: port sheet is in YZ plane
+                port_plane = "YZ"
+                if patch_obj:
+                    patch_shape = to_shapely(patch_obj)
+                    if p_cx >= cx:
+                        # Feed contacts patch at right (+X); port is at left outer edge (-X)
+                        port_x = cx - w_f / 2.0
+                    else:
+                        # Feed contacts patch at left (-X); port is at right outer edge (+X)
+                        port_x = cx + w_f / 2.0
 
-            port_x0 = cx - w_f / 2.0
-            port_z0 = z_sub_bottom
-            port_h = h_sub
+                    port_test_pt = Point(port_x, cy)
+                    if patch_shape.contains(port_test_pt):
+                        raise ValueError(
+                            f"Port placement ERROR: Derived port coordinate ({port_x*1e3:.2f}, {cy*1e3:.2f}) mm "
+                            f"lies inside the radiator body or cutout hole of '{patch_obj.name}'."
+                        )
+                else:
+                    port_x = cx - w_f / 2.0
+
+                port_origin = [port_x, cy - h_f / 2.0, z_sub_bottom]
+                port_sizes = [h_f, h_sub]
+                int_line_start = [port_x, cy, z_sub_bottom]
+                int_line_stop = [port_x, cy, z_sub_top]
+                loc_desc = f"x={port_x * 1e3:.3f} mm, y={cy * 1e3:.3f} mm"
 
             lines.append(f"# Verified feed conductor: '{feed_obj.name}' (signal trace)")
-            lines.append(f"# Port location: x={cx * 1e3:.3f} mm, y={port_y * 1e3:.3f} mm, spanning z=[{port_z0 * 1e3:.3f}, {z_sub_top * 1e3:.3f}] mm")
-            lines.append(f"port_w = {w_f}")
-            lines.append(f"port_h = {port_h}")
-            lines.append(f"port_x0 = {port_x0}")
-            lines.append(f"port_y = {port_y}")
-            lines.append(f"port_z0 = {port_z0}")
+            lines.append(f"# Port location: {loc_desc}, plane={port_plane}, spanning z=[{z_sub_bottom * 1e3:.3f}, {z_sub_top * 1e3:.3f}] mm")
+            if is_y_directed:
+                lines.append(f"port_y = {port_y}")
+            else:
+                lines.append(f"port_x = {port_x}")
+            lines.append(f"port_origin = {port_origin}")
+            lines.append(f"port_sizes = {port_sizes}")
             lines.append("")
-            lines.append("# Construct 2D excitation port sheet in XZ plane bridging ground to signal trace")
+            lines.append(f"# Construct 2D excitation port sheet in {port_plane} plane bridging ground to signal trace")
             lines.append("try:")
             lines.append("    port_sheet = app.modeler.create_rectangle(")
-            lines.append("        orientation='XZ',")
-            lines.append("        origin=[port_x0, port_y, port_z0],")
-            lines.append("        sizes=[port_w, port_h],")
+            lines.append(f"        orientation='{port_plane}',")
+            lines.append("        origin=port_origin,")
+            lines.append("        sizes=port_sizes,")
             lines.append("        name='Port1_Sheet',")
             lines.append("    )")
             lines.append("except Exception:")
             lines.append("    port_sheet = app.modeler.create_rectangle(")
-            lines.append("        csPlane='XZ',")
-            lines.append("        position=[port_x0, port_y, port_z0],")
-            lines.append("        dimension_list=[port_w, port_h],")
+            lines.append(f"        csPlane='{port_plane}',")
+            lines.append("        position=port_origin,")
+            lines.append("        dimension_list=port_sizes,")
             lines.append("        name='Port1_Sheet',")
             lines.append("    )")
             lines.append("")
@@ -171,30 +205,33 @@ class FeedPortGenerator:
             lines.append("print(f\"  Created excitation sheet: '{port_sheet.name}'\")")
             lines.append("")
             lines.append("# Integration line: directed +Z from reference ground to signal trace")
-            lines.append(f"int_line_start = [{cx}, {port_y}, {port_z0}]")
-            lines.append(f"int_line_stop = [{cx}, {port_y}, {z_sub_top}]")
+            lines.append(f"int_line_start = {int_line_start}")
+            lines.append(f"int_line_stop = {int_line_stop}")
             lines.append("")
             lines.append("# Assign 50-Ohm Lumped Port with integration line")
             lines.append("try:")
-            lines.append("    app.lumped_port(")
-            lines.append("        assignment=port_sheet.name,")
-            lines.append("        reference=ref_ground,")
-            lines.append("        integration_line=[int_line_start, int_line_stop],")
-            lines.append("        create_port_sheet=False,")
-            lines.append("        port_name='1',")
+            lines.append("    app.create_lumped_port_to_sheet(")
+            lines.append("        sheet_name=port_sheet.name,")
+            lines.append("        axisdir=[int_line_start, int_line_stop],")
+            lines.append("        portname='1',")
+            lines.append("        impedance=50.0,")
+            lines.append("        renormalize=True,")
+            lines.append("        reference_object_list=[ref_ground],")
             lines.append("    )")
-            lines.append("    print(f\"  Assigned Lumped Port '1' with +Z integration line to '{port_sheet.name}'\")")
+            lines.append("    print(f\"  Assigned Lumped Port '1' via create_lumped_port_to_sheet to '{port_sheet.name}'\")")
             lines.append("except Exception as e1:")
             lines.append("    try:")
-            lines.append("        app.create_lumped_port_to_sheet(")
-            lines.append("            sheet_name=port_sheet.name,")
-            lines.append("            reference_object_list=[ref_ground],")
+            lines.append("        app.lumped_port(")
+            lines.append("            signal=port_sheet.name,")
+            lines.append("            reference=ref_ground,")
             lines.append("            integration_line=[int_line_start, int_line_stop],")
-            lines.append("            portname='1',")
+            lines.append("            impedance=50.0,")
+            lines.append("            name='1',")
+            lines.append("            renormalize=True,")
             lines.append("        )")
-            lines.append("        print(f\"  Assigned Lumped Port '1' via create_lumped_port_to_sheet to '{port_sheet.name}'\")")
+            lines.append("        print(f\"  Assigned Lumped Port '1' via lumped_port to '{port_sheet.name}'\")")
             lines.append("    except Exception as e2:")
-            lines.append("        raise RuntimeError(f\"CRITICAL: Failed to assign Lumped Port '1' in HFSS: {e1} / {e2}\")")
+            lines.append("        raise RuntimeError(f\"CRITICAL: Failed to assign Lumped Port '1' in HFSS: {e1} / {e2}\") from e2")
 
         elif self.feeds:
             for idx, feed in enumerate(self.feeds):

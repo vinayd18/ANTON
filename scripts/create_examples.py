@@ -31,7 +31,7 @@ def build_rectangular_patch() -> AntonEngine:
     l_sub = e.add_parameter("L_sub", Units.mm_to_m(60.0), description="Substrate length")
     h_sub = e.add_parameter("h_sub", Units.mm_to_m(1.6), description="Substrate thickness")
     w_f = e.add_parameter("W_f", Units.mm_to_m(3.1), description="Feed line width")
-    l_f = e.add_parameter("L_f", Units.mm_to_m(15.5), description="Feed line length")
+    l_f = e.add_parameter("L_f", Units.mm_to_m(18.5), description="Feed line length")
 
     # Materials
     m_fr4 = e.add_material(
@@ -60,9 +60,9 @@ def build_rectangular_patch() -> AntonEngine:
     e.add_rectangle(l_diel, m_fr4, width=Units.mm_to_m(60.0), height=Units.mm_to_m(60.0), name="SubstrateBlock")
     # Radiating patch
     p_id = e.add_rectangle(l_patch, m_cu, width=Units.mm_to_m(38.0), height=Units.mm_to_m(29.0), center_y=Units.mm_to_m(3.0), name="Radiator")
-    # Feed line touching lower edge of patch (y_edge = 3.0 - 14.5 = -11.5 mm)
-    # Feed runs from y = -27.0 to -11.5 mm (length = 15.5 mm, center_y = -19.25 mm)
-    f_id = e.add_rectangle(l_feed, m_cu, width=Units.mm_to_m(3.1), height=Units.mm_to_m(15.5), center_y=Units.mm_to_m(-19.25), name="FeedLine")
+    # Feed line reaching lower edge of substrate (y = -30.0 mm) and touching lower edge of patch (y = -11.5 mm)
+    # Feed runs from y = -30.0 to -11.5 mm (length = 18.5 mm, center_y = -20.75 mm)
+    f_id = e.add_rectangle(l_feed, m_cu, width=Units.mm_to_m(3.1), height=Units.mm_to_m(18.5), center_y=Units.mm_to_m(-20.75), name="FeedLine")
 
     e.add_connection(f_id, p_id, "direct_edge_feed")
     return e
@@ -236,25 +236,23 @@ def build_inset_feed_patch() -> AntonEngine:
     base_patch_id = e.add_rectangle(l_patch, m_cu, width=Units.mm_to_m(38.0), height=Units.mm_to_m(30.0), center_y=Units.mm_to_m(5.0), name="MainPatch")
     base_patch = e.project.objects[base_patch_id]
 
-    # Inset notches: inset depth y_0 = 8 mm, notch width g = 1.0 mm, feed width w_f = 3.0 mm
-    # Left notch at x = -2.0 mm, right notch at x = +2.0 mm, depth 8mm (y from -10 to -2 mm)
-    notch_w = Units.mm_to_m(1.0)
-    notch_d = Units.mm_to_m(8.0)
-    y_notch_c = Units.mm_to_m(-6.0)
+    # Inset notch cutout: feed width w_f = 3.0 mm, gap g = 1.0 mm -> cutout width = 5.0 mm, depth = 8.0 mm (y from -10 to -2 mm)
+    # The cutout creates the physical U-shaped recess for the microstrip feed strip without conductor overlap
+    cut_w = Units.mm_to_m(5.0)
+    cut_d = Units.mm_to_m(8.0)
+    y_cut_c = Units.mm_to_m(-6.0)
 
-    n_l_id = e.add_rectangle(l_patch, m_cu, width=notch_w, height=notch_d, center_x=Units.mm_to_m(-2.0), center_y=y_notch_c, name="NotchLeft")
-    n_r_id = e.add_rectangle(l_patch, m_cu, width=notch_w, height=notch_d, center_x=Units.mm_to_m(2.0), center_y=y_notch_c, name="NotchRight")
+    cut_id = e.add_rectangle(l_patch, m_cu, width=cut_w, height=cut_d, center_x=0.0, center_y=y_cut_c, name="InsetNotchCutout")
+    cutter = e.project.objects[cut_id]
+    notched_patch = boolean_difference(base_patch, [cutter], name="NotchedRadiator", layer_id=l_patch, material_id=m_cu)
 
-    cutters = [e.project.objects[n_l_id], e.project.objects[n_r_id]]
-    notched_patch = boolean_difference(base_patch, cutters, name="NotchedRadiator", layer_id=l_patch, material_id=m_cu)
-
-    e.remove_object(n_l_id)
-    e.remove_object(n_r_id)
+    e.remove_object(cut_id)
     e.remove_object(base_patch_id)
     p_id = e.add_object(notched_patch)
 
-    # Inset feed line: runs from y = -30mm to y = -2mm (length = 28mm, center_y = -16mm)
-    f_id = e.add_rectangle(l_patch, m_cu, width=Units.mm_to_m(3.0), height=Units.mm_to_m(28.0), center_y=Units.mm_to_m(-16.0), name="InsetFeedLine")
+    # Inset feed line: runs from substrate edge (y = -35.0 mm) to inset feed point (y = -2.0 mm)
+    # Length = 33.0 mm, center_y = -18.5 mm, width = 3.0 mm (leaving 1.0 mm clearance on each side within the notch)
+    f_id = e.add_rectangle(l_patch, m_cu, width=Units.mm_to_m(3.0), height=Units.mm_to_m(33.0), center_y=Units.mm_to_m(-18.5), name="InsetFeedLine")
     e.add_connection(f_id, p_id, "inset_feed_connection")
     return e
 

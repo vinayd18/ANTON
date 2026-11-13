@@ -51,6 +51,12 @@ def translate_object(
             VertexDef(x=v.x + dx, y=v.y + dy) for v in new_obj.inner_vertices
         ]
 
+    if new_obj.inner_holes:
+        new_obj.inner_holes = [
+            [VertexDef(x=v.x + dx, y=v.y + dy) for v in hole]
+            for hole in new_obj.inner_holes
+        ]
+
     return new_obj
 
 

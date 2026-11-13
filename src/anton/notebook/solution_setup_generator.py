@@ -47,8 +47,8 @@ class SolutionSetupGenerator:
             "# Create HFSS solution setup with adaptive meshing",
             "setup = None",
             "try:",
-            "    setup = app.create_setup(name=setup_name, setup_type='HFSSDrivenAuto')",
-            "except Exception as e_auto:",
+            "    setup = app.create_setup(name=setup_name, setup_type='HFSSDrivenModal')",
+            "except Exception as e_modal:",
             "    try:",
             "        setup = app.create_setup(name=setup_name, setup_type='HFSS')",
             "    except Exception as e_hfss:",
@@ -57,7 +57,7 @@ class SolutionSetupGenerator:
             "        except Exception as e_gen:",
             "            raise RuntimeError(",
             "                f\"Failed to create HFSS solution setup '{setup_name}'! \"",
-            "                f\"HFSSDrivenAuto error: {e_auto}; HFSS error: {e_hfss}; Generic error: {e_gen}\"",
+            "                f\"HFSSDrivenModal error: {e_modal}; HFSS error: {e_hfss}; Generic error: {e_gen}\"",
             "            ) from e_gen",
             "",
             "if setup is None:",
@@ -101,10 +101,26 @@ class SolutionSetupGenerator:
             "",
             "print(f\"  Configured frequency sweep: '{sweep.name}'\")",
             "",
+        ]
+
+        # Identify canonical patch/radiator object names from project
+        radiator_names = [
+            obj.name for obj in self.project.objects.values()
+            if obj.name and (
+                (self.project.layers.get(obj.layer_id) and self.project.layers[obj.layer_id].layer_type in ("patch", "feed"))
+                or any(k in obj.name.lower() for k in ("patch", "radiator", "disk", "ring", "feed"))
+            )
+        ]
+
+        lines.extend([
             "# Optional: Adaptive mesh refinement on patch conductors",
             "print('Assigning initial mesh refinement on conductive radiator faces...')",
             "try:",
-            "    patch_conductors = [obj.name for obj in app.modeler.object_list if 'patch' in obj.name.lower() or 'radiator' in obj.name.lower()]",
+            f"    target_radiators = {radiator_names}",
+            "    modeler_names = getattr(app.modeler, 'object_names', [o.name for o in app.modeler.object_list])",
+            "    patch_conductors = [name for name in target_radiators if name in modeler_names]",
+            "    if not patch_conductors:",
+            "        patch_conductors = [obj.name for obj in app.modeler.object_list if any(k in obj.name.lower() for k in ('patch', 'radiator', 'disk', 'ring', 'feed'))]",
             "    if patch_conductors:",
             "        app.mesh.assign_length_mesh(patch_conductors, isinside=False, maxlength=0.005, name='Mesh_PatchEdge')",
             "        print(f\"  Assigned length mesh refinement to: {patch_conductors}\")",
@@ -112,5 +128,5 @@ class SolutionSetupGenerator:
             "    print(f'  Mesh refinement note (optional): {e}')",
             "",
             "print('HFSS simulation setup and frequency sweep fully configured.')",
-        ]
+        ])
         return "\n".join(lines)

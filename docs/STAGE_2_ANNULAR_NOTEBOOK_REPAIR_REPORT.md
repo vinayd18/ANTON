@@ -184,3 +184,4 @@ When executing [`annular_patch_hfss.ipynb`](file:///c:/Users/adewa/Pictures/Anto
 ## 6. CONCLUSION
 
 The Stage 2 notebook-generation engine is now fully repaired, physically validated, and architecturally robust. All identified flaws in feed geometry, lumped-port positioning, error masking, airbox dimensions, and synthetic post-processing have been eliminated. The generated notebooks represent physically faithful, executable PyAEDT reproductions of canonical ANTON designs.
+

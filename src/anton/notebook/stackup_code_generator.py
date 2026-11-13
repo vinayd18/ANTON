@@ -90,7 +90,7 @@ class StackupCodeGenerator:
                             f"name='{obj_name}', matname={mat_id_str}"
                             f")"
                         )
-                        lines.append(f"app.modeler.extrude_sheet(poly_{obj_name}.name, {t})")
+                        lines.append(f"app.modeler.sweep_along_vector(poly_{obj_name}.name, [0, 0, {t}])")
                         lines.append(f"hfss_objects['{obj.id}'] = poly_{obj_name}.name")
                         lines.append(f"print(f\"  Created extruded polygon: '{{poly_{obj_name}.name}}' for layer '{layer.name}'\")")
 

@@ -1,6 +1,6 @@
 {
   "project_name": "Inset-Fed Patch Antenna",
-  "geometry_id": "3ed60553-fb79-4967-9ea9-937b21e57b89",
+  "geometry_id": "a1eda6cf-75c0-48cd-9f49-207697c979aa",
   "units": "m",
   "coordinate_system": "Cartesian",
   "antenna": {
@@ -10,8 +10,8 @@
   },
   "parameters": {},
   "materials": {
-    "af5a23fb-fed2-4b0b-a753-f11abec15612": {
-      "id": "af5a23fb-fed2-4b0b-a753-f11abec15612",
+    "278cd00d-4265-4dcf-86b0-4500f87e3d87": {
+      "id": "278cd00d-4265-4dcf-86b0-4500f87e3d87",
       "name": "FR4",
       "category": "dielectric",
       "properties": {
@@ -21,8 +21,8 @@
       "source": null,
       "valid_range": null
     },
-    "27818419-8bd0-4026-97cd-52d4445392b0": {
-      "id": "27818419-8bd0-4026-97cd-52d4445392b0",
+    "ee56aa3e-241d-4cfc-ab2b-b42a4bf7ce6b": {
+      "id": "ee56aa3e-241d-4cfc-ab2b-b42a4bf7ce6b",
       "name": "Copper",
       "category": "conductor",
       "properties": {
@@ -33,48 +33,48 @@
     }
   },
   "layers": {
-    "ca5d0d1e-17f9-42ab-aa90-54196eb5dfd8": {
-      "id": "ca5d0d1e-17f9-42ab-aa90-54196eb5dfd8",
+    "8699ad26-aff2-46ed-ae1b-263e5546e86e": {
+      "id": "8699ad26-aff2-46ed-ae1b-263e5546e86e",
       "name": "Ground",
       "layer_type": "ground",
       "z_position": -0.000035,
       "thickness": 0.000035,
-      "material_id": "27818419-8bd0-4026-97cd-52d4445392b0",
+      "material_id": "ee56aa3e-241d-4cfc-ab2b-b42a4bf7ce6b",
       "object_ids": [
-        "42b90ecf-007e-4f64-a42f-b32f878e66ed"
+        "b4d3b6b9-f412-4586-b01e-295356916340"
       ]
     },
-    "7b69ef0c-0abc-41ad-b165-5f147666347f": {
-      "id": "7b69ef0c-0abc-41ad-b165-5f147666347f",
+    "fb7a62e6-f0e1-4bc8-9def-3c7873c6c3c6": {
+      "id": "fb7a62e6-f0e1-4bc8-9def-3c7873c6c3c6",
       "name": "Substrate",
       "layer_type": "substrate",
       "z_position": 0.0,
       "thickness": 0.0016,
-      "material_id": "af5a23fb-fed2-4b0b-a753-f11abec15612",
+      "material_id": "278cd00d-4265-4dcf-86b0-4500f87e3d87",
       "object_ids": [
-        "84e351e2-e5cd-41dd-a525-cee75aafbc24"
+        "e9f83c43-8a77-4169-bb07-f1f801dc46f6"
       ]
     },
-    "a16ba7ca-2c77-4b62-b5d8-1781fbfd7b51": {
-      "id": "a16ba7ca-2c77-4b62-b5d8-1781fbfd7b51",
+    "abc06f03-fbe2-468b-b8ef-1dc2e3fb69e6": {
+      "id": "abc06f03-fbe2-468b-b8ef-1dc2e3fb69e6",
       "name": "Patch",
       "layer_type": "patch",
       "z_position": 0.0016,
       "thickness": 0.000035,
-      "material_id": "27818419-8bd0-4026-97cd-52d4445392b0",
+      "material_id": "ee56aa3e-241d-4cfc-ab2b-b42a4bf7ce6b",
       "object_ids": [
-        "b6e18966-1074-49eb-82a7-560af1842a15",
-        "c3785ba5-cb2f-4d31-a380-a23acf0fae4d"
+        "d6968415-2ff2-4ff8-9299-049d0a37cdf4",
+        "2ec02e7a-b853-4d1b-9ef5-ecb5f0067266"
       ]
     }
   },
   "objects": {
-    "42b90ecf-007e-4f64-a42f-b32f878e66ed": {
-      "id": "42b90ecf-007e-4f64-a42f-b32f878e66ed",
+    "b4d3b6b9-f412-4586-b01e-295356916340": {
+      "id": "b4d3b6b9-f412-4586-b01e-295356916340",
       "name": "Ground",
       "object_type": "rectangle",
-      "layer_id": "ca5d0d1e-17f9-42ab-aa90-54196eb5dfd8",
-      "material_id": "27818419-8bd0-4026-97cd-52d4445392b0",
+      "layer_id": "8699ad26-aff2-46ed-ae1b-263e5546e86e",
+      "material_id": "ee56aa3e-241d-4cfc-ab2b-b42a4bf7ce6b",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -85,15 +85,16 @@
       "semi_minor": null,
       "vertices": [],
       "inner_vertices": [],
+      "inner_holes": [],
       "parameters": {},
       "metadata": {}
     },
-    "84e351e2-e5cd-41dd-a525-cee75aafbc24": {
-      "id": "84e351e2-e5cd-41dd-a525-cee75aafbc24",
+    "e9f83c43-8a77-4169-bb07-f1f801dc46f6": {
+      "id": "e9f83c43-8a77-4169-bb07-f1f801dc46f6",
       "name": "Substrate",
       "object_type": "rectangle",
-      "layer_id": "7b69ef0c-0abc-41ad-b165-5f147666347f",
-      "material_id": "af5a23fb-fed2-4b0b-a753-f11abec15612",
+      "layer_id": "fb7a62e6-f0e1-4bc8-9def-3c7873c6c3c6",
+      "material_id": "278cd00d-4265-4dcf-86b0-4500f87e3d87",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -104,17 +105,18 @@
       "semi_minor": null,
       "vertices": [],
       "inner_vertices": [],
+      "inner_holes": [],
       "parameters": {},
       "metadata": {}
     },
-    "b6e18966-1074-49eb-82a7-560af1842a15": {
-      "id": "b6e18966-1074-49eb-82a7-560af1842a15",
+    "d6968415-2ff2-4ff8-9299-049d0a37cdf4": {
+      "id": "d6968415-2ff2-4ff8-9299-049d0a37cdf4",
       "name": "NotchedRadiator",
       "object_type": "boolean_result",
-      "layer_id": "a16ba7ca-2c77-4b62-b5d8-1781fbfd7b51",
-      "material_id": "27818419-8bd0-4026-97cd-52d4445392b0",
-      "center_x": -6.279900261375296e-20,
-      "center_y": 0.0051565836298932384,
+      "layer_id": "abc06f03-fbe2-468b-b8ef-1dc2e3fb69e6",
+      "material_id": "ee56aa3e-241d-4cfc-ab2b-b42a4bf7ce6b",
+      "center_x": -6.416916267078032e-20,
+      "center_y": 0.005400000000000001,
       "rotation_deg": 0.0,
       "width": null,
       "height": null,
@@ -147,22 +149,6 @@
           "y": -0.002
         },
         {
-          "x": 0.0015,
-          "y": -0.002
-        },
-        {
-          "x": 0.0015,
-          "y": -0.009999999999999998
-        },
-        {
-          "x": -0.0015,
-          "y": -0.009999999999999998
-        },
-        {
-          "x": -0.0015,
-          "y": -0.002
-        },
-        {
           "x": -0.0025,
           "y": -0.002
         },
@@ -172,44 +158,46 @@
         }
       ],
       "inner_vertices": [],
+      "inner_holes": [],
       "parameters": {},
       "metadata": {
         "operation": "difference",
-        "area": 0.0011240000000000004
+        "area": 0.0011000000000000003
       }
     },
-    "c3785ba5-cb2f-4d31-a380-a23acf0fae4d": {
-      "id": "c3785ba5-cb2f-4d31-a380-a23acf0fae4d",
+    "2ec02e7a-b853-4d1b-9ef5-ecb5f0067266": {
+      "id": "2ec02e7a-b853-4d1b-9ef5-ecb5f0067266",
       "name": "InsetFeedLine",
       "object_type": "rectangle",
-      "layer_id": "a16ba7ca-2c77-4b62-b5d8-1781fbfd7b51",
-      "material_id": "27818419-8bd0-4026-97cd-52d4445392b0",
+      "layer_id": "abc06f03-fbe2-468b-b8ef-1dc2e3fb69e6",
+      "material_id": "ee56aa3e-241d-4cfc-ab2b-b42a4bf7ce6b",
       "center_x": 0.0,
-      "center_y": -0.016,
+      "center_y": -0.0185,
       "rotation_deg": 0.0,
       "width": 0.003,
-      "height": 0.028,
+      "height": 0.033,
       "radius": null,
       "semi_major": null,
       "semi_minor": null,
       "vertices": [],
       "inner_vertices": [],
+      "inner_holes": [],
       "parameters": {},
       "metadata": {}
     }
   },
   "connections": [
     {
-      "id": "00ac6f86-c074-425a-8a82-57bd90730a02",
-      "source_object_id": "c3785ba5-cb2f-4d31-a380-a23acf0fae4d",
-      "target_object_id": "b6e18966-1074-49eb-82a7-560af1842a15",
+      "id": "3d9ad2be-0ea5-4c23-af11-a4b693138369",
+      "source_object_id": "2ec02e7a-b853-4d1b-9ef5-ecb5f0067266",
+      "target_object_id": "d6968415-2ff2-4ff8-9299-049d0a37cdf4",
       "connection_type": "inset_feed_connection",
       "metadata": {}
     }
   ],
   "metadata": {
     "schema_version": "1.0.0",
-    "created_at": "2026-11-13T12:11:01.620250Z",
+    "created_at": "2026-11-13T12:57:37.467472Z",
     "modified_at": null,
     "author": null,
     "description": null

@@ -108,6 +108,7 @@ class GeometryObject(BaseModel):
     semi_minor: Optional[float] = None
     vertices: list[VertexDef] = Field(default_factory=list)
     inner_vertices: list[VertexDef] = Field(default_factory=list)
+    inner_holes: list[list[VertexDef]] = Field(default_factory=list)
     parameters: dict[str, ParameterDef] = Field(default_factory=dict)
     metadata: dict[str, Union[str, float]] = Field(default_factory=dict)
 

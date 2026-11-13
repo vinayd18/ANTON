@@ -64,7 +64,7 @@ class HFSSCodeGenerator:
                                 f"name='{obj_name}', matname={mat_id_str}"
                                 f")"
                             )
-                            lines.append(f"    app.modeler.extrude_sheet(solid_{obj_name}.name, {t})")
+                            lines.append(f"    app.modeler.sweep_along_vector(solid_{obj_name}.name, [0, 0, {t}])")
                         else:
                             lines.append(f"    # Rectangular conductor: {obj_name}")
                             lines.append(
@@ -103,15 +103,15 @@ class HFSSCodeGenerator:
                         lines.append("    try:")
                         lines.append(
                             f"        solid_{obj_name} = app.modeler.create_ellipse("
-                            f"csPlane='XY', position=[{obj.center_x}, {obj.center_y}, {z0}], "
+                            f"cs_plane='XY', center=[{obj.center_x}, {obj.center_y}, {z0}], "
                             f"major_radius={a}, ratio={ratio}, name='{obj_name}')"
                         )
-                        lines.append(f"        app.modeler.extrude_sheet(solid_{obj_name}.name, {t})")
+                        lines.append(f"        app.modeler.sweep_along_vector(solid_{obj_name}.name, [0, 0, {t}])")
                         lines.append("    except Exception:")
                         lines.append("        import math as _m")
                         lines.append(f"        _el_pts = [[{obj.center_x} + {a} * _m.cos(_t), {obj.center_y} + {b} * _m.sin(_t), {z0}] for _t in [_k * 2 * _m.pi / 64 for _k in range(64)]]")
                         lines.append(f"        solid_{obj_name} = app.modeler.create_polyline(points=_el_pts, close_surface=True, cover_surface=True, name='{obj_name}', matname={mat_id_str})")
-                        lines.append(f"        app.modeler.extrude_sheet(solid_{obj_name}.name, {t})")
+                        lines.append(f"        app.modeler.sweep_along_vector(solid_{obj_name}.name, [0, 0, {t}])")
                         lines.append(f"    hfss_objects['{obj.id}'] = solid_{obj_name}.name")
                         lines.append(f"    app.modeler.set_color(solid_{obj_name}.name, [245, 158, 11])")
                         lines.append(f"    print(f\"  Created elliptical patch: '{{solid_{obj_name}.name}}'\")")
@@ -126,7 +126,7 @@ class HFSSCodeGenerator:
                             f"name='{obj_name}', matname={mat_id_str}"
                             f")"
                         )
-                        lines.append(f"    app.modeler.extrude_sheet(solid_{obj_name}.name, {t})")
+                        lines.append(f"    app.modeler.sweep_along_vector(solid_{obj_name}.name, [0, 0, {t}])")
                         lines.append(f"    hfss_objects['{obj.id}'] = solid_{obj_name}.name")
                         lines.append(f"    app.modeler.set_color(solid_{obj_name}.name, [245, 158, 11])")
                         lines.append(f"    print(f\"  Created triangular patch: '{{solid_{obj_name}.name}}'\")")
@@ -142,28 +142,35 @@ class HFSSCodeGenerator:
                             f"name='{obj_name}', matname={mat_id_str}"
                             f")"
                         )
-                        lines.append(f"    app.modeler.extrude_sheet(solid_{obj_name}.name, {t})")
+                        lines.append(f"    app.modeler.sweep_along_vector(solid_{obj_name}.name, [0, 0, {t}])")
 
                         # If there are interior cutouts (holes)
-                        if obj.inner_vertices:
-                            hole_pts = [[v.x, v.y, z0 - t * 0.1] for v in obj.inner_vertices]
-                            lines.append(f"    # Cutout hole: {obj_name}_hole")
-                            lines.append(f"    hole_pts_{obj_name} = {hole_pts}")
+                        cutout_holes = []
+                        if getattr(obj, "inner_holes", None):
+                            cutout_holes = [h for h in obj.inner_holes if len(h) >= 3]
+                        elif obj.inner_vertices and len(obj.inner_vertices) >= 3:
+                            cutout_holes = [obj.inner_vertices]
+
+                        for h_idx, hole in enumerate(cutout_holes):
+                            h_sfx = f"_{h_idx + 1}" if len(cutout_holes) > 1 else ""
+                            hole_pts = [[v.x, v.y, z0 - t * 0.1] for v in hole]
+                            lines.append(f"    # Cutout hole: {obj_name}_hole{h_sfx}")
+                            lines.append(f"    hole_pts_{obj_name}{h_sfx} = {hole_pts}")
                             lines.append(
-                                f"    hole_{obj_name} = app.modeler.create_polyline("
-                                f"points=hole_pts_{obj_name}, close_surface=True, cover_surface=True, "
-                                f"name='{obj_name}_cutter', matname={mat_id_str}"
+                                f"    hole_{obj_name}{h_sfx} = app.modeler.create_polyline("
+                                f"points=hole_pts_{obj_name}{h_sfx}, close_surface=True, cover_surface=True, "
+                                f"name='{obj_name}_cutter{h_sfx}', matname={mat_id_str}"
                                 f")"
                             )
-                            lines.append(f"    app.modeler.extrude_sheet(hole_{obj_name}.name, {t * 1.5})")
+                            lines.append(f"    app.modeler.sweep_along_vector(hole_{obj_name}{h_sfx}.name, [0, 0, {t * 1.5}])")
                             lines.append(
                                 f"    app.modeler.subtract("
                                 f"blank_list=[solid_{obj_name}.name], "
-                                f"tool_list=[hole_{obj_name}.name], "
+                                f"tool_list=[hole_{obj_name}{h_sfx}.name], "
                                 f"keep_originals=False"
                                 f")"
                             )
-                            lines.append(f"    print(f\"  Subtracted interior hole from '{{solid_{obj_name}.name}}'\")")
+                            lines.append(f"    print(f\"  Subtracted interior hole{h_sfx} from '{{solid_{obj_name}.name}}'\")")
 
                         lines.append(f"    hfss_objects['{obj.id}'] = solid_{obj_name}.name")
                         lines.append(f"    app.modeler.set_color(solid_{obj_name}.name, [245, 158, 11])")

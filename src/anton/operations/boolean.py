@@ -49,14 +49,17 @@ def _shape_to_geometry_object(
         ext_coords = ext_coords[:-1]
     vertices = [VertexDef(x=float(x), y=float(y)) for x, y in ext_coords]
 
-    # Extract inner holes if present
-    inner_vertices: List[VertexDef] = []
-    if len(shape.interiors) > 0:
-        # If there are multiple holes, we can chain or extract the primary hole
-        hole_coords = list(shape.interiors[0].coords)
+    # Extract inner holes if present (supporting arbitrary multiple cutouts)
+    inner_holes: List[List[VertexDef]] = []
+    for interior in shape.interiors:
+        hole_coords = list(interior.coords)
         if len(hole_coords) > 1 and hole_coords[0] == hole_coords[-1]:
             hole_coords = hole_coords[:-1]
-        inner_vertices = [VertexDef(x=float(x), y=float(y)) for x, y in hole_coords]
+        if hole_coords:
+            inner_holes.append([VertexDef(x=float(x), y=float(y)) for x, y in hole_coords])
+
+    # Keep primary hole in inner_vertices for backwards compatibility
+    inner_vertices: List[VertexDef] = inner_holes[0] if inner_holes else []
 
     centroid = shape.centroid
 
@@ -70,6 +73,7 @@ def _shape_to_geometry_object(
         center_y=float(centroid.y),
         vertices=vertices,
         inner_vertices=inner_vertices,
+        inner_holes=inner_holes,
         metadata={"operation": operation_type, "area": float(shape.area)},
     )
 

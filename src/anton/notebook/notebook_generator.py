@@ -201,7 +201,7 @@ try:
     app = Hfss(
         projectname=None,
         designname=design_name,
-        solution_type="Terminal",
+        solution_type="Modal",
         specified_version=specified_version,
         non_graphical=non_graphical,
         new_desktop_session=new_desktop_session,

@@ -22,7 +22,11 @@ def custom_contour_to_shapely(obj: GeometryObject) -> geom.Polygon:
 
     exterior = [(v.x, v.y) for v in obj.vertices]
     holes = []
-    if obj.inner_vertices and len(obj.inner_vertices) >= 3:
+    if obj.inner_holes:
+        for hole in obj.inner_holes:
+            if len(hole) >= 3:
+                holes.append([(v.x, v.y) for v in hole])
+    elif obj.inner_vertices and len(obj.inner_vertices) >= 3:
         holes.append([(v.x, v.y) for v in obj.inner_vertices])
 
     poly = geom.Polygon(exterior, holes)
