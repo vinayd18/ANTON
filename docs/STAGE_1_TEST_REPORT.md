@@ -101,3 +101,4 @@
 1. **Deterministic Execution**: All tests use fixed random seeds / deterministic inputs.
 2. **Negative Testing**: Every subsystem includes explicit failure cases ensuring that invalid inputs, degenerate polygons, or illegal units are safely rejected.
 3. **End-to-End Pipeline**: From parametric primitive creation $\to$ boolean operations $\to$ validation $\to$ 2D SVG/PNG $\to$ 3D OpenCASCADE STEP/STL export.
+

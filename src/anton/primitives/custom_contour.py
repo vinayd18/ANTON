@@ -38,3 +38,4 @@ def custom_contour_to_shapely(obj: GeometryObject) -> geom.Polygon:
         poly = affinity.rotate(poly, obj.rotation_deg, origin=(cx, cy), use_radians=False)
 
     return poly
+

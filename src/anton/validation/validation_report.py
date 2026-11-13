@@ -59,3 +59,4 @@ class ValidationReport(BaseModel):
             f"Validation {status}: {self.error_count} error(s), "
             f"{self.warning_count} warning(s), {self.info_count} notice(s)."
         )
+

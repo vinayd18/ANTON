@@ -201,3 +201,4 @@ Below is a representative excerpt from `examples/rectangular_patch.json`:
 - `schema_version = "1.0.0"` is the initial release.
 - Any future field additions with default values will increment `MINOR` (backwards-compatible).
 - Any breaking rename or structure restructuring will increment `MAJOR`, accompanied by an automated migration hook in `anton.io.json_importer`.
+

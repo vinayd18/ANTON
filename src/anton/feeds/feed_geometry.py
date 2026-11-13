@@ -116,6 +116,13 @@ class FeedManager:
         feed_shape = to_shapely(feed_obj)
         target_shape = to_shapely(target_obj)
 
+        # For probe feeds with explicit (x, y) connection point
+        if feed.connection_point_x is not None and feed.connection_point_y is not None:
+            import shapely.geometry as geom_types
+            probe_pt = geom_types.Point(feed.connection_point_x, feed.connection_point_y)
+            if target_shape.contains(probe_pt) or target_shape.distance(probe_pt) <= tolerance:
+                return True
+
         # Check direct intersection or contact
         if feed_shape.intersects(target_shape) or feed_shape.touches(target_shape):
             return True
@@ -127,3 +134,4 @@ class FeedManager:
                 return True
 
         return False
+

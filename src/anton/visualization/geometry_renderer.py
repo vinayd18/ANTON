@@ -285,3 +285,4 @@ class GeometryRenderer:
         fig.savefig(out_path, format="png", dpi=dpi, bbox_inches="tight")
         plt.close(fig)
         return out_path
+

@@ -160,3 +160,4 @@ def extract_boundary(
         material_id=obj.material_id,
         vertices=vertices,
     )
+

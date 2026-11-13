@@ -1,6 +1,6 @@
 {
   "project_name": "Triangular Patch Antenna",
-  "geometry_id": "f18bf4b4-6952-4cf7-85aa-cd307c3b1fc1",
+  "geometry_id": "60a158bd-db13-4b3c-8894-669aea37d999",
   "units": "m",
   "coordinate_system": "Cartesian",
   "antenna": {
@@ -10,8 +10,8 @@
   },
   "parameters": {},
   "materials": {
-    "c8aa4fad-a60d-41b6-9808-3ebb23610a63": {
-      "id": "c8aa4fad-a60d-41b6-9808-3ebb23610a63",
+    "d96acf08-9acc-4093-b315-03cef260f815": {
+      "id": "d96acf08-9acc-4093-b315-03cef260f815",
       "name": "Rogers RO4350B",
       "category": "dielectric",
       "properties": {
@@ -21,8 +21,8 @@
       "source": null,
       "valid_range": null
     },
-    "808cd4a7-3d04-4a69-aeec-7bf8bf67a51e": {
-      "id": "808cd4a7-3d04-4a69-aeec-7bf8bf67a51e",
+    "d66ce5a2-c9b3-41e1-92b9-7df87671a928": {
+      "id": "d66ce5a2-c9b3-41e1-92b9-7df87671a928",
       "name": "Copper",
       "category": "conductor",
       "properties": {
@@ -33,47 +33,47 @@
     }
   },
   "layers": {
-    "230377c8-b194-493a-b120-ab55949b8182": {
-      "id": "230377c8-b194-493a-b120-ab55949b8182",
+    "eafb3cb6-457d-4153-a010-b33cb9fd8ddc": {
+      "id": "eafb3cb6-457d-4153-a010-b33cb9fd8ddc",
       "name": "Ground",
       "layer_type": "ground",
-      "z_position": 0.0,
+      "z_position": -0.000035,
       "thickness": 0.000035,
-      "material_id": "808cd4a7-3d04-4a69-aeec-7bf8bf67a51e",
+      "material_id": "d66ce5a2-c9b3-41e1-92b9-7df87671a928",
       "object_ids": [
-        "b3282194-d353-438d-addb-e4e1bd69058b"
+        "052eca1a-a733-48d7-b9cf-f9e865a72da3"
       ]
     },
-    "c8cac20c-df0a-4399-992e-c687561f7291": {
-      "id": "c8cac20c-df0a-4399-992e-c687561f7291",
+    "440ee51a-feff-47b4-9912-b10cf962362c": {
+      "id": "440ee51a-feff-47b4-9912-b10cf962362c",
       "name": "Substrate",
       "layer_type": "substrate",
       "z_position": 0.0,
       "thickness": 0.000762,
-      "material_id": "c8aa4fad-a60d-41b6-9808-3ebb23610a63",
+      "material_id": "d96acf08-9acc-4093-b315-03cef260f815",
       "object_ids": [
-        "21fecbda-e0ae-4538-95dd-c05679eccc32"
+        "0a63fff9-c1aa-429e-ba62-e6cd998a42ad"
       ]
     },
-    "869b8d27-9932-455f-a2c0-657655cf5c06": {
-      "id": "869b8d27-9932-455f-a2c0-657655cf5c06",
+    "acabba98-b093-4f16-baae-9cb1db866ece": {
+      "id": "acabba98-b093-4f16-baae-9cb1db866ece",
       "name": "Patch",
       "layer_type": "patch",
       "z_position": 0.000762,
       "thickness": 0.000035,
-      "material_id": "808cd4a7-3d04-4a69-aeec-7bf8bf67a51e",
+      "material_id": "d66ce5a2-c9b3-41e1-92b9-7df87671a928",
       "object_ids": [
-        "1526be5c-2471-492b-9c2a-8b271b40febb"
+        "c8698dfc-7507-4ee4-a81e-2342c2b2fff3"
       ]
     }
   },
   "objects": {
-    "b3282194-d353-438d-addb-e4e1bd69058b": {
-      "id": "b3282194-d353-438d-addb-e4e1bd69058b",
+    "052eca1a-a733-48d7-b9cf-f9e865a72da3": {
+      "id": "052eca1a-a733-48d7-b9cf-f9e865a72da3",
       "name": "Ground",
       "object_type": "rectangle",
-      "layer_id": "230377c8-b194-493a-b120-ab55949b8182",
-      "material_id": "808cd4a7-3d04-4a69-aeec-7bf8bf67a51e",
+      "layer_id": "eafb3cb6-457d-4153-a010-b33cb9fd8ddc",
+      "material_id": "d66ce5a2-c9b3-41e1-92b9-7df87671a928",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -87,12 +87,12 @@
       "parameters": {},
       "metadata": {}
     },
-    "21fecbda-e0ae-4538-95dd-c05679eccc32": {
-      "id": "21fecbda-e0ae-4538-95dd-c05679eccc32",
+    "0a63fff9-c1aa-429e-ba62-e6cd998a42ad": {
+      "id": "0a63fff9-c1aa-429e-ba62-e6cd998a42ad",
       "name": "Substrate",
       "object_type": "rectangle",
-      "layer_id": "c8cac20c-df0a-4399-992e-c687561f7291",
-      "material_id": "c8aa4fad-a60d-41b6-9808-3ebb23610a63",
+      "layer_id": "440ee51a-feff-47b4-9912-b10cf962362c",
+      "material_id": "d96acf08-9acc-4093-b315-03cef260f815",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -106,12 +106,12 @@
       "parameters": {},
       "metadata": {}
     },
-    "1526be5c-2471-492b-9c2a-8b271b40febb": {
-      "id": "1526be5c-2471-492b-9c2a-8b271b40febb",
+    "c8698dfc-7507-4ee4-a81e-2342c2b2fff3": {
+      "id": "c8698dfc-7507-4ee4-a81e-2342c2b2fff3",
       "name": "TriangularRadiator",
       "object_type": "triangle",
-      "layer_id": "869b8d27-9932-455f-a2c0-657655cf5c06",
-      "material_id": "808cd4a7-3d04-4a69-aeec-7bf8bf67a51e",
+      "layer_id": "acabba98-b093-4f16-baae-9cb1db866ece",
+      "material_id": "d66ce5a2-c9b3-41e1-92b9-7df87671a928",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -142,7 +142,7 @@
   "connections": [],
   "metadata": {
     "schema_version": "1.0.0",
-    "created_at": "2026-11-13T08:02:11.160928",
+    "created_at": "2026-11-13T08:27:06.915777Z",
     "modified_at": null,
     "author": null,
     "description": null

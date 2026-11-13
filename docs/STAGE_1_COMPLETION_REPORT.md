@@ -128,8 +128,8 @@ m_sub = engine.add_material(
     properties={"relative_permittivity": 3.55, "loss_tangent": 0.0027},
 )
 
-# 3. Define vertical physical stackup
-l_gnd = engine.add_layer("Ground", "ground", m_cu, z_position=0.0, thickness=35e-6)
+# 3. Define vertical physical stackup (physically non-overlapping regions)
+l_gnd = engine.add_layer("Ground", "ground", m_cu, z_position=-35e-6, thickness=35e-6)
 l_diel = engine.add_layer("Substrate", "substrate", m_sub, z_position=0.0, thickness=Units.mm_to_m(1.524))
 l_patch = engine.add_layer("Patch", "patch", m_cu, z_position=Units.mm_to_m(1.524), thickness=35e-6)
 
@@ -174,3 +174,4 @@ The generated outputs for all 8 canonical antennas are located in `examples/`:
 1. **EM Ports Deferred**: Stage 1 handles geometric shapes and physical connectivity only. Lumped ports, wave ports, and coaxial boundary excitations are deferred to Stage 2.
 2. **CAD Curved Edge Discretization**: Circles and ellipses are converted to OpenCASCADE B-rep solids via high-density polygonal approximation (128 segments per quadrant) to guarantee robust boolean subtraction with arbitrary polygonal slots.
 3. **Multi-layer Coplanar Routing**: Stage 1 supports arbitrary multi-layer stackups; complex via-holes spanning non-adjacent layers can be represented as cylindrical solids but automated via netlists will be expanded in Stage 2.
+

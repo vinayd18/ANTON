@@ -117,3 +117,4 @@ def test_offset_object():
     # New radius should be 12mm
     expected_area = 3.14159 * (0.012 ** 2)
     assert pytest.approx(shape.area, rel=1e-2) == expected_area
+

@@ -79,3 +79,4 @@ def test_project_roundtrip_dict():
     assert lid in reconstructed.project.layers
     assert oid in reconstructed.project.objects
     assert reconstructed.project.objects[oid].width == 0.04
+

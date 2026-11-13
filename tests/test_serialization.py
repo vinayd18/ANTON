@@ -67,3 +67,4 @@ def test_png_export(tmp_path):
     FileExporter.export_png(e.project, png_path, dpi=100)
     assert png_path.exists()
     assert png_path.stat().st_size > 1000
+

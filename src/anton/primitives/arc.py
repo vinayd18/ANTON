@@ -49,3 +49,4 @@ def arc_to_shapely(obj: GeometryObject) -> geom.LineString:
             line, obj.rotation_deg, origin=(obj.center_x, obj.center_y), use_radians=False
         )
     return line
+

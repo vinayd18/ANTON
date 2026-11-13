@@ -35,3 +35,4 @@ def export_project_json(
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(project.model_dump_json(indent=indent), encoding="utf-8")
     return out_path
+

@@ -108,6 +108,13 @@ class SolidGenerator:
         eff_thickness = thickness if thickness is not None else (layer.thickness if layer else 35e-6)
         eff_z = z_position if z_position is not None else (layer.z_position if layer else 0.0)
 
+        # Native analytic CAD representation for unslotted circles
+        if obj.object_type == "circle" and not obj.inner_vertices and obj.radius and obj.radius > 0:
+            solid = cq.Workplane("XY").circle(obj.radius).extrude(eff_thickness)
+            if obj.center_x != 0.0 or obj.center_y != 0.0 or eff_z != 0.0:
+                solid = solid.translate((obj.center_x, obj.center_y, eff_z))
+            return solid
+
         shape = to_shapely(obj)
 
         if isinstance(shape, geom.Polygon):
@@ -167,3 +174,4 @@ class SolidGenerator:
                     logger.error("Failed to generate solid for '%s': %s", obj.id, e)
 
         return assembly
+

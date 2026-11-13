@@ -35,3 +35,4 @@ def offset_object(
         material_id=obj.material_id,
         operation_type="offset",
     )
+

@@ -53,3 +53,33 @@ def test_create_custom_conductor():
     gold = db.create_conductor(name="Gold", conductivity=4.1e7)
     assert gold.category == "conductor"
     assert gold.properties["conductivity"] == 4.1e7
+
+
+def test_frequency_dependent_material_properties():
+    """Verify that frequency-dependent data (tables, dispersion parameters) can be stored."""
+    mat = MaterialRef(
+        name="DispersiveDielectric",
+        category="dielectric",
+        properties={
+            "relative_permittivity": 4.4,
+            "loss_tangent": 0.02,
+            "frequency_sweep": {
+                "frequencies_hz": [1e9, 2e9, 5e9, 10e9],
+                "permittivity_real": [4.42, 4.38, 4.31, 4.25],
+                "loss_tangent": [0.018, 0.019, 0.022, 0.025],
+            },
+            "dispersion_model": "Djordjevic-Sarkar",
+        },
+        source="Broadband VNA measurement",
+        valid_range="1 - 10 GHz",
+    )
+    db = MaterialDatabase()
+    db.add(mat)
+
+    retrieved = db.get("DispersiveDielectric")
+    assert retrieved is not None
+    assert "frequency_sweep" in retrieved.properties
+    assert len(retrieved.properties["frequency_sweep"]["frequencies_hz"]) == 4
+    assert retrieved.properties["dispersion_model"] == "Djordjevic-Sarkar"
+
+

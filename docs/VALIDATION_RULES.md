@@ -52,3 +52,4 @@ if not report.is_valid:
 else:
     print(f"Validation PASSED ({report.warning_count} warnings). Ready for CAD / EM simulation.")
 ```
+

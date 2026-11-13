@@ -16,7 +16,7 @@ def test_cad_solid_and_assembly_generation(tmp_path):
     m_cu = e.add_material("Copper", "conductor")
     m_fr4 = e.add_material("FR4", "dielectric")
 
-    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=0.0, thickness=35e-6)
+    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=-35e-6, thickness=35e-6)
     l_sub = e.add_layer("Substrate", "substrate", m_fr4, z_position=0.0, thickness=0.0016)
     l_patch = e.add_layer("Patch", "patch", m_cu, z_position=0.0016, thickness=35e-6)
 
@@ -59,3 +59,4 @@ def test_circle_cad_solid_generation():
     generator = SolidGenerator(e.project)
     disk_solid = generator.generate_solid(e.project.objects[c_id])
     assert disk_solid is not None
+

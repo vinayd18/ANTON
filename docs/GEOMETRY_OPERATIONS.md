@@ -123,3 +123,4 @@ from anton.operations import offset_object
 
 clearance_ring = offset_object(radiator, distance=0.002)  # 2 mm outer clearance
 ```
+

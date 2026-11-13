@@ -10,6 +10,7 @@ from anton.models.geometry_schema import GeometryProject
 from anton.validation.geometry_checks import (
     check_feed_connectivity,
     check_invalid_dimensions,
+    check_layer_stack_vertical_overlap,
     check_missing_layer_refs,
     check_missing_material_refs,
     check_overlapping_conductors,
@@ -66,6 +67,9 @@ class GeometryValidator:
         # Overlapping conductors
         report.issues.extend(check_overlapping_conductors(project.objects, project.layers))
 
+        # Vertical layer stack overlap
+        report.issues.extend(check_layer_stack_vertical_overlap(project.layers))
+
         # Feed connectivity
         if feeds:
             report.issues.extend(check_feed_connectivity(feeds, project.objects))
@@ -75,3 +79,4 @@ class GeometryValidator:
             report.issues.extend(check_required_layers(project.layers))
 
         return report
+

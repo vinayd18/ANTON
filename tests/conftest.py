@@ -27,7 +27,7 @@ def engine_with_stack(empty_engine):
     m_cu = e.add_material("Copper", "conductor", {"conductivity": 5.8e7})
     m_fr4 = e.add_material("FR4", "dielectric", {"relative_permittivity": 4.4, "loss_tangent": 0.02})
 
-    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=0.0, thickness=35e-6)
+    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=-35e-6, thickness=35e-6)
     l_sub = e.add_layer("Substrate", "substrate", m_fr4, z_position=0.0, thickness=Units.mm_to_m(1.6))
     l_patch = e.add_layer("Patch", "patch", m_cu, z_position=Units.mm_to_m(1.6), thickness=35e-6)
 
@@ -68,3 +68,4 @@ def sample_circle(engine_with_stack):
         name="TestCircle",
     )
     return e.project.objects[obj_id]
+

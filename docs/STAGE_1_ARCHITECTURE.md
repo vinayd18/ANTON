@@ -135,3 +135,4 @@ Stage 1 is designed specifically for automated consumption by Stage 2:
 2. **Layer Mapping**: Layer IDs, names, and thicknesses map directly to HFSS `hfss.modeler.create_coordinate_system` and 3D sheet/box extrusion primitives.
 3. **Material Mapping**: Material records map directly to HFSS Material Library definitions (`Relative Permittivity`, `Dielectric Loss Tangent`, `Bulk Conductivity`).
 4. **Clean Boundary Export**: Polygons with cutouts are converted directly into face objects ready for HFSS Boolean subtract operations or direct STEP assembly import.
+

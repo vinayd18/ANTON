@@ -122,28 +122,56 @@ class AntonEngine:
         return name
 
     def update_parameter(self, name: str, value: float) -> None:
-        """Update a parameter's value.
+        """Update a parameter's value and propagate changes to dependent parameters and objects.
 
-        Propagates to dependent parameters by scaling proportionally (simple
-        linear propagation).
+        Propagates changes transitively to all dependent parameters in the DAG and
+        synchronizes geometry dimensions for any linked GeometryObjects.
 
         Raises
         ------
         KeyError
             If the parameter *name* does not exist.
+        ValueError
+            If a circular dependency is detected in the parameter dependency graph.
         """
-        param = self.project.parameters.get(name)
-        if param is None:
+        from anton.models.parameter_model import resolve_dependencies
+
+        if name not in self.project.parameters:
             raise KeyError(f"Parameter '{name}' not found")
+
+        # Cycle validation
+        for p_name in self.project.parameters:
+            resolve_dependencies(self.project.parameters, p_name)
+
+        param = self.project.parameters[name]
         old_value = param.value
         param.value = value
 
-        # propagate to dependents
-        if old_value != 0:
-            ratio = value / old_value
+        if old_value == 0:
+            return
+
+        ratio = value / old_value
+
+        # Transitive propagation through dependency graph
+        updated = {name: ratio}
+        queue = [name]
+
+        while queue:
+            curr = queue.pop(0)
+            curr_ratio = updated[curr]
             for p in self.project.parameters.values():
-                if name in p.dependencies:
-                    p.value *= ratio
+                if curr in p.dependencies:
+                    p.value *= curr_ratio
+                    updated[p.name] = curr_ratio
+                    queue.append(p.name)
+
+        # Synchronize with object geometry
+        for obj in self.project.objects.values():
+            for attr, p_def in obj.parameters.items():
+                if p_def.name in updated:
+                    p_def.value = self.project.parameters[p_def.name].value
+                    if hasattr(obj, attr):
+                        setattr(obj, attr, p_def.value)
 
     # -- generic object registration ----------------------------------------
 

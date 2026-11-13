@@ -48,7 +48,7 @@ def build_rectangular_patch() -> AntonEngine:
     )
 
     # Layers
-    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=0.0, thickness=35e-6)
+    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=-35e-6, thickness=35e-6)
     l_diel = e.add_layer("Substrate", "substrate", m_fr4, z_position=0.0, thickness=Units.mm_to_m(1.6))
     l_patch = e.add_layer("Patch", "patch", m_cu, z_position=Units.mm_to_m(1.6), thickness=35e-6)
     l_feed = e.add_layer("Feed", "feed", m_cu, z_position=Units.mm_to_m(1.6), thickness=35e-6)
@@ -82,7 +82,7 @@ def build_circular_patch() -> AntonEngine:
     )
     m_cu = e.add_material("Copper", "conductor", {"conductivity": 5.8e7})
 
-    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=0.0, thickness=35e-6)
+    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=-35e-6, thickness=35e-6)
     l_sub = e.add_layer("Substrate", "substrate", m_ro4003, z_position=0.0, thickness=Units.mm_to_m(1.524))
     l_patch = e.add_layer("Patch", "patch", m_cu, z_position=Units.mm_to_m(1.524), thickness=35e-6)
 
@@ -107,7 +107,7 @@ def build_triangular_patch() -> AntonEngine:
     m_ro4350 = e.add_material("Rogers RO4350B", "dielectric", {"relative_permittivity": 3.66, "loss_tangent": 0.0037})
     m_cu = e.add_material("Copper", "conductor", {"conductivity": 5.8e7})
 
-    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=0.0, thickness=35e-6)
+    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=-35e-6, thickness=35e-6)
     l_sub = e.add_layer("Substrate", "substrate", m_ro4350, z_position=0.0, thickness=h_sub)
     l_patch = e.add_layer("Patch", "patch", m_cu, z_position=h_sub, thickness=35e-6)
 
@@ -132,7 +132,7 @@ def build_hexagonal_patch() -> AntonEngine:
     m_duroid = e.add_material("Rogers RT/Duroid 5880", "dielectric", {"relative_permittivity": 2.2, "loss_tangent": 0.0009})
     m_cu = e.add_material("Copper", "conductor", {"conductivity": 5.8e7})
 
-    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=0.0, thickness=35e-6)
+    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=-35e-6, thickness=35e-6)
     l_sub = e.add_layer("Substrate", "substrate", m_duroid, z_position=0.0, thickness=h_sub)
     l_patch = e.add_layer("Patch", "patch", m_cu, z_position=h_sub, thickness=35e-6)
 
@@ -157,7 +157,7 @@ def build_u_slot_patch() -> AntonEngine:
     m_ro4003 = e.add_material("Rogers RO4003C", "dielectric", {"relative_permittivity": 3.55, "loss_tangent": 0.0027})
     m_cu = e.add_material("Copper", "conductor", {"conductivity": 5.8e7})
 
-    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=0.0, thickness=35e-6)
+    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=-35e-6, thickness=35e-6)
     l_sub = e.add_layer("Substrate", "substrate", m_ro4003, z_position=0.0, thickness=h_sub)
     l_patch = e.add_layer("Patch", "patch", m_cu, z_position=h_sub, thickness=35e-6)
 
@@ -198,7 +198,7 @@ def build_inset_feed_patch() -> AntonEngine:
     m_fr4 = e.add_material("FR4", "dielectric", {"relative_permittivity": 4.4, "loss_tangent": 0.02})
     m_cu = e.add_material("Copper", "conductor", {"conductivity": 5.8e7})
 
-    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=0.0, thickness=35e-6)
+    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=-35e-6, thickness=35e-6)
     l_sub = e.add_layer("Substrate", "substrate", m_fr4, z_position=0.0, thickness=h_sub)
     l_patch = e.add_layer("Patch", "patch", m_cu, z_position=h_sub, thickness=35e-6)
 
@@ -240,7 +240,7 @@ def build_annular_patch() -> AntonEngine:
     m_al = e.add_material("Alumina", "dielectric", {"relative_permittivity": 9.8, "loss_tangent": 0.0001})
     m_cu = e.add_material("Copper", "conductor", {"conductivity": 5.8e7})
 
-    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=0.0, thickness=35e-6)
+    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=-35e-6, thickness=35e-6)
     l_sub = e.add_layer("Substrate", "substrate", m_al, z_position=0.0, thickness=h_sub)
     l_patch = e.add_layer("Patch", "patch", m_cu, z_position=h_sub, thickness=35e-6)
 
@@ -270,7 +270,7 @@ def build_custom_polygon_patch() -> AntonEngine:
     m_ro4350 = e.add_material("Rogers RO4350B", "dielectric", {"relative_permittivity": 3.66, "loss_tangent": 0.0037})
     m_cu = e.add_material("Copper", "conductor", {"conductivity": 5.8e7})
 
-    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=0.0, thickness=35e-6)
+    l_gnd = e.add_layer("Ground", "ground", m_cu, z_position=-35e-6, thickness=35e-6)
     l_sub = e.add_layer("Substrate", "substrate", m_ro4350, z_position=0.0, thickness=h_sub)
     l_patch = e.add_layer("Patch", "patch", m_cu, z_position=h_sub, thickness=35e-6)
 
@@ -342,3 +342,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

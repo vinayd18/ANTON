@@ -123,3 +123,4 @@ class MaterialDatabase:
     def list_all(self) -> List[MaterialRef]:
         """List all registered materials."""
         return list(self._materials.values())
+

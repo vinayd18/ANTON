@@ -9,7 +9,7 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Literal, Optional, Union
+from typing import Any, Literal, Optional, Union
 from uuid import uuid4
 
 from pydantic import BaseModel, Field, field_validator, model_validator
@@ -52,7 +52,7 @@ class MaterialRef(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid4()))
     name: str
     category: Literal["dielectric", "conductor"]
-    properties: dict[str, Union[float, str]] = Field(default_factory=dict)
+    properties: dict[str, Any] = Field(default_factory=dict)
     source: Optional[str] = None
     valid_range: Optional[str] = None
 

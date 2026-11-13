@@ -244,3 +244,54 @@ def check_required_layers(layers: Dict[str, LayerDef]) -> List[ValidationIssue]:
                 )
             )
     return issues
+
+
+def check_layer_stack_vertical_overlap(layers: Dict[str, LayerDef]) -> List[ValidationIssue]:
+    """Detect vertical physical volumetric overlap between layer stackups of different types.
+
+    Two layers with thickness > 0 that occupy overlapping [z, z + thickness] intervals
+    of different physical classifications (e.g. conductor and dielectric substrate)
+    constitute a physical stackup conflict.
+    """
+    issues = []
+    layer_list = list(layers.values())
+    n = len(layer_list)
+    tolerance = 1e-9  # 1 nm margin
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            l1, l2 = layer_list[i], layer_list[j]
+            if l1.thickness <= 0 or l2.thickness <= 0:
+                continue
+            # If both are same category (e.g. coplanar patch and feed), they can reside on the same plane
+            if l1.layer_type in {"patch", "feed"} and l2.layer_type in {"patch", "feed"}:
+                continue
+            if l1.layer_type == l2.layer_type:
+                continue
+
+            z1_min, z1_max = l1.z_position, l1.z_position + l1.thickness
+            z2_min, z2_max = l2.z_position, l2.z_position + l2.thickness
+
+            overlap_min = max(z1_min, z2_min)
+            overlap_max = min(z1_max, z2_max)
+
+            if overlap_min < overlap_max - tolerance:
+                overlap_h = overlap_max - overlap_min
+                issues.append(
+                    ValidationIssue(
+                        severity=ValidationSeverity.WARNING,
+                        code="WARN_LAYER_VERTICAL_OVERLAP",
+                        description=(
+                            f"Layers '{l1.name}' ({l1.layer_type}) and '{l2.name}' ({l2.layer_type}) "
+                            f"vertically overlap by {overlap_h * 1e3:.4f} mm in Z-region "
+                            f"[{overlap_min * 1e3:.4f}, {overlap_max * 1e3:.4f}] mm."
+                        ),
+                        suggestion=(
+                            f"Adjust Z-positions so substrate and conductor layers meet only "
+                            f"at planar boundary interfaces."
+                        ),
+                    )
+                )
+    return issues
+
+

@@ -197,3 +197,4 @@ def boolean_intersection(
         material_id=target_material,
         operation_type="intersection",
     )
+

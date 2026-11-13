@@ -118,3 +118,4 @@ class CADExporter:
 
         logger.info("Successfully exported STL file: %s (%d bytes)", out_path, out_path.stat().st_size)
         return out_path
+

@@ -1,6 +1,6 @@
 {
   "project_name": "U-Slot Rectangular Patch Antenna",
-  "geometry_id": "055f5e38-1393-4558-9dd4-acf95b305876",
+  "geometry_id": "c5670bc8-4757-41b7-9d04-28c4f167560f",
   "units": "m",
   "coordinate_system": "Cartesian",
   "antenna": {
@@ -10,8 +10,8 @@
   },
   "parameters": {},
   "materials": {
-    "4856db31-c6ff-42e5-84b6-65637dca9704": {
-      "id": "4856db31-c6ff-42e5-84b6-65637dca9704",
+    "686aa617-056f-41e8-8af5-18afc5b4e084": {
+      "id": "686aa617-056f-41e8-8af5-18afc5b4e084",
       "name": "Rogers RO4003C",
       "category": "dielectric",
       "properties": {
@@ -21,8 +21,8 @@
       "source": null,
       "valid_range": null
     },
-    "14f68e4e-db04-487e-8a58-2691ec5ea5a6": {
-      "id": "14f68e4e-db04-487e-8a58-2691ec5ea5a6",
+    "eb8aa661-f4a6-4e0c-b1e3-1b5087f47d44": {
+      "id": "eb8aa661-f4a6-4e0c-b1e3-1b5087f47d44",
       "name": "Copper",
       "category": "conductor",
       "properties": {
@@ -33,47 +33,47 @@
     }
   },
   "layers": {
-    "ecb4a23a-249c-4556-be84-1a043cac2465": {
-      "id": "ecb4a23a-249c-4556-be84-1a043cac2465",
+    "66603b45-da9b-4006-a381-aae3b01f5aca": {
+      "id": "66603b45-da9b-4006-a381-aae3b01f5aca",
       "name": "Ground",
       "layer_type": "ground",
-      "z_position": 0.0,
+      "z_position": -0.000035,
       "thickness": 0.000035,
-      "material_id": "14f68e4e-db04-487e-8a58-2691ec5ea5a6",
+      "material_id": "eb8aa661-f4a6-4e0c-b1e3-1b5087f47d44",
       "object_ids": [
-        "816e3ae7-4296-4728-a0fb-e19bdf42daa3"
+        "ae6439da-b029-4a21-b605-bd8c7e618899"
       ]
     },
-    "d4d5e113-9bfe-43a6-96d9-99a35c7fb68b": {
-      "id": "d4d5e113-9bfe-43a6-96d9-99a35c7fb68b",
+    "271ab311-5fe7-40cc-b42e-54c48746b5f5": {
+      "id": "271ab311-5fe7-40cc-b42e-54c48746b5f5",
       "name": "Substrate",
       "layer_type": "substrate",
       "z_position": 0.0,
       "thickness": 0.001524,
-      "material_id": "4856db31-c6ff-42e5-84b6-65637dca9704",
+      "material_id": "686aa617-056f-41e8-8af5-18afc5b4e084",
       "object_ids": [
-        "5fbbce23-7020-40ce-aeba-b47d5f0e3c05"
+        "5dd103d0-3450-4193-8bdb-1aa177eda4d8"
       ]
     },
-    "aef5ba04-70bc-4db0-8ebb-f29931d626ad": {
-      "id": "aef5ba04-70bc-4db0-8ebb-f29931d626ad",
+    "d271e40f-e3a4-4a68-9a11-d2ccda683eee": {
+      "id": "d271e40f-e3a4-4a68-9a11-d2ccda683eee",
       "name": "Patch",
       "layer_type": "patch",
       "z_position": 0.001524,
       "thickness": 0.000035,
-      "material_id": "14f68e4e-db04-487e-8a58-2691ec5ea5a6",
+      "material_id": "eb8aa661-f4a6-4e0c-b1e3-1b5087f47d44",
       "object_ids": [
-        "df6ddc02-355b-4a12-bc1c-8a568aaa0f71"
+        "20b12f0b-f4e0-4d3a-b4b7-86c2d47b1df9"
       ]
     }
   },
   "objects": {
-    "816e3ae7-4296-4728-a0fb-e19bdf42daa3": {
-      "id": "816e3ae7-4296-4728-a0fb-e19bdf42daa3",
+    "ae6439da-b029-4a21-b605-bd8c7e618899": {
+      "id": "ae6439da-b029-4a21-b605-bd8c7e618899",
       "name": "Ground",
       "object_type": "rectangle",
-      "layer_id": "ecb4a23a-249c-4556-be84-1a043cac2465",
-      "material_id": "14f68e4e-db04-487e-8a58-2691ec5ea5a6",
+      "layer_id": "66603b45-da9b-4006-a381-aae3b01f5aca",
+      "material_id": "eb8aa661-f4a6-4e0c-b1e3-1b5087f47d44",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -87,12 +87,12 @@
       "parameters": {},
       "metadata": {}
     },
-    "5fbbce23-7020-40ce-aeba-b47d5f0e3c05": {
-      "id": "5fbbce23-7020-40ce-aeba-b47d5f0e3c05",
+    "5dd103d0-3450-4193-8bdb-1aa177eda4d8": {
+      "id": "5dd103d0-3450-4193-8bdb-1aa177eda4d8",
       "name": "Substrate",
       "object_type": "rectangle",
-      "layer_id": "d4d5e113-9bfe-43a6-96d9-99a35c7fb68b",
-      "material_id": "4856db31-c6ff-42e5-84b6-65637dca9704",
+      "layer_id": "271ab311-5fe7-40cc-b42e-54c48746b5f5",
+      "material_id": "686aa617-056f-41e8-8af5-18afc5b4e084",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -106,12 +106,12 @@
       "parameters": {},
       "metadata": {}
     },
-    "df6ddc02-355b-4a12-bc1c-8a568aaa0f71": {
-      "id": "df6ddc02-355b-4a12-bc1c-8a568aaa0f71",
+    "20b12f0b-f4e0-4d3a-b4b7-86c2d47b1df9": {
+      "id": "20b12f0b-f4e0-4d3a-b4b7-86c2d47b1df9",
       "name": "USlottedRadiator",
       "object_type": "boolean_result",
-      "layer_id": "aef5ba04-70bc-4db0-8ebb-f29931d626ad",
-      "material_id": "14f68e4e-db04-487e-8a58-2691ec5ea5a6",
+      "layer_id": "d271e40f-e3a4-4a68-9a11-d2ccda683eee",
+      "material_id": "eb8aa661-f4a6-4e0c-b1e3-1b5087f47d44",
       "center_x": 1.3695667776024865e-19,
       "center_y": 0.000016673243883188514,
       "rotation_deg": 0.0,
@@ -198,7 +198,7 @@
   "connections": [],
   "metadata": {
     "schema_version": "1.0.0",
-    "created_at": "2026-11-13T08:02:20.458109",
+    "created_at": "2026-11-13T08:27:12.030048Z",
     "modified_at": null,
     "author": null,
     "description": null

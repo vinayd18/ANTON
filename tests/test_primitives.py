@@ -170,3 +170,4 @@ def test_custom_contour_with_hole():
     assert len(shape.interiors) == 1
     expected_area = (0.04 ** 2) - (0.01 ** 2)
     assert pytest.approx(shape.area, rel=1e-5) == expected_area
+

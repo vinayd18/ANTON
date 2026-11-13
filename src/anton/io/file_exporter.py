@@ -106,3 +106,4 @@ class FileExporter:
             logger.warning("STL export skipped: %s", e)
 
         return results
+

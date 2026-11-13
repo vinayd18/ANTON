@@ -72,3 +72,4 @@ class LayerManager:
         if layer is None:
             raise KeyError(f"Layer '{layer_id}' not found.")
         return list(layer.object_ids)
+

@@ -47,3 +47,4 @@ def import_project_json(path: Union[str, Path]) -> GeometryProject:
         return project
     except ValidationError as e:
         raise ValueError(f"Schema validation failed for '{path}':\n{e}") from e
+
