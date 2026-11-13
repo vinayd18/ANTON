@@ -210,3 +210,4 @@ Stage 2 has passed all end-to-end verifications:
 - Physical geometry, feed placement, and port integration line verified against canonical JSON.
 
 **Stage 3 has NOT been started.** The project is in a clean, committed state (`git commit 784591c`), awaiting your inspection and approval.
+

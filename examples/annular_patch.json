@@ -1,6 +1,6 @@
 {
   "project_name": "Annular Ring Patch Antenna",
-  "geometry_id": "54b69937-3fd7-43ce-8153-b510621695fc",
+  "geometry_id": "5cc10dd3-6302-4cbe-83f3-87cb12becc3c",
   "units": "m",
   "coordinate_system": "Cartesian",
   "antenna": {
@@ -10,8 +10,8 @@
   },
   "parameters": {},
   "materials": {
-    "c37ed154-1def-4cce-8983-49032a57b8ee": {
-      "id": "c37ed154-1def-4cce-8983-49032a57b8ee",
+    "9b18a950-1532-4be3-87a5-200d853f3130": {
+      "id": "9b18a950-1532-4be3-87a5-200d853f3130",
       "name": "Alumina",
       "category": "dielectric",
       "properties": {
@@ -21,8 +21,8 @@
       "source": null,
       "valid_range": null
     },
-    "112f39f1-f263-4656-9bcf-04b2e84999df": {
-      "id": "112f39f1-f263-4656-9bcf-04b2e84999df",
+    "e41afd27-0b7d-4023-a14e-c21265b84f72": {
+      "id": "e41afd27-0b7d-4023-a14e-c21265b84f72",
       "name": "Copper",
       "category": "conductor",
       "properties": {
@@ -33,47 +33,48 @@
     }
   },
   "layers": {
-    "840c23ba-8701-4f4e-b450-af8cb8f8e384": {
-      "id": "840c23ba-8701-4f4e-b450-af8cb8f8e384",
+    "66bf3618-8c34-45b5-8a5b-74ed4e70cecd": {
+      "id": "66bf3618-8c34-45b5-8a5b-74ed4e70cecd",
       "name": "Ground",
       "layer_type": "ground",
       "z_position": -0.000035,
       "thickness": 0.000035,
-      "material_id": "112f39f1-f263-4656-9bcf-04b2e84999df",
+      "material_id": "e41afd27-0b7d-4023-a14e-c21265b84f72",
       "object_ids": [
-        "265c84ca-e93b-4b47-968d-a2603bf77a8c"
+        "183b8ac6-2528-4a10-8829-0cf7f9d1fc97"
       ]
     },
-    "2f45f7ff-62db-40f1-9e7d-af7208a52e15": {
-      "id": "2f45f7ff-62db-40f1-9e7d-af7208a52e15",
+    "7ee5df6e-b920-4c1b-af8c-7e62e9c779fd": {
+      "id": "7ee5df6e-b920-4c1b-af8c-7e62e9c779fd",
       "name": "Substrate",
       "layer_type": "substrate",
       "z_position": 0.0,
       "thickness": 0.001,
-      "material_id": "c37ed154-1def-4cce-8983-49032a57b8ee",
+      "material_id": "9b18a950-1532-4be3-87a5-200d853f3130",
       "object_ids": [
-        "9c4e4e3e-6725-4337-8ffd-1fffdffdcdf6"
+        "c03b8424-8892-47df-b4f2-cd8c3d903e8d"
       ]
     },
-    "7973d19a-d133-4dfd-a198-b99bb9208bc1": {
-      "id": "7973d19a-d133-4dfd-a198-b99bb9208bc1",
+    "678ba95f-5893-4bc4-afa8-c63525a3f893": {
+      "id": "678ba95f-5893-4bc4-afa8-c63525a3f893",
       "name": "Patch",
       "layer_type": "patch",
       "z_position": 0.001,
       "thickness": 0.000035,
-      "material_id": "112f39f1-f263-4656-9bcf-04b2e84999df",
+      "material_id": "e41afd27-0b7d-4023-a14e-c21265b84f72",
       "object_ids": [
-        "728674c4-922f-492e-83f5-ca3f24d8c668"
+        "f6eed4f7-542d-4504-9862-9383519b7c8c",
+        "92759cb5-602f-4732-a230-8e39f52f8a98"
       ]
     }
   },
   "objects": {
-    "265c84ca-e93b-4b47-968d-a2603bf77a8c": {
-      "id": "265c84ca-e93b-4b47-968d-a2603bf77a8c",
+    "183b8ac6-2528-4a10-8829-0cf7f9d1fc97": {
+      "id": "183b8ac6-2528-4a10-8829-0cf7f9d1fc97",
       "name": "Ground",
       "object_type": "rectangle",
-      "layer_id": "840c23ba-8701-4f4e-b450-af8cb8f8e384",
-      "material_id": "112f39f1-f263-4656-9bcf-04b2e84999df",
+      "layer_id": "66bf3618-8c34-45b5-8a5b-74ed4e70cecd",
+      "material_id": "e41afd27-0b7d-4023-a14e-c21265b84f72",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -87,12 +88,12 @@
       "parameters": {},
       "metadata": {}
     },
-    "9c4e4e3e-6725-4337-8ffd-1fffdffdcdf6": {
-      "id": "9c4e4e3e-6725-4337-8ffd-1fffdffdcdf6",
+    "c03b8424-8892-47df-b4f2-cd8c3d903e8d": {
+      "id": "c03b8424-8892-47df-b4f2-cd8c3d903e8d",
       "name": "Substrate",
       "object_type": "rectangle",
-      "layer_id": "2f45f7ff-62db-40f1-9e7d-af7208a52e15",
-      "material_id": "c37ed154-1def-4cce-8983-49032a57b8ee",
+      "layer_id": "7ee5df6e-b920-4c1b-af8c-7e62e9c779fd",
+      "material_id": "9b18a950-1532-4be3-87a5-200d853f3130",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -106,12 +107,12 @@
       "parameters": {},
       "metadata": {}
     },
-    "728674c4-922f-492e-83f5-ca3f24d8c668": {
-      "id": "728674c4-922f-492e-83f5-ca3f24d8c668",
+    "f6eed4f7-542d-4504-9862-9383519b7c8c": {
+      "id": "f6eed4f7-542d-4504-9862-9383519b7c8c",
       "name": "AnnularRingRadiator",
       "object_type": "boolean_result",
-      "layer_id": "7973d19a-d133-4dfd-a198-b99bb9208bc1",
-      "material_id": "112f39f1-f263-4656-9bcf-04b2e84999df",
+      "layer_id": "678ba95f-5893-4bc4-afa8-c63525a3f893",
+      "material_id": "e41afd27-0b7d-4023-a14e-c21265b84f72",
       "center_x": 2.59766728748181e-18,
       "center_y": 2.6008079338716434e-18,
       "rotation_deg": 0.0,
@@ -4225,12 +4226,39 @@
         "operation": "difference",
         "area": 0.0007633878536780648
       }
+    },
+    "92759cb5-602f-4732-a230-8e39f52f8a98": {
+      "id": "92759cb5-602f-4732-a230-8e39f52f8a98",
+      "name": "AnnularFeedLine",
+      "object_type": "rectangle",
+      "layer_id": "678ba95f-5893-4bc4-afa8-c63525a3f893",
+      "material_id": "e41afd27-0b7d-4023-a14e-c21265b84f72",
+      "center_x": 0.0,
+      "center_y": -0.024,
+      "rotation_deg": 0.0,
+      "width": 0.001,
+      "height": 0.011999999999999997,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
     }
   },
-  "connections": [],
+  "connections": [
+    {
+      "id": "d5254159-10fc-4eea-9553-53b2198ae3d9",
+      "source_object_id": "92759cb5-602f-4732-a230-8e39f52f8a98",
+      "target_object_id": "f6eed4f7-542d-4504-9862-9383519b7c8c",
+      "connection_type": "microstrip_edge",
+      "metadata": {}
+    }
+  ],
   "metadata": {
     "schema_version": "1.0.0",
-    "created_at": "2026-11-13T08:27:18.440482Z",
+    "created_at": "2026-11-13T12:11:05.584018Z",
     "modified_at": null,
     "author": null,
     "description": null

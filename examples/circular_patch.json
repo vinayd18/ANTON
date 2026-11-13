@@ -1,6 +1,6 @@
 {
   "project_name": "Circular Patch Antenna",
-  "geometry_id": "ecf003d0-c5b0-43e2-a9e8-04faf2e9b62e",
+  "geometry_id": "d1cde0cc-af26-452d-8427-8e5b74914296",
   "units": "m",
   "coordinate_system": "Cartesian",
   "antenna": {
@@ -29,8 +29,8 @@
     }
   },
   "materials": {
-    "a2afcd90-fad4-47ff-bbb4-696319a99ba4": {
-      "id": "a2afcd90-fad4-47ff-bbb4-696319a99ba4",
+    "f929a9ba-4e43-49cb-a699-b658bf372779": {
+      "id": "f929a9ba-4e43-49cb-a699-b658bf372779",
       "name": "Rogers RO4003C",
       "category": "dielectric",
       "properties": {
@@ -40,8 +40,8 @@
       "source": null,
       "valid_range": null
     },
-    "b4d3ae42-96fa-4941-8c05-73cff925e1e5": {
-      "id": "b4d3ae42-96fa-4941-8c05-73cff925e1e5",
+    "fab16386-1272-4fbd-8a7c-75f74ab2589b": {
+      "id": "fab16386-1272-4fbd-8a7c-75f74ab2589b",
       "name": "Copper",
       "category": "conductor",
       "properties": {
@@ -52,48 +52,48 @@
     }
   },
   "layers": {
-    "5d2fc84e-0c48-491b-bbcc-96c92e3c92bb": {
-      "id": "5d2fc84e-0c48-491b-bbcc-96c92e3c92bb",
+    "1acdba63-8308-4a1e-96fe-3ca489d89369": {
+      "id": "1acdba63-8308-4a1e-96fe-3ca489d89369",
       "name": "Ground",
       "layer_type": "ground",
       "z_position": -0.000035,
       "thickness": 0.000035,
-      "material_id": "b4d3ae42-96fa-4941-8c05-73cff925e1e5",
+      "material_id": "fab16386-1272-4fbd-8a7c-75f74ab2589b",
       "object_ids": [
-        "1f7e2e87-3f1a-4aac-a15f-85f871357dc1"
+        "aa279f08-8329-42f8-be39-8118e25dcfcc"
       ]
     },
-    "579fefb8-9db0-45c0-851d-704a5ccb9330": {
-      "id": "579fefb8-9db0-45c0-851d-704a5ccb9330",
+    "9fa6b286-9388-428e-9154-3be30bd381c1": {
+      "id": "9fa6b286-9388-428e-9154-3be30bd381c1",
       "name": "Substrate",
       "layer_type": "substrate",
       "z_position": 0.0,
       "thickness": 0.001524,
-      "material_id": "a2afcd90-fad4-47ff-bbb4-696319a99ba4",
+      "material_id": "f929a9ba-4e43-49cb-a699-b658bf372779",
       "object_ids": [
-        "0439e0e0-fec3-44f3-be63-b25fb5eff403"
+        "7a66c09f-ffed-4fd3-8220-d2df9b68d8a2"
       ]
     },
-    "9b12bda4-6394-4b8d-b8e5-d412f0dd159d": {
-      "id": "9b12bda4-6394-4b8d-b8e5-d412f0dd159d",
+    "ac07fcc8-eb27-4f86-ae88-962bdfbeabab": {
+      "id": "ac07fcc8-eb27-4f86-ae88-962bdfbeabab",
       "name": "Patch",
       "layer_type": "patch",
       "z_position": 0.001524,
       "thickness": 0.000035,
-      "material_id": "b4d3ae42-96fa-4941-8c05-73cff925e1e5",
+      "material_id": "fab16386-1272-4fbd-8a7c-75f74ab2589b",
       "object_ids": [
-        "6fe26b60-e914-44a9-b30b-b919e3d154fc",
-        "b53af803-19d0-407b-800d-701bd5efd52f"
+        "61a32571-af51-4e66-a09a-a712f1b53244",
+        "c9ccbfe7-08a4-462f-a4db-2deef97381d7"
       ]
     }
   },
   "objects": {
-    "1f7e2e87-3f1a-4aac-a15f-85f871357dc1": {
-      "id": "1f7e2e87-3f1a-4aac-a15f-85f871357dc1",
+    "aa279f08-8329-42f8-be39-8118e25dcfcc": {
+      "id": "aa279f08-8329-42f8-be39-8118e25dcfcc",
       "name": "Ground",
       "object_type": "rectangle",
-      "layer_id": "5d2fc84e-0c48-491b-bbcc-96c92e3c92bb",
-      "material_id": "b4d3ae42-96fa-4941-8c05-73cff925e1e5",
+      "layer_id": "1acdba63-8308-4a1e-96fe-3ca489d89369",
+      "material_id": "fab16386-1272-4fbd-8a7c-75f74ab2589b",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -107,12 +107,12 @@
       "parameters": {},
       "metadata": {}
     },
-    "0439e0e0-fec3-44f3-be63-b25fb5eff403": {
-      "id": "0439e0e0-fec3-44f3-be63-b25fb5eff403",
+    "7a66c09f-ffed-4fd3-8220-d2df9b68d8a2": {
+      "id": "7a66c09f-ffed-4fd3-8220-d2df9b68d8a2",
       "name": "Substrate",
       "object_type": "rectangle",
-      "layer_id": "579fefb8-9db0-45c0-851d-704a5ccb9330",
-      "material_id": "a2afcd90-fad4-47ff-bbb4-696319a99ba4",
+      "layer_id": "9fa6b286-9388-428e-9154-3be30bd381c1",
+      "material_id": "f929a9ba-4e43-49cb-a699-b658bf372779",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -126,12 +126,12 @@
       "parameters": {},
       "metadata": {}
     },
-    "6fe26b60-e914-44a9-b30b-b919e3d154fc": {
-      "id": "6fe26b60-e914-44a9-b30b-b919e3d154fc",
+    "61a32571-af51-4e66-a09a-a712f1b53244": {
+      "id": "61a32571-af51-4e66-a09a-a712f1b53244",
       "name": "CircularDisk",
       "object_type": "circle",
-      "layer_id": "9b12bda4-6394-4b8d-b8e5-d412f0dd159d",
-      "material_id": "b4d3ae42-96fa-4941-8c05-73cff925e1e5",
+      "layer_id": "ac07fcc8-eb27-4f86-ae88-962bdfbeabab",
+      "material_id": "fab16386-1272-4fbd-8a7c-75f74ab2589b",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -145,12 +145,12 @@
       "parameters": {},
       "metadata": {}
     },
-    "b53af803-19d0-407b-800d-701bd5efd52f": {
-      "id": "b53af803-19d0-407b-800d-701bd5efd52f",
+    "c9ccbfe7-08a4-462f-a4db-2deef97381d7": {
+      "id": "c9ccbfe7-08a4-462f-a4db-2deef97381d7",
       "name": "EdgeFeed",
       "object_type": "rectangle",
-      "layer_id": "9b12bda4-6394-4b8d-b8e5-d412f0dd159d",
-      "material_id": "b4d3ae42-96fa-4941-8c05-73cff925e1e5",
+      "layer_id": "ac07fcc8-eb27-4f86-ae88-962bdfbeabab",
+      "material_id": "fab16386-1272-4fbd-8a7c-75f74ab2589b",
       "center_x": 0.0,
       "center_y": -0.02425,
       "rotation_deg": 0.0,
@@ -167,16 +167,16 @@
   },
   "connections": [
     {
-      "id": "69a09ed1-9b18-4f41-9c50-b49e0c2797cd",
-      "source_object_id": "b53af803-19d0-407b-800d-701bd5efd52f",
-      "target_object_id": "6fe26b60-e914-44a9-b30b-b919e3d154fc",
+      "id": "318bd358-fbe7-4339-b295-75f68ec2f9e8",
+      "source_object_id": "c9ccbfe7-08a4-462f-a4db-2deef97381d7",
+      "target_object_id": "61a32571-af51-4e66-a09a-a712f1b53244",
       "connection_type": "microstrip_edge",
       "metadata": {}
     }
   ],
   "metadata": {
     "schema_version": "1.0.0",
-    "created_at": "2026-11-13T08:27:02.202607Z",
+    "created_at": "2026-11-13T12:10:45.464254Z",
     "modified_at": null,
     "author": null,
     "description": null

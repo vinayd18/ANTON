@@ -3,8 +3,9 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Tuple
 from anton.models.geometry_schema import GeometryProject
+from anton.primitives.base import to_shapely
 
 
 class BoundarySetupGenerator:
@@ -14,6 +15,40 @@ class BoundarySetupGenerator:
         self.project = project
         self.center_freq_ghz = center_frequency_ghz
 
+    def compute_canonical_bounds(self) -> Tuple[float, float, float, float, float, float]:
+        """Compute exact (xmin, ymin, zmin, xmax, ymax, zmax) bounding box from project in metres."""
+        xmin, ymin, xmax, ymax = 1e9, 1e9, -1e9, -1e9
+        found_xy = False
+        for obj in self.project.objects.values():
+            try:
+                shape = to_shapely(obj)
+                b = shape.bounds
+                if b and len(b) >= 4:
+                    xmin = min(xmin, b[0])
+                    ymin = min(ymin, b[1])
+                    xmax = max(xmax, b[2])
+                    ymax = max(ymax, b[3])
+                    found_xy = True
+            except Exception:
+                pass
+
+        if not found_xy:
+            xmin, ymin, xmax, ymax = -0.03, -0.03, 0.03, 0.03
+
+        zmin, zmax = 1e9, -1e9
+        found_z = False
+        for layer in self.project.layers.values():
+            z0 = layer.z_position
+            z1 = layer.z_position + layer.thickness
+            zmin = min(zmin, min(z0, z1))
+            zmax = max(zmax, max(z0, z1))
+            found_z = True
+
+        if not found_z:
+            zmin, zmax = -0.000035, 0.001635
+
+        return (xmin, ymin, zmin, xmax, ymax, zmax)
+
     def generate_boundary_code(self) -> str:
         """Generate Python code block for constructing airbox and assigning radiation boundary."""
         # Calculate wavelength in air: lambda_0 = c / f
@@ -21,6 +56,8 @@ class BoundarySetupGenerator:
         f_hz = self.center_freq_ghz * 1e9
         lambda_0 = c / f_hz
         lambda_quarter = lambda_0 / 4.0
+
+        c_xmin, c_ymin, c_zmin, c_xmax, c_ymax, c_zmax = self.compute_canonical_bounds()
 
         lines: List[str] = [
             "# ===========================================================================",
@@ -31,17 +68,23 @@ class BoundarySetupGenerator:
             f"center_freq_ghz = {self.center_freq_ghz}",
             f"lambda_quarter = {lambda_quarter:.6f}  # lambda_0 / 4 in metres ({lambda_quarter * 1e3:.2f} mm)",
             "",
-            "# Query overall model bounding box",
+            "# Verified canonical geometry bounds from ANTON project (metres)",
+            f"canon_xmin, canon_ymin, canon_zmin = {c_xmin:.6f}, {c_ymin:.6f}, {c_zmin:.6f}",
+            f"canon_xmax, canon_ymax, canon_zmax = {c_xmax:.6f}, {c_ymax:.6f}, {c_zmax:.6f}",
+            "",
+            "# Query model bounding box from HFSS modeler with fallback to canonical project bounds",
             "try:",
-            "    # Get current model bounding box in HFSS modeler",
             "    bb = app.modeler.get_bounding_box()",
-            "    xmin, ymin, zmin = float(bb[0]), float(bb[1]), float(bb[2])",
-            "    xmax, ymax, zmax = float(bb[3]), float(bb[4]), float(bb[5])",
-            "except Exception:",
-            "    # Fallback to estimated bounds based on substrate geometry",
-            "    xmin, xmax = -0.04, 0.04",
-            "    ymin, ymax = -0.04, 0.04",
-            "    zmin, zmax = -0.001, 0.003",
+            "    if bb and len(bb) >= 6:",
+            "        xmin, ymin, zmin = float(bb[0]), float(bb[1]), float(bb[2])",
+            "        xmax, ymax, zmax = float(bb[3]), float(bb[4]), float(bb[5])",
+            "    else:",
+            "        xmin, ymin, zmin = canon_xmin, canon_ymin, canon_zmin",
+            "        xmax, ymax, zmax = canon_xmax, canon_ymax, canon_zmax",
+            "except Exception as err_bb:",
+            "    print(f'Warning: Could not query modeler bounding box ({err_bb}); using verified canonical project bounds.')",
+            "    xmin, ymin, zmin = canon_xmin, canon_ymin, canon_zmin",
+            "    xmax, ymax, zmax = canon_xmax, canon_ymax, canon_zmax",
             "",
             "# Calculate airbox dimensions with quarter-wave padding",
             "air_x0 = xmin - lambda_quarter",
@@ -58,6 +101,9 @@ class BoundarySetupGenerator:
             "    name='Airbox',",
             "    matname='vacuum'",
             ")",
+            "if airbox is None:",
+            "    raise RuntimeError('Failed to create Airbox solid in HFSS modeler.')",
+            "",
             "# Set airbox transparency in modeler",
             "app.modeler.set_color(airbox.name, [186, 230, 253])",
             "try:",
@@ -66,17 +112,25 @@ class BoundarySetupGenerator:
             "    pass",
             "",
             "# Assign Radiation Boundary to Airbox outer surfaces",
+            "rad_assigned = False",
             "try:",
             "    app.assign_radiation_boundary_to_objects(airbox.name)",
-            "    print(f\"  Radiation boundary successfully assigned to '{{airbox.name}}'\")",
-            "except Exception as e:",
+            "    rad_assigned = True",
+            "    print(f\"  Radiation boundary successfully assigned to object: '{airbox.name}'\")",
+            "except Exception as err_obj:",
             "    try:",
             "        app.assign_radiation_boundary_to_faces(airbox.faces)",
-            "        print(f\"  Radiation boundary assigned to airbox faces: {{e}}\")",
-            "    except Exception as e2:",
-            "        print(f\"  Radiation boundary assignment note: {{e2}}\")",
+            "        rad_assigned = True",
+            "        print('  Radiation boundary assigned to airbox faces')",
+            "    except Exception as err_faces:",
+            "        raise RuntimeError(",
+            "            f\"Failed to assign radiation boundary to Airbox! \"",
+            "            f\"Object method error: {err_obj}; Face method error: {err_faces}\"",
+            "        ) from err_faces",
             "",
-            "print('Airbox and radiation boundaries configured.')",
+            "if not rad_assigned:",
+            "    raise RuntimeError('Critical verification failure: Radiation boundary was not assigned to Airbox.')",
+            "",
+            "print('Airbox and radiation boundaries successfully configured.')",
         ]
         return "\n".join(lines)
-

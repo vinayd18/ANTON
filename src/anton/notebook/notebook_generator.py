@@ -185,7 +185,10 @@ try:
     from pyaedt import Hfss
 except ImportError:
     Hfss = None
-    print("PyAEDT not imported; mock/offline mode enabled.")
+    raise RuntimeError(
+        "PyAEDT ('pyaedt') is not installed in this Python environment. "
+        "Please install it before running this reproduction notebook: pip install pyaedt"
+    )
 
 design_name = "{self.project_name}"
 specified_version = {version_str}
@@ -193,27 +196,28 @@ non_graphical = {self.non_graphical}
 new_desktop_session = {self.new_desktop_session}
 
 app = None
-if Hfss is not None:
-    try:
-        print(f"Connecting to ANSYS HFSS for design '{{design_name}}'...")
-        app = Hfss(
-            projectname=None,
-            designname=design_name,
-            solution_type="Terminal",
-            specified_version=specified_version,
-            non_graphical=non_graphical,
-            new_desktop_session=new_desktop_session,
-        )
-        # Enforce SI Metres in the HFSS Modeler
-        app.modeler.model_units = "meter"
-        print("Successfully connected to ANSYS HFSS Desktop.")
-        print(f"Active Project: {{app.project_name}} | Active Design: {{app.design_name}}")
-        print(f"HFSS Modeler units set to: {{app.modeler.model_units}}")
-    except Exception as e:
-        print(f"Could not connect to live HFSS instance: {{e}}")
-        print("Ensure ANSYS Electronics Desktop is running or valid AEDT licenses are configured.")
-else:
-    print("Please install pyaedt to execute this cell against ANSYS HFSS.")
+try:
+    print(f"Connecting to ANSYS HFSS for design '{{design_name}}'...")
+    app = Hfss(
+        projectname=None,
+        designname=design_name,
+        solution_type="Terminal",
+        specified_version=specified_version,
+        non_graphical=non_graphical,
+        new_desktop_session=new_desktop_session,
+    )
+    if app is None:
+        raise RuntimeError("Failed to obtain Hfss application instance from PyAEDT.")
+    # Enforce SI Metres in the HFSS Modeler
+    app.modeler.model_units = "meter"
+    print("Successfully connected to ANSYS HFSS Desktop.")
+    print(f"Active Project: {{app.project_name}} | Active Design: {{app.design_name}}")
+    print(f"HFSS Modeler units set to: {{app.modeler.model_units}}")
+except Exception as e:
+    raise RuntimeError(
+        f"Critical failure: Could not connect to live ANSYS HFSS instance: {{e}}. "
+        "Ensure ANSYS Electronics Desktop is running or valid AEDT licenses are configured."
+    ) from e
 """
         cells.append(new_code_cell(conn_code))
 

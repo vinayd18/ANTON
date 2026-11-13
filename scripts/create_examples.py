@@ -118,7 +118,16 @@ def build_triangular_patch() -> AntonEngine:
     v1 = VertexDef(x=-side / 2.0, y=-h_tri / 3.0)
     v2 = VertexDef(x=side / 2.0, y=-h_tri / 3.0)
     v3 = VertexDef(x=0.0, y=2.0 * h_tri / 3.0)
-    e.add_triangle(l_patch, m_cu, vertices=[v1, v2, v3], name="TriangularRadiator")
+    p_id = e.add_triangle(l_patch, m_cu, vertices=[v1, v2, v3], name="TriangularRadiator")
+
+    # 50-Ohm microstrip feed line from substrate edge (y = -30mm) to triangle base (y = -h_tri/3)
+    f_w = Units.mm_to_m(1.7)
+    y_base = -h_tri / 3.0
+    y_sub_edge = Units.mm_to_m(-30.0)
+    f_l = y_base - y_sub_edge
+    f_cy = y_sub_edge + f_l / 2.0
+    f_id = e.add_rectangle(l_patch, m_cu, width=f_w, height=f_l, center_y=f_cy, name="TriangleFeedLine")
+    e.add_connection(f_id, p_id, "microstrip_edge")
     return e
 
 
@@ -145,7 +154,16 @@ def build_hexagonal_patch() -> AntonEngine:
         angle = math.radians(60.0 * i)
         hex_verts.append(VertexDef(x=r * math.cos(angle), y=r * math.sin(angle)))
 
-    e.add_polygon(l_patch, m_cu, vertices=hex_verts, name="HexagonalRadiator")
+    p_id = e.add_polygon(l_patch, m_cu, vertices=hex_verts, name="HexagonalRadiator")
+
+    # 50-Ohm microstrip feed line from substrate edge (y = -35mm) to hexagon bottom flat edge (y = -15.588mm)
+    f_w = Units.mm_to_m(4.8)
+    y_hex_bottom = -r * math.sin(math.radians(60.0))
+    y_sub_edge = Units.mm_to_m(-35.0)
+    f_l = y_hex_bottom - y_sub_edge
+    f_cy = y_sub_edge + f_l / 2.0
+    f_id = e.add_rectangle(l_patch, m_cu, width=f_w, height=f_l, center_y=f_cy, name="HexagonFeedLine")
+    e.add_connection(f_id, p_id, "microstrip_edge")
     return e
 
 
@@ -186,7 +204,16 @@ def build_u_slot_patch() -> AntonEngine:
     e.remove_object(cut_r_id)
     e.remove_object(base_patch_id)
 
-    e.add_object(slotted_patch)
+    p_id = e.add_object(slotted_patch)
+
+    # 50-Ohm feed line from substrate edge (y = -32.5mm) to patch bottom edge (y = -14mm)
+    f_w = Units.mm_to_m(3.4)
+    y_patch_bottom = Units.mm_to_m(-14.0)
+    y_sub_edge = Units.mm_to_m(-32.5)
+    f_l = y_patch_bottom - y_sub_edge
+    f_cy = y_sub_edge + f_l / 2.0
+    f_id = e.add_rectangle(l_patch, m_cu, width=f_w, height=f_l, center_y=f_cy, name="USlotFeedLine")
+    e.add_connection(f_id, p_id, "microstrip_edge")
     return e
 
 
@@ -258,7 +285,16 @@ def build_annular_patch() -> AntonEngine:
 
     e.remove_object(inner_id)
     e.remove_object(outer_id)
-    e.add_object(ring_obj)
+    p_id = e.add_object(ring_obj)
+
+    # 50-Ohm microstrip feed line on Alumina (w = 1.0 mm, reaching from substrate edge y = -30mm to ring outer rim y = -18mm)
+    f_w = Units.mm_to_m(1.0)
+    y_ring_outer = Units.mm_to_m(-18.0)
+    y_sub_edge = Units.mm_to_m(-30.0)
+    f_l = y_ring_outer - y_sub_edge  # 12 mm
+    f_cy = y_sub_edge + f_l / 2.0   # -24 mm
+    f_id = e.add_rectangle(l_patch, m_cu, width=f_w, height=f_l, center_y=f_cy, name="AnnularFeedLine")
+    e.add_connection(f_id, p_id, "microstrip_edge")
     return e
 
 
@@ -277,7 +313,7 @@ def build_custom_polygon_patch() -> AntonEngine:
     e.add_rectangle(l_gnd, m_cu, width=Units.mm_to_m(60.0), height=Units.mm_to_m(60.0), name="Ground")
     e.add_rectangle(l_sub, m_ro4350, width=Units.mm_to_m(60.0), height=Units.mm_to_m(60.0), name="Substrate")
 
-    # 8-vertex stepped polygon
+    # 8-vertex stepped polygon (bottom edge at y = -12mm)
     pts = [
         (-15.0, -12.0),
         (15.0, -12.0),
@@ -289,7 +325,16 @@ def build_custom_polygon_patch() -> AntonEngine:
         (-15.0, 5.0),
     ]
     vertices = [VertexDef(x=Units.mm_to_m(x), y=Units.mm_to_m(y)) for x, y in pts]
-    e.add_polygon(l_patch, m_cu, vertices=vertices, name="SteppedPolygonRadiator")
+    p_id = e.add_polygon(l_patch, m_cu, vertices=vertices, name="SteppedPolygonRadiator")
+
+    # 50-Ohm microstrip feed line from substrate edge (y = -30mm) to stepped polygon base (y = -12mm)
+    f_w = Units.mm_to_m(1.8)
+    y_poly_bottom = Units.mm_to_m(-12.0)
+    y_sub_edge = Units.mm_to_m(-30.0)
+    f_l = y_poly_bottom - y_sub_edge  # 18 mm
+    f_cy = y_sub_edge + f_l / 2.0    # -21 mm
+    f_id = e.add_rectangle(l_patch, m_cu, width=f_w, height=f_l, center_y=f_cy, name="PolygonFeedLine")
+    e.add_connection(f_id, p_id, "microstrip_edge")
     return e
 
 

@@ -236,3 +236,61 @@ class TestNotebookValidator:
             assert res.is_valid is True, f"Notebook '{nb_path.name}' failed validation: {res.errors}"
             assert res.syntax_valid is True
 
+
+class TestAnnularNotebookRepair:
+    """Rigorous tests specifically verifying repair of annular patch and notebook generators."""
+
+    def test_annular_patch_notebook_verification(self) -> None:
+        nb_path = Path("examples/notebooks/annular_patch_hfss.ipynb")
+        assert nb_path.exists(), "annular_patch_hfss.ipynb must exist"
+
+        with open(nb_path, "r", encoding="utf-8") as f:
+            nb = nbformat.read(f, as_version=4)
+
+        all_code = "\n".join(c.source for c in nb.cells if c.cell_type == "code")
+
+        # 1. Feed conductor presence
+        assert "AnnularFeedLine" in all_code
+        assert "create_box" in all_code
+
+        # 2. Port placement at outer substrate edge (-0.03 m), NOT inside hole (r <= 9 mm, y = -7.5 mm)
+        assert "port_y = -0.03" in all_code
+        assert "int_line_start = [0.0, -0.03, 0.0]" in all_code
+        assert "int_line_stop = [0.0, -0.03, 0.001]" in all_code
+        # Cell 12 (port configuration) specifically must not place port at -0.0075
+        port_cell_code = nb.cells[12].source
+        assert "port_y = -0.03" in port_cell_code
+        assert "-0.0075" not in port_cell_code
+
+        # 3. Canonical bounds in airbox
+        assert "canon_xmin, canon_ymin, canon_zmin = -0.030000, -0.030000, -0.000035" in all_code
+        assert "canon_xmax, canon_ymax, canon_zmax = 0.030000, 0.030000, 0.001035" in all_code
+        assert "-0.04, 0.04" not in all_code  # arbitrary fallback removed
+
+        # 4. Strict error handling
+        assert "raise RuntimeError('Critical: app is None" in all_code
+        assert "raise RuntimeError('Failed to create Airbox solid" in all_code
+        assert "raise RuntimeError('Critical verification failure: Radiation boundary" in all_code
+
+        # 5. Zero synthetic data
+        assert "0.95 - 0.90" not in all_code
+        assert "gamma_phase = -np.pi" not in all_code
+        assert "cos(theta_rad)" not in all_code
+        assert "simulation_status = 'NOT_SIMULATED'" in all_code
+        assert "results_status = 'RESULTS_UNAVAILABLE'" in all_code
+
+    def test_disconnected_feed_raises_value_error(self, sample_project: GeometryProject) -> None:
+        # Move feed line far away so it does not touch the patch
+        sample_project.objects["feed_obj"].center_y = -0.05
+        # Feed line is at y=-0.05 with height 0.02 (y in [-0.06, -0.04])
+        # Patch is at y=0.005 with height 0.03 (y in [-0.01, 0.02])
+        # Distance is > 0.03 m
+        gen = FeedPortGenerator(sample_project)
+        feed_obj, patch_obj = gen._resolve_feed_and_target()
+        assert feed_obj is not None
+        assert patch_obj is None
+        # Generating port configuration must raise ValueError due to disconnected feed
+        with pytest.raises(ValueError, match="does not physically contact any radiating"):
+            gen.generate_port_configuration_code()
+
+

@@ -1,6 +1,6 @@
 {
   "project_name": "Rectangular Patch Antenna",
-  "geometry_id": "75642933-5778-40b9-9a6e-ae783dfe602b",
+  "geometry_id": "3054d5c4-d738-41b3-973c-2d6cb7d41b73",
   "units": "m",
   "coordinate_system": "Cartesian",
   "antenna": {
@@ -74,8 +74,8 @@
     }
   },
   "materials": {
-    "cfc30d01-ef19-4901-be35-e310a969295e": {
-      "id": "cfc30d01-ef19-4901-be35-e310a969295e",
+    "39fd2b09-8abd-472b-a443-3718e97d41ce": {
+      "id": "39fd2b09-8abd-472b-a443-3718e97d41ce",
       "name": "FR4",
       "category": "dielectric",
       "properties": {
@@ -85,8 +85,8 @@
       "source": "Standard FR4 laminate",
       "valid_range": null
     },
-    "34a593fa-8021-41a2-b526-34708242375a": {
-      "id": "34a593fa-8021-41a2-b526-34708242375a",
+    "11c9ede1-517f-4755-9185-98f71538bf3f": {
+      "id": "11c9ede1-517f-4755-9185-98f71538bf3f",
       "name": "Copper",
       "category": "conductor",
       "properties": {
@@ -97,58 +97,58 @@
     }
   },
   "layers": {
-    "5d0f72bd-5c0d-4407-96ce-ba20a38d281a": {
-      "id": "5d0f72bd-5c0d-4407-96ce-ba20a38d281a",
+    "24b53c12-953e-4410-9175-847669824acf": {
+      "id": "24b53c12-953e-4410-9175-847669824acf",
       "name": "Ground",
       "layer_type": "ground",
       "z_position": -0.000035,
       "thickness": 0.000035,
-      "material_id": "34a593fa-8021-41a2-b526-34708242375a",
+      "material_id": "11c9ede1-517f-4755-9185-98f71538bf3f",
       "object_ids": [
-        "a8a2cd3c-1cbc-455e-a734-1fe98551e83f"
+        "d720f30f-af29-45e7-926e-e91c3fd718ef"
       ]
     },
-    "1a9257a4-be06-4deb-a7b0-d7e9529a772c": {
-      "id": "1a9257a4-be06-4deb-a7b0-d7e9529a772c",
+    "c22c5208-4699-4d15-b71b-1829086fc59e": {
+      "id": "c22c5208-4699-4d15-b71b-1829086fc59e",
       "name": "Substrate",
       "layer_type": "substrate",
       "z_position": 0.0,
       "thickness": 0.0016,
-      "material_id": "cfc30d01-ef19-4901-be35-e310a969295e",
+      "material_id": "39fd2b09-8abd-472b-a443-3718e97d41ce",
       "object_ids": [
-        "2c9f8891-6706-49c9-8e4c-28379bd5c1e2"
+        "dc715fac-24c3-4161-a631-cafaaf1d2adf"
       ]
     },
-    "df30a05c-fe91-4996-9036-ccac15997ebd": {
-      "id": "df30a05c-fe91-4996-9036-ccac15997ebd",
+    "851ae371-85d3-4a70-844b-f68490f02dc2": {
+      "id": "851ae371-85d3-4a70-844b-f68490f02dc2",
       "name": "Patch",
       "layer_type": "patch",
       "z_position": 0.0016,
       "thickness": 0.000035,
-      "material_id": "34a593fa-8021-41a2-b526-34708242375a",
+      "material_id": "11c9ede1-517f-4755-9185-98f71538bf3f",
       "object_ids": [
-        "8a36c7b1-1d7b-4974-8045-951ae8b25335"
+        "056a9ad3-086b-4a65-8949-2a4ec6b27ed5"
       ]
     },
-    "a9378b2a-7f5d-44a9-a28c-8ded5e79db41": {
-      "id": "a9378b2a-7f5d-44a9-a28c-8ded5e79db41",
+    "0027340f-85d3-4790-b3d3-1b7050e3151b": {
+      "id": "0027340f-85d3-4790-b3d3-1b7050e3151b",
       "name": "Feed",
       "layer_type": "feed",
       "z_position": 0.0016,
       "thickness": 0.000035,
-      "material_id": "34a593fa-8021-41a2-b526-34708242375a",
+      "material_id": "11c9ede1-517f-4755-9185-98f71538bf3f",
       "object_ids": [
-        "ab9097c3-3b89-40b2-90d8-c6bc07e4c4da"
+        "142179b6-44cb-4b47-8f95-3c0d2e8a7d78"
       ]
     }
   },
   "objects": {
-    "a8a2cd3c-1cbc-455e-a734-1fe98551e83f": {
-      "id": "a8a2cd3c-1cbc-455e-a734-1fe98551e83f",
+    "d720f30f-af29-45e7-926e-e91c3fd718ef": {
+      "id": "d720f30f-af29-45e7-926e-e91c3fd718ef",
       "name": "GroundPlane",
       "object_type": "rectangle",
-      "layer_id": "5d0f72bd-5c0d-4407-96ce-ba20a38d281a",
-      "material_id": "34a593fa-8021-41a2-b526-34708242375a",
+      "layer_id": "24b53c12-953e-4410-9175-847669824acf",
+      "material_id": "11c9ede1-517f-4755-9185-98f71538bf3f",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -162,12 +162,12 @@
       "parameters": {},
       "metadata": {}
     },
-    "2c9f8891-6706-49c9-8e4c-28379bd5c1e2": {
-      "id": "2c9f8891-6706-49c9-8e4c-28379bd5c1e2",
+    "dc715fac-24c3-4161-a631-cafaaf1d2adf": {
+      "id": "dc715fac-24c3-4161-a631-cafaaf1d2adf",
       "name": "SubstrateBlock",
       "object_type": "rectangle",
-      "layer_id": "1a9257a4-be06-4deb-a7b0-d7e9529a772c",
-      "material_id": "cfc30d01-ef19-4901-be35-e310a969295e",
+      "layer_id": "c22c5208-4699-4d15-b71b-1829086fc59e",
+      "material_id": "39fd2b09-8abd-472b-a443-3718e97d41ce",
       "center_x": 0.0,
       "center_y": 0.0,
       "rotation_deg": 0.0,
@@ -181,12 +181,12 @@
       "parameters": {},
       "metadata": {}
     },
-    "8a36c7b1-1d7b-4974-8045-951ae8b25335": {
-      "id": "8a36c7b1-1d7b-4974-8045-951ae8b25335",
+    "056a9ad3-086b-4a65-8949-2a4ec6b27ed5": {
+      "id": "056a9ad3-086b-4a65-8949-2a4ec6b27ed5",
       "name": "Radiator",
       "object_type": "rectangle",
-      "layer_id": "df30a05c-fe91-4996-9036-ccac15997ebd",
-      "material_id": "34a593fa-8021-41a2-b526-34708242375a",
+      "layer_id": "851ae371-85d3-4a70-844b-f68490f02dc2",
+      "material_id": "11c9ede1-517f-4755-9185-98f71538bf3f",
       "center_x": 0.0,
       "center_y": 0.003,
       "rotation_deg": 0.0,
@@ -200,12 +200,12 @@
       "parameters": {},
       "metadata": {}
     },
-    "ab9097c3-3b89-40b2-90d8-c6bc07e4c4da": {
-      "id": "ab9097c3-3b89-40b2-90d8-c6bc07e4c4da",
+    "142179b6-44cb-4b47-8f95-3c0d2e8a7d78": {
+      "id": "142179b6-44cb-4b47-8f95-3c0d2e8a7d78",
       "name": "FeedLine",
       "object_type": "rectangle",
-      "layer_id": "a9378b2a-7f5d-44a9-a28c-8ded5e79db41",
-      "material_id": "34a593fa-8021-41a2-b526-34708242375a",
+      "layer_id": "0027340f-85d3-4790-b3d3-1b7050e3151b",
+      "material_id": "11c9ede1-517f-4755-9185-98f71538bf3f",
       "center_x": 0.0,
       "center_y": -0.01925,
       "rotation_deg": 0.0,
@@ -222,16 +222,16 @@
   },
   "connections": [
     {
-      "id": "4754e45c-63bc-40b4-8ec5-92235d24b86b",
-      "source_object_id": "ab9097c3-3b89-40b2-90d8-c6bc07e4c4da",
-      "target_object_id": "8a36c7b1-1d7b-4974-8045-951ae8b25335",
+      "id": "776ceed2-9382-4ec3-9eea-cc43f2fbcd07",
+      "source_object_id": "142179b6-44cb-4b47-8f95-3c0d2e8a7d78",
+      "target_object_id": "056a9ad3-086b-4a65-8949-2a4ec6b27ed5",
       "connection_type": "direct_edge_feed",
       "metadata": {}
     }
   ],
   "metadata": {
     "schema_version": "1.0.0",
-    "created_at": "2026-11-13T08:26:59.709880Z",
+    "created_at": "2026-11-13T12:10:37.745291Z",
     "modified_at": null,
     "author": null,
     "description": null
