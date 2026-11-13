@@ -1,0 +1,162 @@
+{
+  "project_name": "Hexagonal Patch Antenna",
+  "geometry_id": "7ee03d76-e0ee-4040-b925-0b5144334fb8",
+  "units": "m",
+  "coordinate_system": "Cartesian",
+  "antenna": {
+    "name": "Custom Antenna",
+    "configuration": "custom",
+    "description": null
+  },
+  "parameters": {},
+  "materials": {
+    "24cd8541-988e-4462-8292-c080c91c58d1": {
+      "id": "24cd8541-988e-4462-8292-c080c91c58d1",
+      "name": "Rogers RT/Duroid 5880",
+      "category": "dielectric",
+      "properties": {
+        "relative_permittivity": 2.2,
+        "loss_tangent": 0.0009
+      },
+      "source": null,
+      "valid_range": null
+    },
+    "e172ecbe-ae74-4fa1-a76c-5869dd2b33d2": {
+      "id": "e172ecbe-ae74-4fa1-a76c-5869dd2b33d2",
+      "name": "Copper",
+      "category": "conductor",
+      "properties": {
+        "conductivity": 58000000.0
+      },
+      "source": null,
+      "valid_range": null
+    }
+  },
+  "layers": {
+    "12a9c4a9-e7e2-4bce-a5f2-bcb87b9dc78c": {
+      "id": "12a9c4a9-e7e2-4bce-a5f2-bcb87b9dc78c",
+      "name": "Ground",
+      "layer_type": "ground",
+      "z_position": 0.0,
+      "thickness": 0.000035,
+      "material_id": "e172ecbe-ae74-4fa1-a76c-5869dd2b33d2",
+      "object_ids": [
+        "ba6cad08-5a34-4ed9-86b3-c09d173c781a"
+      ]
+    },
+    "67dd5bb5-c70d-4fcf-8dbd-73976cff27ed": {
+      "id": "67dd5bb5-c70d-4fcf-8dbd-73976cff27ed",
+      "name": "Substrate",
+      "layer_type": "substrate",
+      "z_position": 0.0,
+      "thickness": 0.001575,
+      "material_id": "24cd8541-988e-4462-8292-c080c91c58d1",
+      "object_ids": [
+        "e6b6ca72-d060-4e05-9759-7ae766d77632"
+      ]
+    },
+    "969c007b-dfdb-485f-92d7-d016d938c46e": {
+      "id": "969c007b-dfdb-485f-92d7-d016d938c46e",
+      "name": "Patch",
+      "layer_type": "patch",
+      "z_position": 0.001575,
+      "thickness": 0.000035,
+      "material_id": "e172ecbe-ae74-4fa1-a76c-5869dd2b33d2",
+      "object_ids": [
+        "558886ed-3904-4733-addf-0bc007b2173d"
+      ]
+    }
+  },
+  "objects": {
+    "ba6cad08-5a34-4ed9-86b3-c09d173c781a": {
+      "id": "ba6cad08-5a34-4ed9-86b3-c09d173c781a",
+      "name": "Ground",
+      "object_type": "rectangle",
+      "layer_id": "12a9c4a9-e7e2-4bce-a5f2-bcb87b9dc78c",
+      "material_id": "e172ecbe-ae74-4fa1-a76c-5869dd2b33d2",
+      "center_x": 0.0,
+      "center_y": 0.0,
+      "rotation_deg": 0.0,
+      "width": 0.07,
+      "height": 0.07,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    },
+    "e6b6ca72-d060-4e05-9759-7ae766d77632": {
+      "id": "e6b6ca72-d060-4e05-9759-7ae766d77632",
+      "name": "Substrate",
+      "object_type": "rectangle",
+      "layer_id": "67dd5bb5-c70d-4fcf-8dbd-73976cff27ed",
+      "material_id": "24cd8541-988e-4462-8292-c080c91c58d1",
+      "center_x": 0.0,
+      "center_y": 0.0,
+      "rotation_deg": 0.0,
+      "width": 0.07,
+      "height": 0.07,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    },
+    "558886ed-3904-4733-addf-0bc007b2173d": {
+      "id": "558886ed-3904-4733-addf-0bc007b2173d",
+      "name": "HexagonalRadiator",
+      "object_type": "polygon",
+      "layer_id": "969c007b-dfdb-485f-92d7-d016d938c46e",
+      "material_id": "e172ecbe-ae74-4fa1-a76c-5869dd2b33d2",
+      "center_x": 0.0,
+      "center_y": 0.0,
+      "rotation_deg": 0.0,
+      "width": null,
+      "height": null,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [
+        {
+          "x": 0.018000000000000002,
+          "y": 0.0
+        },
+        {
+          "x": 0.009000000000000003,
+          "y": 0.015588457268119896
+        },
+        {
+          "x": -0.008999999999999998,
+          "y": 0.015588457268119898
+        },
+        {
+          "x": -0.018000000000000002,
+          "y": 2.204364238465236e-18
+        },
+        {
+          "x": -0.00900000000000001,
+          "y": -0.015588457268119893
+        },
+        {
+          "x": 0.009000000000000003,
+          "y": -0.015588457268119896
+        }
+      ],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    }
+  },
+  "connections": [],
+  "metadata": {
+    "schema_version": "1.0.0",
+    "created_at": "2026-11-13T08:02:16.077737",
+    "modified_at": null,
+    "author": null,
+    "description": null
+  }
+}

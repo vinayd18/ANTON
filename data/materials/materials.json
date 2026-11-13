@@ -1,0 +1,90 @@
+[
+  {
+    "name": "FR4",
+    "category": "dielectric",
+    "properties": {
+      "relative_permittivity": 4.4,
+      "loss_tangent": 0.02,
+      "dielectric_loss_type": "constant"
+    },
+    "source": "Representative nominal specification for standard glass-reinforced epoxy laminate (illustrative)",
+    "valid_range": "1 MHz - 3 GHz"
+  },
+  {
+    "name": "Rogers RO4003C",
+    "category": "dielectric",
+    "properties": {
+      "relative_permittivity": 3.55,
+      "loss_tangent": 0.0027,
+      "dielectric_loss_type": "constant"
+    },
+    "source": "Rogers Corporation RO4000 series high-frequency laminate datasheet (illustrative)",
+    "valid_range": "1 GHz - 10 GHz"
+  },
+  {
+    "name": "Rogers RO4350B",
+    "category": "dielectric",
+    "properties": {
+      "relative_permittivity": 3.66,
+      "loss_tangent": 0.0037,
+      "dielectric_loss_type": "constant"
+    },
+    "source": "Rogers Corporation RO4350B hydrocarbon ceramic laminate datasheet (illustrative)",
+    "valid_range": "1 GHz - 10 GHz"
+  },
+  {
+    "name": "Rogers RT/Duroid 5880",
+    "category": "dielectric",
+    "properties": {
+      "relative_permittivity": 2.20,
+      "loss_tangent": 0.0009,
+      "dielectric_loss_type": "constant"
+    },
+    "source": "Rogers Corporation RT/duroid 5880 glass microfiber reinforced PTFE datasheet (illustrative)",
+    "valid_range": "1 GHz - 40 GHz"
+  },
+  {
+    "name": "Alumina",
+    "category": "dielectric",
+    "properties": {
+      "relative_permittivity": 9.8,
+      "loss_tangent": 0.0001,
+      "dielectric_loss_type": "constant"
+    },
+    "source": "99.6% Al2O3 ceramic substrate typical microwave characteristics (illustrative)",
+    "valid_range": "1 GHz - 20 GHz"
+  },
+  {
+    "name": "Copper",
+    "category": "conductor",
+    "properties": {
+      "conductivity": 58000000.0,
+      "relative_permeability": 1.0,
+      "resistivity_ohm_m": 1.724e-8
+    },
+    "source": "IACS annealed copper standard reference (illustrative)",
+    "valid_range": "DC - 100 GHz"
+  },
+  {
+    "name": "Aluminium",
+    "category": "conductor",
+    "properties": {
+      "conductivity": 37700000.0,
+      "relative_permeability": 1.0,
+      "resistivity_ohm_m": 2.65e-8
+    },
+    "source": "Standard pure aluminium reference (illustrative)",
+    "valid_range": "DC - 100 GHz"
+  },
+  {
+    "name": "Silver",
+    "category": "conductor",
+    "properties": {
+      "conductivity": 63000000.0,
+      "relative_permeability": 1.0,
+      "resistivity_ohm_m": 1.587e-8
+    },
+    "source": "Standard pure silver electrical reference (illustrative)",
+    "valid_range": "DC - 100 GHz"
+  }
+]

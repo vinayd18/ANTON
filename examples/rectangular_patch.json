@@ -1,0 +1,239 @@
+{
+  "project_name": "Rectangular Patch Antenna",
+  "geometry_id": "149ca6e4-d99a-4bca-b403-f3dc7645727d",
+  "units": "m",
+  "coordinate_system": "Cartesian",
+  "antenna": {
+    "name": "Custom Antenna",
+    "configuration": "custom",
+    "description": null
+  },
+  "parameters": {
+    "W_p": {
+      "name": "W_p",
+      "value": 0.038,
+      "unit": "m",
+      "description": "Patch width",
+      "min_value": null,
+      "max_value": null,
+      "dependencies": []
+    },
+    "L_p": {
+      "name": "L_p",
+      "value": 0.029,
+      "unit": "m",
+      "description": "Patch length",
+      "min_value": null,
+      "max_value": null,
+      "dependencies": []
+    },
+    "W_sub": {
+      "name": "W_sub",
+      "value": 0.06,
+      "unit": "m",
+      "description": "Substrate width",
+      "min_value": null,
+      "max_value": null,
+      "dependencies": []
+    },
+    "L_sub": {
+      "name": "L_sub",
+      "value": 0.06,
+      "unit": "m",
+      "description": "Substrate length",
+      "min_value": null,
+      "max_value": null,
+      "dependencies": []
+    },
+    "h_sub": {
+      "name": "h_sub",
+      "value": 0.0016,
+      "unit": "m",
+      "description": "Substrate thickness",
+      "min_value": null,
+      "max_value": null,
+      "dependencies": []
+    },
+    "W_f": {
+      "name": "W_f",
+      "value": 0.0031000000000000003,
+      "unit": "m",
+      "description": "Feed line width",
+      "min_value": null,
+      "max_value": null,
+      "dependencies": []
+    },
+    "L_f": {
+      "name": "L_f",
+      "value": 0.0155,
+      "unit": "m",
+      "description": "Feed line length",
+      "min_value": null,
+      "max_value": null,
+      "dependencies": []
+    }
+  },
+  "materials": {
+    "cf747e87-9ce1-4bb5-a6fa-f0da7f9de3fb": {
+      "id": "cf747e87-9ce1-4bb5-a6fa-f0da7f9de3fb",
+      "name": "FR4",
+      "category": "dielectric",
+      "properties": {
+        "relative_permittivity": 4.4,
+        "loss_tangent": 0.02
+      },
+      "source": "Standard FR4 laminate",
+      "valid_range": null
+    },
+    "24a168b8-c394-4bff-a9f4-b259748889be": {
+      "id": "24a168b8-c394-4bff-a9f4-b259748889be",
+      "name": "Copper",
+      "category": "conductor",
+      "properties": {
+        "conductivity": 58000000.0
+      },
+      "source": "Annealed copper",
+      "valid_range": null
+    }
+  },
+  "layers": {
+    "f1e1fff2-5dc8-432e-8621-2fdc6b7840a1": {
+      "id": "f1e1fff2-5dc8-432e-8621-2fdc6b7840a1",
+      "name": "Ground",
+      "layer_type": "ground",
+      "z_position": 0.0,
+      "thickness": 0.000035,
+      "material_id": "24a168b8-c394-4bff-a9f4-b259748889be",
+      "object_ids": [
+        "06a5644b-2015-4708-9158-4d25bd40ac97"
+      ]
+    },
+    "7f0e3586-6986-449d-9f57-c2fe0ce338e0": {
+      "id": "7f0e3586-6986-449d-9f57-c2fe0ce338e0",
+      "name": "Substrate",
+      "layer_type": "substrate",
+      "z_position": 0.0,
+      "thickness": 0.0016,
+      "material_id": "cf747e87-9ce1-4bb5-a6fa-f0da7f9de3fb",
+      "object_ids": [
+        "ebf75851-937e-4455-9912-494f46d4233a"
+      ]
+    },
+    "a4ceff47-158a-48f7-bc2d-4da930190a7c": {
+      "id": "a4ceff47-158a-48f7-bc2d-4da930190a7c",
+      "name": "Patch",
+      "layer_type": "patch",
+      "z_position": 0.0016,
+      "thickness": 0.000035,
+      "material_id": "24a168b8-c394-4bff-a9f4-b259748889be",
+      "object_ids": [
+        "6b16ad77-38dd-47f6-aa13-6fd70e34eb9a"
+      ]
+    },
+    "831cf421-de2f-40b1-b642-84669f4a272d": {
+      "id": "831cf421-de2f-40b1-b642-84669f4a272d",
+      "name": "Feed",
+      "layer_type": "feed",
+      "z_position": 0.0016,
+      "thickness": 0.000035,
+      "material_id": "24a168b8-c394-4bff-a9f4-b259748889be",
+      "object_ids": [
+        "92de4710-a51a-46e3-b3b3-ca74cd855c51"
+      ]
+    }
+  },
+  "objects": {
+    "06a5644b-2015-4708-9158-4d25bd40ac97": {
+      "id": "06a5644b-2015-4708-9158-4d25bd40ac97",
+      "name": "GroundPlane",
+      "object_type": "rectangle",
+      "layer_id": "f1e1fff2-5dc8-432e-8621-2fdc6b7840a1",
+      "material_id": "24a168b8-c394-4bff-a9f4-b259748889be",
+      "center_x": 0.0,
+      "center_y": 0.0,
+      "rotation_deg": 0.0,
+      "width": 0.06,
+      "height": 0.06,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    },
+    "ebf75851-937e-4455-9912-494f46d4233a": {
+      "id": "ebf75851-937e-4455-9912-494f46d4233a",
+      "name": "SubstrateBlock",
+      "object_type": "rectangle",
+      "layer_id": "7f0e3586-6986-449d-9f57-c2fe0ce338e0",
+      "material_id": "cf747e87-9ce1-4bb5-a6fa-f0da7f9de3fb",
+      "center_x": 0.0,
+      "center_y": 0.0,
+      "rotation_deg": 0.0,
+      "width": 0.06,
+      "height": 0.06,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    },
+    "6b16ad77-38dd-47f6-aa13-6fd70e34eb9a": {
+      "id": "6b16ad77-38dd-47f6-aa13-6fd70e34eb9a",
+      "name": "Radiator",
+      "object_type": "rectangle",
+      "layer_id": "a4ceff47-158a-48f7-bc2d-4da930190a7c",
+      "material_id": "24a168b8-c394-4bff-a9f4-b259748889be",
+      "center_x": 0.0,
+      "center_y": 0.003,
+      "rotation_deg": 0.0,
+      "width": 0.038,
+      "height": 0.029,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    },
+    "92de4710-a51a-46e3-b3b3-ca74cd855c51": {
+      "id": "92de4710-a51a-46e3-b3b3-ca74cd855c51",
+      "name": "FeedLine",
+      "object_type": "rectangle",
+      "layer_id": "831cf421-de2f-40b1-b642-84669f4a272d",
+      "material_id": "24a168b8-c394-4bff-a9f4-b259748889be",
+      "center_x": 0.0,
+      "center_y": -0.01925,
+      "rotation_deg": 0.0,
+      "width": 0.0031000000000000003,
+      "height": 0.0155,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    }
+  },
+  "connections": [
+    {
+      "id": "d0481c26-4df0-45dc-a7bf-169cf131b367",
+      "source_object_id": "92de4710-a51a-46e3-b3b3-ca74cd855c51",
+      "target_object_id": "6b16ad77-38dd-47f6-aa13-6fd70e34eb9a",
+      "connection_type": "direct_edge_feed",
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "schema_version": "1.0.0",
+    "created_at": "2026-11-13T08:01:51.214383",
+    "modified_at": null,
+    "author": null,
+    "description": null
+  }
+}

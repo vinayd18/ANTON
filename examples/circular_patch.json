@@ -1,0 +1,184 @@
+{
+  "project_name": "Circular Patch Antenna",
+  "geometry_id": "a549ec15-76ac-432f-9401-29bb42454bc4",
+  "units": "m",
+  "coordinate_system": "Cartesian",
+  "antenna": {
+    "name": "Custom Antenna",
+    "configuration": "custom",
+    "description": null
+  },
+  "parameters": {
+    "R_p": {
+      "name": "R_p",
+      "value": 0.016,
+      "unit": "m",
+      "description": "Circular patch radius",
+      "min_value": null,
+      "max_value": null,
+      "dependencies": []
+    },
+    "h_sub": {
+      "name": "h_sub",
+      "value": 0.001524,
+      "unit": "m",
+      "description": "Substrate height",
+      "min_value": null,
+      "max_value": null,
+      "dependencies": []
+    }
+  },
+  "materials": {
+    "352b5987-3161-47b1-a197-1338763d8bf6": {
+      "id": "352b5987-3161-47b1-a197-1338763d8bf6",
+      "name": "Rogers RO4003C",
+      "category": "dielectric",
+      "properties": {
+        "relative_permittivity": 3.55,
+        "loss_tangent": 0.0027
+      },
+      "source": null,
+      "valid_range": null
+    },
+    "088894e8-2ed6-453c-bf77-bb62aadc89cf": {
+      "id": "088894e8-2ed6-453c-bf77-bb62aadc89cf",
+      "name": "Copper",
+      "category": "conductor",
+      "properties": {
+        "conductivity": 58000000.0
+      },
+      "source": null,
+      "valid_range": null
+    }
+  },
+  "layers": {
+    "dfddae20-aad0-4516-8ba9-86dba0a06013": {
+      "id": "dfddae20-aad0-4516-8ba9-86dba0a06013",
+      "name": "Ground",
+      "layer_type": "ground",
+      "z_position": 0.0,
+      "thickness": 0.000035,
+      "material_id": "088894e8-2ed6-453c-bf77-bb62aadc89cf",
+      "object_ids": [
+        "38c35558-2334-4f95-a14b-aa1391ec03f8"
+      ]
+    },
+    "42c3e45b-da70-48e9-9f6d-2917ba4b1778": {
+      "id": "42c3e45b-da70-48e9-9f6d-2917ba4b1778",
+      "name": "Substrate",
+      "layer_type": "substrate",
+      "z_position": 0.0,
+      "thickness": 0.001524,
+      "material_id": "352b5987-3161-47b1-a197-1338763d8bf6",
+      "object_ids": [
+        "32618aef-697e-4936-bc0e-0186b2abd322"
+      ]
+    },
+    "bfd68263-3c01-464d-9327-4e4486e004a2": {
+      "id": "bfd68263-3c01-464d-9327-4e4486e004a2",
+      "name": "Patch",
+      "layer_type": "patch",
+      "z_position": 0.001524,
+      "thickness": 0.000035,
+      "material_id": "088894e8-2ed6-453c-bf77-bb62aadc89cf",
+      "object_ids": [
+        "86c3afac-9786-4dc2-8a12-a639ca9b628f",
+        "4c2d5655-141b-4efa-9a95-22d9f0356af3"
+      ]
+    }
+  },
+  "objects": {
+    "38c35558-2334-4f95-a14b-aa1391ec03f8": {
+      "id": "38c35558-2334-4f95-a14b-aa1391ec03f8",
+      "name": "Ground",
+      "object_type": "rectangle",
+      "layer_id": "dfddae20-aad0-4516-8ba9-86dba0a06013",
+      "material_id": "088894e8-2ed6-453c-bf77-bb62aadc89cf",
+      "center_x": 0.0,
+      "center_y": 0.0,
+      "rotation_deg": 0.0,
+      "width": 0.065,
+      "height": 0.065,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    },
+    "32618aef-697e-4936-bc0e-0186b2abd322": {
+      "id": "32618aef-697e-4936-bc0e-0186b2abd322",
+      "name": "Substrate",
+      "object_type": "rectangle",
+      "layer_id": "42c3e45b-da70-48e9-9f6d-2917ba4b1778",
+      "material_id": "352b5987-3161-47b1-a197-1338763d8bf6",
+      "center_x": 0.0,
+      "center_y": 0.0,
+      "rotation_deg": 0.0,
+      "width": 0.065,
+      "height": 0.065,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    },
+    "86c3afac-9786-4dc2-8a12-a639ca9b628f": {
+      "id": "86c3afac-9786-4dc2-8a12-a639ca9b628f",
+      "name": "CircularDisk",
+      "object_type": "circle",
+      "layer_id": "bfd68263-3c01-464d-9327-4e4486e004a2",
+      "material_id": "088894e8-2ed6-453c-bf77-bb62aadc89cf",
+      "center_x": 0.0,
+      "center_y": 0.0,
+      "rotation_deg": 0.0,
+      "width": null,
+      "height": null,
+      "radius": 0.016,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    },
+    "4c2d5655-141b-4efa-9a95-22d9f0356af3": {
+      "id": "4c2d5655-141b-4efa-9a95-22d9f0356af3",
+      "name": "EdgeFeed",
+      "object_type": "rectangle",
+      "layer_id": "bfd68263-3c01-464d-9327-4e4486e004a2",
+      "material_id": "088894e8-2ed6-453c-bf77-bb62aadc89cf",
+      "center_x": 0.0,
+      "center_y": -0.02425,
+      "rotation_deg": 0.0,
+      "width": 0.0034,
+      "height": 0.0165,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    }
+  },
+  "connections": [
+    {
+      "id": "1a5086f5-7c89-4846-849f-19b9ad1b0dbe",
+      "source_object_id": "4c2d5655-141b-4efa-9a95-22d9f0356af3",
+      "target_object_id": "86c3afac-9786-4dc2-8a12-a639ca9b628f",
+      "connection_type": "microstrip_edge",
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "schema_version": "1.0.0",
+    "created_at": "2026-11-13T08:01:57.425686",
+    "modified_at": null,
+    "author": null,
+    "description": null
+  }
+}

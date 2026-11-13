@@ -1,0 +1,217 @@
+{
+  "project_name": "Inset-Fed Patch Antenna",
+  "geometry_id": "d3597d03-d207-4671-aab6-7cca37f31496",
+  "units": "m",
+  "coordinate_system": "Cartesian",
+  "antenna": {
+    "name": "Custom Antenna",
+    "configuration": "custom",
+    "description": null
+  },
+  "parameters": {},
+  "materials": {
+    "ce4925af-46fe-4fd3-a79e-27db21345e8f": {
+      "id": "ce4925af-46fe-4fd3-a79e-27db21345e8f",
+      "name": "FR4",
+      "category": "dielectric",
+      "properties": {
+        "relative_permittivity": 4.4,
+        "loss_tangent": 0.02
+      },
+      "source": null,
+      "valid_range": null
+    },
+    "e0d6e995-6c27-47a7-aee5-ef61ba7d3bb7": {
+      "id": "e0d6e995-6c27-47a7-aee5-ef61ba7d3bb7",
+      "name": "Copper",
+      "category": "conductor",
+      "properties": {
+        "conductivity": 58000000.0
+      },
+      "source": null,
+      "valid_range": null
+    }
+  },
+  "layers": {
+    "6f6e6d79-ed78-4a2c-b1a7-adca655f4be4": {
+      "id": "6f6e6d79-ed78-4a2c-b1a7-adca655f4be4",
+      "name": "Ground",
+      "layer_type": "ground",
+      "z_position": 0.0,
+      "thickness": 0.000035,
+      "material_id": "e0d6e995-6c27-47a7-aee5-ef61ba7d3bb7",
+      "object_ids": [
+        "14fac8d3-9db8-40e2-8b96-23242c5f2c8a"
+      ]
+    },
+    "afc4c177-6ac7-4bb1-b7c5-aa87fc70dc6d": {
+      "id": "afc4c177-6ac7-4bb1-b7c5-aa87fc70dc6d",
+      "name": "Substrate",
+      "layer_type": "substrate",
+      "z_position": 0.0,
+      "thickness": 0.0016,
+      "material_id": "ce4925af-46fe-4fd3-a79e-27db21345e8f",
+      "object_ids": [
+        "997c5dae-78a1-459b-8f1a-9ac853b13528"
+      ]
+    },
+    "5d1405b3-f6f6-45fa-bff6-930a9975e1c3": {
+      "id": "5d1405b3-f6f6-45fa-bff6-930a9975e1c3",
+      "name": "Patch",
+      "layer_type": "patch",
+      "z_position": 0.0016,
+      "thickness": 0.000035,
+      "material_id": "e0d6e995-6c27-47a7-aee5-ef61ba7d3bb7",
+      "object_ids": [
+        "6a9d2a01-b637-47a3-afa8-cc9f9e4fcb36",
+        "39d408d3-8987-4db7-918f-95c05c8eee00"
+      ]
+    }
+  },
+  "objects": {
+    "14fac8d3-9db8-40e2-8b96-23242c5f2c8a": {
+      "id": "14fac8d3-9db8-40e2-8b96-23242c5f2c8a",
+      "name": "Ground",
+      "object_type": "rectangle",
+      "layer_id": "6f6e6d79-ed78-4a2c-b1a7-adca655f4be4",
+      "material_id": "e0d6e995-6c27-47a7-aee5-ef61ba7d3bb7",
+      "center_x": 0.0,
+      "center_y": 0.0,
+      "rotation_deg": 0.0,
+      "width": 0.07,
+      "height": 0.07,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    },
+    "997c5dae-78a1-459b-8f1a-9ac853b13528": {
+      "id": "997c5dae-78a1-459b-8f1a-9ac853b13528",
+      "name": "Substrate",
+      "object_type": "rectangle",
+      "layer_id": "afc4c177-6ac7-4bb1-b7c5-aa87fc70dc6d",
+      "material_id": "ce4925af-46fe-4fd3-a79e-27db21345e8f",
+      "center_x": 0.0,
+      "center_y": 0.0,
+      "rotation_deg": 0.0,
+      "width": 0.07,
+      "height": 0.07,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    },
+    "6a9d2a01-b637-47a3-afa8-cc9f9e4fcb36": {
+      "id": "6a9d2a01-b637-47a3-afa8-cc9f9e4fcb36",
+      "name": "NotchedRadiator",
+      "object_type": "boolean_result",
+      "layer_id": "5d1405b3-f6f6-45fa-bff6-930a9975e1c3",
+      "material_id": "e0d6e995-6c27-47a7-aee5-ef61ba7d3bb7",
+      "center_x": -6.279900261375296e-20,
+      "center_y": 0.0051565836298932384,
+      "rotation_deg": 0.0,
+      "width": null,
+      "height": null,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [
+        {
+          "x": -0.019,
+          "y": -0.009999999999999998
+        },
+        {
+          "x": -0.019,
+          "y": 0.02
+        },
+        {
+          "x": 0.019,
+          "y": 0.02
+        },
+        {
+          "x": 0.019,
+          "y": -0.009999999999999998
+        },
+        {
+          "x": 0.0025,
+          "y": -0.009999999999999998
+        },
+        {
+          "x": 0.0025,
+          "y": -0.002
+        },
+        {
+          "x": 0.0015,
+          "y": -0.002
+        },
+        {
+          "x": 0.0015,
+          "y": -0.009999999999999998
+        },
+        {
+          "x": -0.0015,
+          "y": -0.009999999999999998
+        },
+        {
+          "x": -0.0015,
+          "y": -0.002
+        },
+        {
+          "x": -0.0025,
+          "y": -0.002
+        },
+        {
+          "x": -0.0025,
+          "y": -0.009999999999999998
+        }
+      ],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {
+        "operation": "difference",
+        "area": 0.0011240000000000004
+      }
+    },
+    "39d408d3-8987-4db7-918f-95c05c8eee00": {
+      "id": "39d408d3-8987-4db7-918f-95c05c8eee00",
+      "name": "InsetFeedLine",
+      "object_type": "rectangle",
+      "layer_id": "5d1405b3-f6f6-45fa-bff6-930a9975e1c3",
+      "material_id": "e0d6e995-6c27-47a7-aee5-ef61ba7d3bb7",
+      "center_x": 0.0,
+      "center_y": -0.016,
+      "rotation_deg": 0.0,
+      "width": 0.003,
+      "height": 0.028,
+      "radius": null,
+      "semi_major": null,
+      "semi_minor": null,
+      "vertices": [],
+      "inner_vertices": [],
+      "parameters": {},
+      "metadata": {}
+    }
+  },
+  "connections": [
+    {
+      "id": "891f595c-89bf-4e84-b89e-d11fc0f70a7f",
+      "source_object_id": "39d408d3-8987-4db7-918f-95c05c8eee00",
+      "target_object_id": "6a9d2a01-b637-47a3-afa8-cc9f9e4fcb36",
+      "connection_type": "inset_feed_connection",
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "schema_version": "1.0.0",
+    "created_at": "2026-11-13T08:02:23.453860",
+    "modified_at": null,
+    "author": null,
+    "description": null
+  }
+}
