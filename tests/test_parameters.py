@@ -52,3 +52,4 @@ def test_parameter_sync_with_object_dimensions():
 
     assert patch_obj.parameters["width"].value == 0.06
     assert patch_obj.width == 0.06
+

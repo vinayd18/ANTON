@@ -135,3 +135,4 @@ All audit points have been addressed, verified, and documented. The physical sta
 Stage 1 is complete and ready to serve as the geometry foundation for **Stage 2 (PyAEDT / ANSYS HFSS integration)**.
 
 Execution is paused awaiting user confirmation to proceed to Stage 2.
+
