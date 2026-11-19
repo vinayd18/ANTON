@@ -486,3 +486,4 @@ class TestFeedLineBoundaryTermination:
             f"Antenna '{example_name}': Feed line bounds [{feed_minx}, {feed_miny}, {feed_maxx}, {feed_maxy}] "
             f"do not reach substrate bounds [{sub_minx}, {sub_miny}, {sub_maxx}, {sub_maxy}]!"
         )
+

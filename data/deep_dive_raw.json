@@ -1,0 +1,610 @@
+{
+  "Galabavamsi/Antenna-Net": {
+    "checkpoints": [
+      {
+        "path": "LRNN_network/hybrid_lorentzian_rnn_best.pth",
+        "size": 5151445
+      },
+      {
+        "path": "LRNN_network/hybrid_lorentzian_rnn_final.pth",
+        "size": 4117235
+      },
+      {
+        "path": "best_lorentzian_model.pt",
+        "size": 13703159
+      },
+      {
+        "path": "inverse_network/best_forward_surrogate.pt",
+        "size": 668357
+      },
+      {
+        "path": "inverse_network/best_pixel_surrogate.pt",
+        "size": 1140331
+      },
+      {
+        "path": "lorentzian_network/model_001/final_lorentzian_model.pth",
+        "size": 4567485
+      },
+      {
+        "path": "lorentzian_network/model_002/best_lorentzian_model.pt",
+        "size": 13703159
+      },
+      {
+        "path": "lorentzian_network/model_002/final_lorentzian_model.pth",
+        "size": 4567485
+      },
+      {
+        "path": "metaprototyping/Test3/full_sweep_physics_model.pt",
+        "size": 3113429
+      },
+      {
+        "path": "metaprototyping/Test3/full_sweep_smooth_model.pt",
+        "size": 3113682
+      },
+      {
+        "path": "metaprototyping/Test3/s11_model.pt",
+        "size": 105513
+      },
+      {
+        "path": "metaprototyping/Test3/s11_model_2.pt",
+        "size": 667845
+      },
+      {
+        "path": "metaprototyping/Test3/s11_model_3.pt",
+        "size": 935109
+      },
+      {
+        "path": "metaprototyping/Test3/s11_pinn_model.pt",
+        "size": 404143
+      }
+    ],
+    "datasets": [
+      {
+        "path": "antenna_dataset_short.csv",
+        "size": 16578621
+      },
+      {
+        "path": "pixel_dataset.csv",
+        "size": 4010419
+      },
+      {
+        "path": "results/metrics.json",
+        "size": 1963
+      },
+      {
+        "path": "results/phase2_metrics.json",
+        "size": 1742
+      }
+    ],
+    "code_files": [
+      {
+        "path": "LRNN_network/lorentzian_residual_model.py",
+        "size": 6651
+      },
+      {
+        "path": "LRNN_network/test_model.py",
+        "size": 4462
+      },
+      {
+        "path": "data_cleaner.py",
+        "size": 1255
+      },
+      {
+        "path": "data_plotter.py",
+        "size": 1293
+      },
+      {
+        "path": "error_function.py",
+        "size": 2886
+      },
+      {
+        "path": "inverse_network/benchmark_optimizers.py",
+        "size": 2221
+      },
+      {
+        "path": "inverse_network/classic_mo_nra.py",
+        "size": 2957
+      },
+      {
+        "path": "inverse_network/common.py",
+        "size": 976
+      },
+      {
+        "path": "inverse_network/demo_end_to_end.py",
+        "size": 3348
+      },
+      {
+        "path": "inverse_network/em_validation.py",
+        "size": 3113
+      },
+      {
+        "path": "inverse_network/farfield.py",
+        "size": 6593
+      },
+      {
+        "path": "inverse_network/forward_surrogate.py",
+        "size": 6322
+      },
+      {
+        "path": "inverse_network/generate_phase2_results.py",
+        "size": 10504
+      },
+      {
+        "path": "inverse_network/generate_results.py",
+        "size": 20815
+      },
+      {
+        "path": "inverse_network/multiobjective_nra.py",
+        "size": 7957
+      },
+      {
+        "path": "inverse_network/nra_optimizer.py",
+        "size": 3254
+      },
+      {
+        "path": "inverse_network/pixel_nra_optimizer.py",
+        "size": 4628
+      },
+      {
+        "path": "inverse_network/pixel_prototype.py",
+        "size": 7084
+      },
+      {
+        "path": "inverse_network/robustness_test.py",
+        "size": 1956
+      },
+      {
+        "path": "lorentzian_network/lorentzian_model.py",
+        "size": 9209
+      },
+      {
+        "path": "lorentzian_network/premodel_mathematics.py",
+        "size": 1503
+      },
+      {
+        "path": "lorentzian_network/rmse_eval.py",
+        "size": 3619
+      },
+      {
+        "path": "lorentzian_network/test_model.py",
+        "size": 3905
+      },
+      {
+        "path": "metaprototyping/Test1/first_forward_sim.py",
+        "size": 2773
+      },
+      {
+        "path": "metaprototyping/Test1/grid_forward_sim.py",
+        "size": 2994
+      },
+      {
+        "path": "metaprototyping/Test1/meep_test.py",
+        "size": 2967
+      },
+      {
+        "path": "metaprototyping/Test2/baby_openems/simulate.py",
+        "size": 551
+      },
+      {
+        "path": "metaprototyping/Test3/DataLoader.py",
+        "size": 385
+      },
+      {
+        "path": "metaprototyping/Test3/check_model.py",
+        "size": 2144
+      },
+      {
+        "path": "metaprototyping/Test3/datasetCleaner.py",
+        "size": 1054
+      },
+      {
+        "path": "metaprototyping/Test3/dip_counter.py",
+        "size": 4033
+      },
+      {
+        "path": "metaprototyping/Test3/model.py",
+        "size": 3586
+      },
+      {
+        "path": "metaprototyping/Test3/model_PINN.py",
+        "size": 5959
+      },
+      {
+        "path": "metaprototyping/Test3/model_function.py",
+        "size": 1814
+      },
+      {
+        "path": "metaprototyping/Test3/random_plotter.py",
+        "size": 948
+      },
+      {
+        "path": "metaprototyping/generate_meep_dataset.py",
+        "size": 5125
+      },
+      {
+        "path": "metaprototyping/generate_mom_dataset.py",
+        "size": 3083
+      },
+      {
+        "path": "metaprototyping/mom_solver.py",
+        "size": 4640
+      }
+    ],
+    "readme_head": "# AntennaNet: Physics-Informed Inverse Antenna Design\n\n![License](https://img.shields.io/badge/License-MIT-blue.svg)\n![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=flat&logo=PyTorch&logoColor=white)\n![MEEP](https://img.shields.io/badge/Simulation-MEEP%2FMoM-brightgreen)\n![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)\n\n**AntennaNet** is an open-source deep learning framework for the **inverse design** of electromagnetic antennas.\n\nInstead of trial-and-error in commercial solvers (CST, HFSS, \u2026), AntennaNet combines a **forward surrogate neural network** with **Nearest-Neighbour Anchoring (NRA)** to recover physical geometries that satisfy target $S_{11}$ spectra \u2014 and, in Phase 2, target far-field patterns $G(\\theta,\\phi)$.\n\nThe inverse map $S_{11}\\!\\to\\!\\text{geometry}$ is ill-posed. NRA constrains test-time gradient descent to the dataset manifold so the optimizer cannot invent mathematically convenient but unmanufacturable structures.\n\n---\n\n## Table of Contents\n\n1. [System Architecture](#system-architecture)\n2. [Method](#method)\n3. [Inference Guide](#inference-guide)\n4. [Installation & Usage](#installation--usage)\n5. [Results, Figures & Observations](#results-figures--observations)\n6. [Phase 2 \u2014 Far-Field Multi-Objective Design](#phase-2--far-field-multi-objective-design)\n7. [Drawbacks & Limitations](#drawbacks--limitations)\n8. [Repository Structure](#repository-structure)\n9. [Roadmap](#roadmap)\n10. [Citation](#citation--contact)\n\n---\n\n##"
+  },
+  "youxch/Inverse-design-of-patch-antennas": {
+    "checkpoints": [
+      {
+        "path": "saved-model-5000.h5",
+        "size": 1558808
+      }
+    ],
+    "datasets": [],
+    "code_files": [
+      {
+        "path": "predict-gpu.py",
+        "size": 9825
+      },
+      {
+        "path": "predict.py",
+        "size": 10537
+      },
+      {
+        "path": "train.py",
+        "size": 6436
+      }
+    ],
+    "readme_head": "# Inverse-Design-of-Patch-Antennas\n\nThis repository hosts a **simple demonstration** of a deep learning approach for the inverse design of patch antennas. The goal is to explore energy-efficient designs and to significantly reduce simulation cost compared to conventional methods. \n\nThe following papers have been published in relation to this repository:\n1. [Inverse Design of Reflective Metasurface Antennas Using Deep Learning from Small-Scale Statistically Random Pico-Cells](https://onlinelibrary.wiley.com/doi/full/10.1002/mop.34068)\n\n2. [Energy Efficient Design of Low-Profile Wideband Microstrip Patch Antennas Using Deep Learning](https://ieeexplore.ieee.org/document/10276793)\n\nAdditionally, we have another video that demonstrates the **inverse design of reflective metasurfaces**. You can watch it [here](https://www.bilibili.com/video/BV1Bx4y1D7LF/?spm_id_from=333.999.0.0&vd_source=07c2e4f919ec533eb2ddf652d4ab4c9b).\n\n<img src=\"app.jpg\" alt=\"Designer APP\" style=\"width:500px;height:300px;\">\n\n## Star \u2b50\u2b50\u2b50\nIf you think this repository is helpful, please give us a STAR. Thank you very much!\n\n## Update - September 6, 2024\nWe have design a GUI video that demonstrates the **Fast Design of Multi-Beam Metasurface Antennas**. You can watch it [here](https://www.bilibili.com/video/BV1DbHDerEY6/?spm_id_from=333.999.0.0).\n\n<img src=\"app-multibeam.jpg\" alt=\"Designer APP\" style=\"width:500px;height:300px;\">\n\n## Update - April 15, 2024\nThe information about the Python version, interpretation o"
+  },
+  "udaykdk/pixelant": {
+    "checkpoints": [],
+    "datasets": [],
+    "code_files": [
+      {
+        "path": "Forward_model_Transfer_learning.ipynb",
+        "size": 1752959
+      },
+      {
+        "path": "Inverse_design_tandem.ipynb",
+        "size": 217791
+      },
+      {
+        "path": "Test_Inverse_design_tandem.ipynb",
+        "size": 21956
+      }
+    ],
+    "readme_head": "# AI Pixel Antennas\n\n[![License](https://img.shields.io/badge/License-MIT%20(no%20patent%20grant)-blue.svg)](LICENSE)\n[![Patent](https://img.shields.io/badge/Patent-Indian%20Patent%20572928-red.svg)](PATENT_NOTICE)\n\nDeep learning-enabled inverse design of compact pixelated antennas using tandem neural networks, transfer learning, and or evolutionary algorithms.\n\n---\n\n## Authors\n\n**Aggraj Gupta** and **Uday Khankhoje**\nDepartment of Electrical Engineering\nIndian Institute of Technology Madras\n\n**Contact:**\n- Aggraj Gupta: [gupta.aggraj@gmail.com](mailto:gupta.aggraj@gmail.com)\n- Uday Khankhoje: [uday@ee.iitm.ac.in](mailto:uday@ee.iitm.ac.in)\n\n---\n\n## Overview\n\nThis repository provides complete workflows for neural network-based inverse design of pixelated microstrip antennas. The methods enable rapid synthesis of compact single-band and multi-band antennas from desired electromagnetic specifications through either a tandem neural network architecture or a neural-network backed evolutionary optimization approach. The key work has ben published in the IEEE Transactions on Antennas & Propagation and the IEEE Journal on Multiscale and Multiphysics Computational Techniques (see detailed information below).\n\n### Key Features\n\n- **Tandem Neural Network Architecture**: Combines inverse and forward surrogate models to resolve non-uniqueness in inverse design\n- **Binary Pixelated Parameterization**: 12\u00d712 pixel grid representation enabling exploration of 2^142 possible designs\n- **Trans"
+  },
+  "METU-SIMPL/Microstrip-Patch": {
+    "checkpoints": [],
+    "datasets": [],
+    "code_files": [],
+    "readme_head": "\ud83d\udcd6 Overview\n\nThis repository provides a dataset for modeling microstrip patch antennas using machine learning, with a focus on knowledge-based regularization.\n\nThe dataset contains mappings between antenna design parameters and their corresponding electromagnetic responses, enabling the development and evaluation of surrogate models for antenna analysis and design.\n\nThis dataset accompanies the following publication:\n\nSa\u00e7\u0131n, E.S., Durgun, A.C., Microstrip Patch Antenna Modeling Using Neural Networks with Knowledge-Based Regularization, Neural Computing and Applications, 37, 3827\u20133837 (2025).\nhttps://doi.org/10.1007/s00521-024-10860-5\n\n\ud83d\udccc Citation\n\nIf you use this dataset, please cite:\n\n@article{sacin2025microstrip,\n  title={Microstrip Patch Antenna Modeling Using Neural Networks with Knowledge-Based Regularization},\n  author={Sa\u00e7\u0131n, E. S. and Durgun, A. C.},\n  journal={Neural Computing and Applications},\n  volume={37},\n  pages={3827--3837},\n  year={2025},\n  doi={10.1007/s00521-024-10860-5}\n}\n\n\ud83d\udcca Dataset Description\n\nInputs:The dataset includes key antenna design parameters such as: Patch length and width, Substrate and solder mask thickness, \nmaterial relative permittivity, feed location and configuration. File:input_parameters.xlsx\n\nOutputs: Frequency-dependent S-parameters. File: S11_re.xlsx, S11_im.xlsx\n\n\u2699\ufe0f Data Generation\n\nGenerated using full-wave electromagnetic simulations using Ansys HFSS. The simulation model is provided in the repository.\n\nNote: Detailed simulation set"
+  },
+  "vish1comp/antenna-ai-benchmark": {
+    "checkpoints": [],
+    "datasets": [
+      {
+        "path": "data/raw/DataSet.csv",
+        "size": 3639231
+      },
+      {
+        "path": "results/metrics.csv",
+        "size": 385
+      }
+    ],
+    "code_files": [
+      {
+        "path": "config.py",
+        "size": 993
+      },
+      {
+        "path": "data/__init__.py",
+        "size": 0
+      },
+      {
+        "path": "data/get_dataset.py",
+        "size": 4988
+      },
+      {
+        "path": "evaluate/__init__.py",
+        "size": 0
+      },
+      {
+        "path": "evaluate/metrics.py",
+        "size": 914
+      },
+      {
+        "path": "evaluate/plots.py",
+        "size": 8643
+      },
+      {
+        "path": "generate/__init__.py",
+        "size": 0
+      },
+      {
+        "path": "generate/cgmm.py",
+        "size": 3585
+      },
+      {
+        "path": "generate/cvae.py",
+        "size": 3859
+      },
+      {
+        "path": "generate/diffusion.py",
+        "size": 5141
+      },
+      {
+        "path": "generate_compare.py",
+        "size": 5650
+      },
+      {
+        "path": "generate_designs.py",
+        "size": 5160
+      },
+      {
+        "path": "generate_guidance.py",
+        "size": 4000
+      },
+      {
+        "path": "models/__init__.py",
+        "size": 0
+      },
+      {
+        "path": "models/surrogates.py",
+        "size": 4312
+      },
+      {
+        "path": "models/uncertainty.py",
+        "size": 2394
+      },
+      {
+        "path": "optimize/__init__.py",
+        "size": 0
+      },
+      {
+        "path": "optimize/bayes_opt.py",
+        "size": 2594
+      },
+      {
+        "path": "optimize/ga.py",
+        "size": 2312
+      },
+      {
+        "path": "optimize/pso.py",
+        "size": 1888
+      },
+      {
+        "path": "optimize/spec_design.py",
+        "size": 3145
+      },
+      {
+        "path": "optimize/surrogate_loop.py",
+        "size": 4728
+      },
+      {
+        "path": "run_all.py",
+        "size": 15497
+      }
+    ],
+    "readme_head": "# Antenna AI/ML \u2014 Surrogate + Optimizer Demo\n\nA small, reproducible implementation that makes the survey's central claims\n**concrete and measurable**: train ML surrogates to predict antenna performance,\nthen use metaheuristics to *design* an antenna by optimizing over the surrogate.\nBuilt on a real public dataset \u2014 no EM solver required to run.\n\n> Companion to the *Reviewer Dossier* / *Manuscript Sections* in `../antenna-ai-review/`.\n> This is the \"runnable case study\" that answers the tables which the review\n> currently asserts without evidence.\n\n---\n\n## What it does\n\n1. **Load** a public patch-antenna dataset (geometry + frequency \u2192 S11).\n2. **Benchmark** three surrogates \u2014 **MLP**, **GBDT**, **GP** \u2014 on a held-out\n   test set with one common metric schema (R\u00b2, RMSE, MAE, NRMSE) + fit time.\n3. **Active learning** \u2014 compare *random* vs *uncertainty-guided* sampling at\n   equal labeling budgets (the data-efficiency question).\n4. **Surrogate-assisted optimization** \u2014 run **PSO** and **GA** over the geometry\n   bounds, with frequency pinned to 2.4 GHz, to design the deepest-resonance\n   patch; verify the proposed optimum against the nearest real design.\n\n## Dataset\n\n**Simulated Patch Antenna for 2.4 GHz Applications** \u2014 A. Mersani, Zenodo record\n[`10.5281/zenodo.17527112`](https://zenodo.org/records/17527112), **CC-BY-4.0**.\n55,053 rows of microstrip-patch geometry + frequency \u2192 **S11 (dB)**, generated in\nCST Microwave Studio. Downloaded and cached automatically on first run\n(`"
+  },
+  "JastiTheCoder/ML-patch-antenna-design": {
+    "checkpoints": [],
+    "datasets": [],
+    "code_files": [
+      {
+        "path": "src/genetic_optimize.py",
+        "size": 2209
+      },
+      {
+        "path": "src/preprocess.py",
+        "size": 2765
+      },
+      {
+        "path": "src/surrogate.py",
+        "size": 2947
+      }
+    ],
+    "readme_head": "# ML-Driven Microstrip Patch Antenna Design\n\nA machine-learning pipeline that **designs a microstrip patch antenna\nautomatically** for a target frequency, replacing slow trial-and-error\nelectromagnetic simulation with a fast surrogate model and a genetic-algorithm\nsearch.\n\nDeveloped at **SPACE MAKERS Lab** as part of a research internship.\n\n---\n\n## The problem\n\nDesigning a patch antenna to resonate at a target frequency normally means\nrepeatedly adjusting its dimensions and re-running a full-wave simulation in a\ntool like Ansys HFSS \u2014 where each run takes minutes and reaching a good design\ncan take dozens of iterations. It is slow, manual, and experience-dependent.\n\n## The approach\n\nThis project automates that loop in three stages:\n\n1. **Surrogate model (forward).** A Random Forest is trained on HFSS-simulated\n   data to predict an antenna's reflection coefficient (S11) from its geometry\n   \u2014 instantly, instead of running a full simulation.\n2. **Genetic algorithm (inverse).** A GA searches the design space, using the\n   surrogate as a fast fitness function, to find the geometry that best meets a\n   target (a deep match at 2.45 GHz).\n3. **Validation (closing the loop).** The GA's chosen design is re-simulated in\n   HFSS \u2014 and then fabricated and measured on a Vector Network Analyzer \u2014 to\n   confirm it works on real hardware, not just in the model.\n\n```\nHFSS data  ->  Random Forest surrogate  ->  Genetic algorithm  ->  Best geometry  ->  Re-simulate + fabricate + measure\n (slow"
+  },
+  "sharvesh1401/Inverse-design-patch-antenna": {
+    "checkpoints": [],
+    "datasets": [],
+    "code_files": [
+      {
+        "path": "Inverse_design_of_patch_antenna.ipynb",
+        "size": 14323
+      }
+    ],
+    "readme_head": "# \ud83d\udce1 Inverse Design for RF Patch Antennas\n\n<table>\n  <tr>\n    <td>\n      <img src=\"https://raw.githubusercontent.com/sharvesh1401/sharvesh1401/main/profile%20image.png\" alt=\"Sharvesh Selvakumar\" width=\"200\"/>\n    </td>\n    <td>\n      <img src=\"https://readme-typing-svg.demolab.com?font=Roboto&size=28&pause=1000&color=7B3FE4&width=435&lines=AI-Assisted+Antenna+Design;Inverse+Design+%2B+Neural+Networks;Built+by+Sharvesh+Selvakumar\" alt=\"Typing animation\"/>\n    </td>\n  </tr>\n</table>\n\n<br/>\n\n![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)\n![Python Version](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python&logoColor=white)\n![Framework: Gradio](https://img.shields.io/badge/Framework-Gradio-orange)\n![Status: Active](https://img.shields.io/badge/Status-Active-brightgreen)\n\n> An innovative approach to RF patch antenna design that leverages AI to predict and optimize electromagnetic performance. This project uses inverse design principles to generate antenna geometries based on desired performance characteristics.\n\n---\n\n## \ud83d\udcd6 Table of Contents\n\n- [\u2728 Overview](#-overview)\n- [\ud83d\udca1 Why It Matters](#-why-it-matters)\n- [\ud83c\udfaf Key Features](#-key-features)\n- [\ud83d\udcca Sample Outputs & Results](#-sample-outputs--results)\n- [\ud83d\udee0\ufe0f Tech Stack](#\ufe0f-tech-stack)\n- [\ud83d\ude80 Getting Started](#-getting-started)\n- [Usage](#usage)\n- [\ud83e\udd1d Contributing](#-contributing)\n- [\ud83d\ude4b\u200d\u2642\ufe0f About Me](#\ufe0f-about-me)\n- [\ud83d\udcc4 License](#-license)\n- [\ud83d\udcec Contact](#-contact)\n\n---\n\n## \u2728 Overview\n\nTraditional antenna design is an "
+  },
+  "becklabs/patch-antenna-tto": {
+    "checkpoints": [],
+    "datasets": [],
+    "code_files": [
+      {
+        "path": "patchtto/__init__.py",
+        "size": 0
+      },
+      {
+        "path": "patchtto/nn/__init__.py",
+        "size": 0
+      },
+      {
+        "path": "patchtto/nn/datasets.py",
+        "size": 2832
+      },
+      {
+        "path": "patchtto/nn/decoder.py",
+        "size": 7844
+      },
+      {
+        "path": "patchtto/nn/encoder.py",
+        "size": 3640
+      },
+      {
+        "path": "patchtto/nn/losses.py",
+        "size": 7932
+      },
+      {
+        "path": "patchtto/nn/preprocessing.py",
+        "size": 5847
+      },
+      {
+        "path": "patchtto/nn/utils.py",
+        "size": 10158
+      },
+      {
+        "path": "patchtto/nn/vae.py",
+        "size": 9592
+      },
+      {
+        "path": "patchtto/search/__init__.py",
+        "size": 0
+      },
+      {
+        "path": "patchtto/search/criterion.py",
+        "size": 5865
+      },
+      {
+        "path": "patchtto/search/initialization.py",
+        "size": 2765
+      },
+      {
+        "path": "patchtto/search/optim.py",
+        "size": 1145
+      },
+      {
+        "path": "patchtto/search/routines.py",
+        "size": 3921
+      },
+      {
+        "path": "patchtto/search/utils.py",
+        "size": 2356
+      },
+      {
+        "path": "patchtto/signal.py",
+        "size": 1218
+      },
+      {
+        "path": "patchtto/simulation/__init__.py",
+        "size": 0
+      },
+      {
+        "path": "patchtto/simulation/harness.py",
+        "size": 3845
+      },
+      {
+        "path": "patchtto/simulation/manager.py",
+        "size": 6774
+      },
+      {
+        "path": "patchtto/simulation/openems.py",
+        "size": 6155
+      },
+      {
+        "path": "patchtto/simulation/utils.py",
+        "size": 2390
+      },
+      {
+        "path": "scripts/design_cvae/evaluate.py",
+        "size": 5736
+      },
+      {
+        "path": "scripts/design_cvae/train.py",
+        "size": 11097
+      },
+      {
+        "path": "scripts/experiments/inverse_design.py",
+        "size": 8226
+      },
+      {
+        "path": "scripts/experiments/n_curves_scaling.py",
+        "size": 5286
+      },
+      {
+        "path": "scripts/experiments/n_designs_scaling.py",
+        "size": 5087
+      },
+      {
+        "path": "scripts/forward_model/train_betanll.py",
+        "size": 6199
+      },
+      {
+        "path": "scripts/framework/run.py",
+        "size": 10864
+      },
+      {
+        "path": "scripts/huggingface/create_dataset.py",
+        "size": 4238
+      },
+      {
+        "path": "scripts/huggingface/download_dataset.py",
+        "size": 1233
+      },
+      {
+        "path": "scripts/s11_vae/evaluate.py",
+        "size": 3149
+      },
+      {
+        "path": "scripts/s11_vae/search.py",
+        "size": 6325
+      },
+      {
+        "path": "scripts/s11_vae/train.py",
+        "size": 7141
+      },
+      {
+        "path": "scripts/simulation/preprocess.py",
+        "size": 2097
+      },
+      {
+        "path": "scripts/simulation/run_sweep.py",
+        "size": 6249
+      }
+    ],
+    "readme_head": "# Improving Generative Inverse Design of Rectangular Patch Antennas with Test Time Optimization\n\n[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT) [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/release/python-380/) [![arXiv](https://img.shields.io/badge/arXiv-2505.18188-b31b1b.svg)](https://arxiv.org/abs/2505.18188) [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face-yellow.svg)](https://huggingface.co/datasets/becklabash/rectangular-patch-antenna-freq-response)\n\n\n## Overview\nThis repository implements the framework and experiments described in our paper **\"Improving Generative Inverse Design of Rectangular Patch Antennas with Test Time Optimization.\"**. We propose a two-stage inverse design framework for generating rectangular patch antennas that meet target frequency response specifications. Further, we show that leveraging search and optimization techniques at test-time improves the accuracy of the generated designs and enables consideration of auxiliary\nobjectives such as manufacturability.\n\n<div align=\"center\">\n<p align=\"center\">\n  <img src=\"figs/paper/framework.png\" width=\"850px\" alt=\"diagram\">\n</p>\n</div>\n\n\n## Setup\n\n### Install from Source\n\n1. **Clone the repository and navigate into its directory:**\n    \n    ```bash\n    git clone https://github.com/becklabs/patch-antenna-tto.git\n    cd patch-antenna-tto\n    ```\n    \n2. **Install the `pa"
+  },
+  "DevAbdoTolba/Inverse-Design-of-a-U-Slot-Microstrip-Patch-Antenna": {
+    "checkpoints": [],
+    "datasets": [],
+    "code_files": [
+      {
+        "path": "main.py",
+        "size": 3585
+      },
+      {
+        "path": "src/build_geometry.py",
+        "size": 4189
+      },
+      {
+        "path": "src/data_generator.py",
+        "size": 3796
+      },
+      {
+        "path": "src/debug_cst.py",
+        "size": 1177
+      },
+      {
+        "path": "src/predict.py",
+        "size": 1011
+      },
+      {
+        "path": "src/setup_design.py",
+        "size": 5264
+      },
+      {
+        "path": "src/train_model.py",
+        "size": 2124
+      }
+    ],
+    "readme_head": "# Inverse-Design-of-a-U-Slot-Microstrip-Patch-Antenna\nAn ML model where you input the desired performance and it outputs the physical dimensions.\n\nThis is the standard \"holy grail\" problem in antenna engineering.The Problem: Engineers usually know what result they want (e.g., \"I need 2.4 GHz resonance with 100MHz bandwidth\"), but they don't know the physical dimensions to get there. They waste hours sweeping parameters in CST/HFSS.The Solution: An ML model where you input the desired performance and it outputs the physical dimensions.1. The Antenna Geometry (Keep it manageable)Don't use a simple rectangular patch. Use a Microstrip Patch with a U-Slot or a Defected Ground Structure (DGS).Why? Because adding a slot makes the physics non-linear. Simple equations break down here, so an ML model becomes the only fast way to predict dimensions.2. The Parameters (What to predict)This is an Inverse Regression problem.Inputs (Features - What you want):Target Resonance Frequency ($f_r$) in GHz.Target Bandwidth (BW) or $S_{11}$ bandwidth.Target Gain (in dBi).(Optional) Dielectric Constant of substrate ($\\epsilon_r$) \u2013 Only if you plan to vary the material.Outputs (Labels - What the model predicts):Patch Length ($L_p$).Patch Width ($W_p$).Slot Length ($L_s$) and Slot Width ($W_s$).Feed Position ($X_f, Y_f$).3. The Real Benefit (Research Value)Speed: An EM simulator (HFSS/CST) takes 2-10 minutes per simulation. Your trained model will give an answer in 0.001 seconds. This \"Real-time Synth"
+  },
+  "Abinayasree6009/AI-Antenna-Design-Tool": {
+    "checkpoints": [],
+    "datasets": [],
+    "code_files": [],
+    "readme_head": "<h1 align=\"center\">AI Antenna Design Tool</h1>\n\n<p align=\"center\">\nAn AI-powered web application for real-time prediction of <b>S11 (Return Loss)</b> of a triangular slot antenna using a Deep Neural Network (DNN).\n</p>\n\n<p align=\"center\">\n<a href=\"https://ai-antenna-design-tool-ai-antenna-design-tool.hf.space/\">\ud83c\udf10 Live Demo</a>\n</p>\n\n---\n\n# Overview\n\nThis project combines **Artificial Intelligence** and **Antenna Design** to accelerate the antenna design process.\n\nInstead of performing repeated CST Microwave Studio simulations, a trained Deep Neural Network predicts the S11 response of a triangular slot antenna in real time.\n\nThe model was trained using simulation data generated from CST Microwave Studio and deployed as an interactive web application using Streamlit and Hugging Face Spaces.\n\n---\n\n# Features\n\n- Real-time S11 prediction\n- Deep Neural Network surrogate model\n- Faster alternative to repeated CST simulations\n- User-friendly web interface\n- Instant graphical visualization of S11 response\n- Browser-based deployment\n\n---\n\n# Live Demo\n\n\ud83d\udc49 https://ai-antenna-design-tool-ai-antenna-design-tool.hf.space/\n\n---\n\n# Technology Stack\n\n| Category | Tools |\n|-----------|-------|\n| Simulation | CST Microwave Studio |\n| AI Framework | TensorFlow, Keras |\n| Machine Learning | Deep Neural Network (DNN) |\n| Programming | Python |\n| Deployment | Hugging Face Spaces |\n| Web Interface | Streamlit |\n| Development | Google Colab |\n\n---\n\n# Workflow\n\n```text\nTriangular Slot Antenna Design\n  "
+  }
+}

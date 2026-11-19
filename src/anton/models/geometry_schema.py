@@ -202,5 +202,4 @@ class GeometryProject(BaseModel):
     def from_json(cls, path: Union[str, Path]) -> "GeometryProject":
         """Deserialise a project from a JSON file at *path*."""
         path = Path(path)
-        data = json.loads(path.read_text(encoding="utf-8"))
-        return cls.model_validate(data)
+        return cls.model_validate_json(path.read_bytes())

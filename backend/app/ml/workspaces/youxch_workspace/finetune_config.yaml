@@ -1,0 +1,22 @@
+# Youxch Patch MLP Fine-Tuning Configuration
+experiment_name: "youxch_mlp_finetuning"
+model_id: "youxch_patch_mlp"
+base_checkpoint_path: "external/youxch_patch_mlp/saved-model-5000.h5"
+
+training:
+  framework: "tensorflow_keras"
+  batch_size: 32
+  max_epochs: 100
+  early_stopping_patience: 12
+  optimizer: "Adam"
+  learning_rate: 0.0003
+  freeze_base_layers: true
+  frozen_layers: ["dense", "dense_1", "dense_2"]
+
+loss_weights:
+  s11_mse: 1.0
+  gain_mse: 0.1
+
+hardware:
+  gpu_recommended: false
+  min_ram_gb: 4.0

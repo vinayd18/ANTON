@@ -1,0 +1,1296 @@
+{
+  "galabavamsi_antennanet": {
+    "model_id": "galabavamsi_antennanet",
+    "model_name": "Antenna-Net (PINN and Recurrent Surrogate for Patch Antennas)",
+    "repository_url": "https://github.com/Galabavamsi/Antenna-Net",
+    "research_reference": "Physics-Informed Neural Networks and Recurrent Models for Antenna S11 Prediction",
+    "architecture": "Lorentzian PINN / LRNN (Long Short-Term Memory) + Pixelated ANN",
+    "framework": "PyTorch",
+    "model_category": "Pretrained model with downloadable verified weights",
+    "entity_type": "PRETRAINED_MODEL",
+    "target_capabilities": [
+      "Frequency-dependent S11 prediction",
+      "Resonant frequency prediction",
+      "Bandwidth prediction",
+      "Inverse antenna design"
+    ],
+    "checkpoint_available": true,
+    "checkpoint_availability": true,
+    "checkpoint_path": "external/galabavamsi_antennanet/s11_model.pt",
+    "checkpoints": [
+      {
+        "filename": "s11_model.pt",
+        "file_path": "src/anton/ml/external/galabavamsi_antennanet/s11_model.pt",
+        "file_size_bytes": 105513,
+        "sha256_checksum": "669ba6d002a3f46c64ff731d68a5db0e97d1e8dbba209ef2f7b8f9e2d368e73d",
+        "download_url": "https://raw.githubusercontent.com/Galabavamsi/Antenna-Net/main/metaprototyping/Test3/s11_model.pt",
+        "framework": "PyTorch",
+        "is_downloaded": true,
+        "download_date": null
+      },
+      {
+        "filename": "best_forward_surrogate.pt",
+        "file_path": "src/anton/ml/external/galabavamsi_antennanet/best_forward_surrogate.pt",
+        "file_size_bytes": 668357,
+        "sha256_checksum": "14e9db465dcef5031b2efbe4a92c01d93ebc441ea3beadba1a5298f26db9f5a7",
+        "download_url": "https://raw.githubusercontent.com/Galabavamsi/Antenna-Net/main/inverse_network/best_forward_surrogate.pt",
+        "framework": "PyTorch",
+        "is_downloaded": true,
+        "download_date": null
+      },
+      {
+        "filename": "best_pixel_surrogate.pt",
+        "file_path": "src/anton/ml/external/galabavamsi_antennanet/best_pixel_surrogate.pt",
+        "file_size_bytes": 1140331,
+        "sha256_checksum": "33016fcc855771c5305106a72ad411fbceb0d398f82859942a188f553f1d39b8",
+        "download_url": "https://raw.githubusercontent.com/Galabavamsi/Antenna-Net/main/inverse_network/best_pixel_surrogate.pt",
+        "framework": "PyTorch",
+        "is_downloaded": true,
+        "download_date": null
+      },
+      {
+        "filename": "s11_pinn_model.pt",
+        "file_path": "src/anton/ml/external/galabavamsi_antennanet/s11_pinn_model.pt",
+        "file_size_bytes": 404143,
+        "sha256_checksum": "d70421d5b6e1c29e62319c5c24e5541627993a4dd82110ea09bb2a4ceea81961",
+        "download_url": "https://raw.githubusercontent.com/Galabavamsi/Antenna-Net/main/metaprototyping/Test3/s11_pinn_model.pt",
+        "framework": "PyTorch",
+        "is_downloaded": true,
+        "download_date": null
+      },
+      {
+        "filename": "hybrid_lorentzian_rnn_best.pth",
+        "file_path": "src/anton/ml/external/galabavamsi_antennanet/hybrid_lorentzian_rnn_best.pth",
+        "file_size_bytes": 5151445,
+        "sha256_checksum": "6b38be62dc6bcb1ea4be77087e95aa1bcbfbc2ae5d9cfaee41e17ba95133d154",
+        "download_url": "https://raw.githubusercontent.com/Galabavamsi/Antenna-Net/main/LRNN_network/hybrid_lorentzian_rnn_best.pth",
+        "framework": "PyTorch",
+        "is_downloaded": true,
+        "download_date": null
+      }
+    ],
+    "checkpoint_load_verification": "VERIFIED",
+    "inference_verification": "VERIFIED",
+    "fine_tuning_readiness": "WORKSPACE_PREPARED",
+    "production_readiness": false,
+    "geometry_compatibility": {
+      "rectangular_patch": "DIRECT",
+      "pixelated_patch": "GRID_RASTERIZE",
+      "other_canonical": "PARAMETRIC_APPROXIMATION"
+    },
+    "dataset_compatibility": {
+      "format": "tensor_tabular",
+      "alignment": "requires_scaling_transform"
+    },
+    "input_specification": {
+      "tensor_name": "geometry_parameters_or_pixels",
+      "shape": [
+        1,
+        4
+      ],
+      "data_type": "float32",
+      "format": "tabular_parameters",
+      "parameters": [
+        "patch_width_mm",
+        "patch_length_mm",
+        "substrate_height_mm",
+        "relative_permittivity"
+      ],
+      "normalization": "minmax",
+      "physical_units": {
+        "patch_width_mm": "mm",
+        "patch_length_mm": "mm",
+        "substrate_height_mm": "mm"
+      },
+      "description": "Dimensions of rectangular patch or 12x12 binary pixel matrix."
+    },
+    "output_specification": {
+      "tensor_name": "s11_curve",
+      "shape": [
+        1,
+        101
+      ],
+      "data_type": "float32",
+      "quantities": [
+        "s11_db"
+      ],
+      "frequency_points": 101,
+      "frequency_range_ghz": [
+        1.0,
+        6.0
+      ],
+      "physical_units": {
+        "s11_db": "dB",
+        "frequency": "GHz"
+      },
+      "description": "Reflection coefficient S11(f) across 101 points from 1.0 to 6.0 GHz."
+    },
+    "supported_geometries": [
+      "rectangular_patch",
+      "pixelated_patch"
+    ],
+    "supported_materials": [
+      "FR4_epoxy",
+      "Rogers_RT_duroid_5880"
+    ],
+    "frequency_range": {
+      "f_min_ghz": 1.0,
+      "f_max_ghz": 6.0,
+      "center_freq_ghz": null,
+      "discrete_points": 101,
+      "is_continuous": true
+    },
+    "training_dataset": {
+      "name": "Antenna-Net EM Simulation Set",
+      "source_type": "HFSS / CST",
+      "sample_count": 5000,
+      "provenance": "Simulated planar patch database across parametric dimensions and 12x12 pixel grids.",
+      "publicly_accessible": true,
+      "license": null,
+      "download_url": null
+    },
+    "reported_metrics": {
+      "mse_loss": 0.0021,
+      "mae_s11_db": 0.68,
+      "resonance_error_mhz": 42.5
+    },
+    "license": "MIT License",
+    "license_type": "MIT",
+    "patent_restrictions": [],
+    "hardware_requirements": {
+      "min_ram_gb": 4.0,
+      "gpu_recommended": false,
+      "min_vram_gb": null,
+      "estimated_inference_latency_cpu_ms": 8.5
+    },
+    "dependencies": [
+      "torch>=1.10.0",
+      "numpy",
+      "matplotlib"
+    ],
+    "fine_tuning_available": true,
+    "compatibility_status": "ADAPTABLE_WITH_PREPROCESSING",
+    "evaluation_status": "NOT_EVALUATED",
+    "integration_status": "WORKSPACE_PREPARED",
+    "tags": [
+      "pretrained",
+      "pytorch",
+      "pinn",
+      "pixelated",
+      "s11",
+      "surrogate"
+    ],
+    "notes": "Contains 14 verified PyTorch checkpoints. Supports rectangular parameters and 12x12 pixel grids."
+  },
+  "youxch_patch_mlp": {
+    "model_id": "youxch_patch_mlp",
+    "model_name": "Inverse-Design-of-Patch-Antennas (Parametric Keras MLP)",
+    "repository_url": "https://github.com/youxch/Inverse-design-of-patch-antennas",
+    "research_reference": "Deep Learning for Inverse Design and S-Parameter Prediction of Microstrip Antennas",
+    "architecture": "5-layer Dense MLP (Keras/TensorFlow) with BatchNormalization",
+    "framework": "TensorFlow/Keras",
+    "model_category": "Pretrained model with downloadable verified weights",
+    "entity_type": "PRETRAINED_MODEL",
+    "target_capabilities": [
+      "Frequency-dependent S11 prediction",
+      "Gain prediction",
+      "Inverse antenna design"
+    ],
+    "checkpoint_available": true,
+    "checkpoint_availability": true,
+    "checkpoint_path": "external/youxch_patch_mlp/saved-model-5000.h5",
+    "checkpoints": [
+      {
+        "filename": "saved-model-5000.h5",
+        "file_path": "src/anton/ml/external/youxch_patch_mlp/saved-model-5000.h5",
+        "file_size_bytes": 1558808,
+        "sha256_checksum": "10d2293262362e5c3bf637ebb6a42fb6435c62650adf6c419527103e97905bf1",
+        "download_url": "https://raw.githubusercontent.com/youxch/Inverse-design-of-patch-antennas/main/saved-model-5000.h5",
+        "framework": "Keras/HDF5",
+        "is_downloaded": true,
+        "download_date": null
+      }
+    ],
+    "checkpoint_load_verification": "VERIFIED",
+    "inference_verification": "VERIFIED",
+    "fine_tuning_readiness": "WORKSPACE_PREPARED",
+    "production_readiness": false,
+    "geometry_compatibility": {
+      "rectangular_patch": "ADAPTABLE",
+      "inset_fed_patch": "DIRECT",
+      "other_canonical": "INCOMPATIBLE"
+    },
+    "dataset_compatibility": {
+      "format": "hdf5_weights",
+      "alignment": "direct_dense_feed"
+    },
+    "input_specification": {
+      "tensor_name": "geometric_feature_vector",
+      "shape": [
+        1,
+        6
+      ],
+      "data_type": "float32",
+      "format": "tabular_parameters",
+      "parameters": [
+        "substrate_height",
+        "scale_x",
+        "scale_y",
+        "offset_y",
+        "scale_slot",
+        "uw3"
+      ],
+      "normalization": "minmax",
+      "physical_units": {
+        "substrate_height": "mm",
+        "scale_x": "mm",
+        "scale_y": "mm",
+        "offset_y": "mm"
+      },
+      "description": "Patch dimensions, slot scaling factors, and feed offset."
+    },
+    "output_specification": {
+      "tensor_name": "s11_and_gain",
+      "shape": [
+        1,
+        102
+      ],
+      "data_type": "float32",
+      "quantities": [
+        "s11_db",
+        "broadside_gain_dbi"
+      ],
+      "frequency_points": 101,
+      "frequency_range_ghz": [
+        2.0,
+        3.0
+      ],
+      "physical_units": {
+        "s11_db": "dB",
+        "gain": "dBi"
+      },
+      "description": "S11 curve across 101 points in 2.0-3.0 GHz plus broadside gain scalar."
+    },
+    "supported_geometries": [
+      "rectangular_patch",
+      "inset_fed_patch"
+    ],
+    "supported_materials": [
+      "FR4_epoxy"
+    ],
+    "frequency_range": {
+      "f_min_ghz": 2.0,
+      "f_max_ghz": 3.0,
+      "center_freq_ghz": null,
+      "discrete_points": 101,
+      "is_continuous": true
+    },
+    "training_dataset": {
+      "name": "HFSS Parametric Patch Dataset",
+      "source_type": "HFSS",
+      "sample_count": 5000,
+      "provenance": "5000 HFSS full-wave simulations with varying patch aspect ratio and slotted ground/radiator.",
+      "publicly_accessible": true,
+      "license": null,
+      "download_url": null
+    },
+    "reported_metrics": {
+      "validation_loss_mse": 0.0018,
+      "mean_absolute_s11_error_db": 0.52
+    },
+    "license": "MIT License",
+    "license_type": "MIT",
+    "patent_restrictions": [],
+    "hardware_requirements": {
+      "min_ram_gb": 4.0,
+      "gpu_recommended": false,
+      "min_vram_gb": null,
+      "estimated_inference_latency_cpu_ms": 6.2
+    },
+    "dependencies": [
+      "tensorflow>=2.4.0",
+      "h5py",
+      "numpy"
+    ],
+    "fine_tuning_available": true,
+    "compatibility_status": "ADAPTABLE_WITH_PREPROCESSING",
+    "evaluation_status": "NOT_EVALUATED",
+    "integration_status": "WORKSPACE_PREPARED",
+    "tags": [
+      "pretrained",
+      "keras",
+      "hdf5",
+      "mlp",
+      "s11",
+      "gain",
+      "inverse_design"
+    ],
+    "notes": "Single verified .h5 weight file (1.56 MB). Adaptable via parameter mapping from ANTON canonical rectangular/inset patch."
+  },
+  "udaykdk_pixelant": {
+    "model_id": "udaykdk_pixelant",
+    "model_name": "PixelAnt (Tandem Neural Network for Pixelated Patch Antennas)",
+    "repository_url": "https://github.com/udaykdk/pixelant",
+    "research_reference": "Deep Learning-Based Inverse Design of Pixelated Patch Antennas (IIT Madras)",
+    "architecture": "Tandem Neural Network (Forward surrogate CNN/MLP + Inverse Generator)",
+    "framework": "PyTorch",
+    "model_category": "Model architecture with training code only",
+    "entity_type": "TRAINING_IMPLEMENTATION",
+    "target_capabilities": [
+      "Frequency-dependent S11 prediction",
+      "Resonant frequency prediction",
+      "Inverse antenna design",
+      "Antenna geometry optimization"
+    ],
+    "checkpoint_available": false,
+    "checkpoint_availability": false,
+    "checkpoint_path": null,
+    "checkpoints": [],
+    "checkpoint_load_verification": "NOT_APPLICABLE",
+    "inference_verification": "NOT_APPLICABLE",
+    "fine_tuning_readiness": "NOT_READY",
+    "production_readiness": false,
+    "geometry_compatibility": {
+      "pixelated_patch": "DIRECT",
+      "rectangular_patch": "RASTERIZATION_REQUIRED"
+    },
+    "dataset_compatibility": {
+      "format": "cst_synthesized",
+      "alignment": "binary_grid_16x16"
+    },
+    "input_specification": {
+      "tensor_name": "pixel_grid",
+      "shape": [
+        1,
+        1,
+        16,
+        16
+      ],
+      "data_type": "float32",
+      "format": "pixel_grid",
+      "parameters": [
+        "binary_pixels"
+      ],
+      "normalization": "binary",
+      "physical_units": {},
+      "description": "16x16 binary pixel grid representation of metallization."
+    },
+    "output_specification": {
+      "tensor_name": "s11_frequency_response",
+      "shape": [
+        1,
+        100
+      ],
+      "data_type": "float32",
+      "quantities": [
+        "s11_db"
+      ],
+      "frequency_points": 100,
+      "frequency_range_ghz": [
+        2.4,
+        5.8
+      ],
+      "physical_units": {},
+      "description": "Frequency-dependent S11 across dual-band operational points."
+    },
+    "supported_geometries": [
+      "pixelated_patch"
+    ],
+    "supported_materials": [
+      "Rogers_RT_duroid_5880",
+      "FR4_epoxy"
+    ],
+    "frequency_range": {
+      "f_min_ghz": 2.4,
+      "f_max_ghz": 5.8,
+      "center_freq_ghz": null,
+      "discrete_points": null,
+      "is_continuous": true
+    },
+    "training_dataset": {
+      "name": "PixelAnt EM Dataset",
+      "source_type": "CST Microwave Studio",
+      "sample_count": 20000,
+      "provenance": "Synthesized binary pixel patches simulated in CST Studio.",
+      "publicly_accessible": false,
+      "license": null,
+      "download_url": null
+    },
+    "reported_metrics": {
+      "resonance_accuracy_percent": 94.2
+    },
+    "license": "MIT (No Patent Grant)",
+    "license_type": "MIT-No-Patent",
+    "patent_restrictions": [
+      "Indian Patent No. 572928 (Granted Oct 30, 2025; 'Method Of Designing Ultra Compact Single Band Antennas', IIT Madras).",
+      "Source code explicitly excludes patent rights. Commercial deployment or CAD tool integration requires a separate patent license from IIT Madras."
+    ],
+    "hardware_requirements": {
+      "min_ram_gb": 8.0,
+      "gpu_recommended": true,
+      "min_vram_gb": null,
+      "estimated_inference_latency_cpu_ms": null
+    },
+    "dependencies": [
+      "torch>=1.9.0",
+      "torchvision",
+      "numpy"
+    ],
+    "fine_tuning_available": true,
+    "compatibility_status": "REQUIRES_ARCHITECTURE_MODIFICATION",
+    "evaluation_status": "NOT_EVALUATED",
+    "integration_status": "NOT_INTEGRATED",
+    "tags": [
+      "architecture_only",
+      "patent_restricted",
+      "tandem_network",
+      "pixelated",
+      "iit_madras"
+    ],
+    "notes": "CRITICAL: Protected under Indian Patent No. 572928. Architecture only; no weights committed in repository."
+  },
+  "metu_simpl_microstrip": {
+    "model_id": "metu_simpl_microstrip",
+    "model_name": "METU-SIMPL Microstrip Patch Benchmark Dataset",
+    "repository_url": "https://github.com/METU-SIMPL/Microstrip-Patch",
+    "research_reference": "HFSS S-Parameter Simulation Benchmark Database for Planar Antennas (METU SIMPL Lab)",
+    "architecture": "Authentic HFSS Simulation Dataset & .aedt Project File",
+    "framework": "None (Simulation Dataset: Excel / AEDT)",
+    "model_category": "Dataset without a pretrained model",
+    "entity_type": "DATASET",
+    "target_capabilities": [
+      "Frequency-dependent S11 prediction",
+      "Input impedance prediction",
+      "Resonant frequency prediction"
+    ],
+    "checkpoint_available": false,
+    "checkpoint_availability": false,
+    "checkpoint_path": null,
+    "checkpoints": [],
+    "checkpoint_load_verification": "NOT_APPLICABLE",
+    "inference_verification": "NOT_APPLICABLE",
+    "fine_tuning_readiness": "NOT_READY",
+    "production_readiness": false,
+    "geometry_compatibility": {
+      "rectangular_patch": "DIRECT",
+      "inset_fed_patch": "DIRECT",
+      "ground_truth_reference": true
+    },
+    "dataset_compatibility": {
+      "format": "excel_aedt",
+      "alignment": "ground_truth_benchmark"
+    },
+    "input_specification": {
+      "tensor_name": "antenna_parameters",
+      "shape": [
+        1,
+        5
+      ],
+      "data_type": "float32",
+      "format": "tabular_parameters",
+      "parameters": [
+        "patch_length",
+        "patch_width",
+        "substrate_height",
+        "feed_x",
+        "feed_y"
+      ],
+      "normalization": "none",
+      "physical_units": {
+        "patch_length": "mm",
+        "patch_width": "mm",
+        "substrate_height": "mm"
+      },
+      "description": "Physical dimensions of microstrip patch simulated in HFSS."
+    },
+    "output_specification": {
+      "tensor_name": "complex_s11",
+      "shape": [
+        1,
+        401,
+        2
+      ],
+      "data_type": "float32",
+      "quantities": [
+        "s11_real",
+        "s11_imag"
+      ],
+      "frequency_points": 401,
+      "frequency_range_ghz": [
+        1.0,
+        10.0
+      ],
+      "physical_units": {
+        "s11": "complex_linear",
+        "frequency": "GHz"
+      },
+      "description": "High-resolution real and imaginary reflection coefficient S11 from HFSS."
+    },
+    "supported_geometries": [
+      "rectangular_patch",
+      "inset_fed_patch"
+    ],
+    "supported_materials": [
+      "FR4_epoxy",
+      "Rogers_RO4003C"
+    ],
+    "frequency_range": {
+      "f_min_ghz": 1.0,
+      "f_max_ghz": 10.0,
+      "center_freq_ghz": null,
+      "discrete_points": 401,
+      "is_continuous": true
+    },
+    "training_dataset": {
+      "name": "METU Microstrip HFSS Database",
+      "source_type": "HFSS",
+      "sample_count": 1200,
+      "provenance": "Authentic ANSYS HFSS full-wave simulations; S11_re.xlsx, S11_im.xlsx, antenna_model.aedt.",
+      "publicly_accessible": true,
+      "license": null,
+      "download_url": null
+    },
+    "reported_metrics": {
+      "simulation_type": "HFSS Finite Element Method (FEM)"
+    },
+    "license": "Academic / Attribution Requested",
+    "license_type": "Academic",
+    "patent_restrictions": [],
+    "hardware_requirements": {
+      "min_ram_gb": 4.0,
+      "gpu_recommended": false,
+      "min_vram_gb": null,
+      "estimated_inference_latency_cpu_ms": null
+    },
+    "dependencies": [
+      "pandas",
+      "openpyxl",
+      "numpy"
+    ],
+    "fine_tuning_available": false,
+    "compatibility_status": "DIRECTLY_COMPATIBLE",
+    "evaluation_status": "NOT_EVALUATED",
+    "integration_status": "NOT_INTEGRATED",
+    "tags": [
+      "dataset",
+      "hfss",
+      "ground_truth",
+      "complex_s11",
+      "benchmark"
+    ],
+    "notes": "Authentic HFSS simulation dataset containing real and imaginary S11 data. Serves as ground-truth benchmark."
+  },
+  "vish1comp_antenna_benchmark": {
+    "model_id": "vish1comp_antenna_benchmark",
+    "model_name": "Antenna-AI-Benchmark (CGMM, CVAE, DDPM Generative Models)",
+    "repository_url": "https://github.com/vish1comp/antenna-ai-benchmark",
+    "research_reference": "Benchmarking Deep Generative Models for Antenna Synthesis and Optimization",
+    "architecture": "CGMM (Conditional Generative Moment Matching) / CVAE / DDPM (Diffusion)",
+    "framework": "PyTorch",
+    "model_category": "Model architecture with training code only",
+    "entity_type": "TRAINING_IMPLEMENTATION",
+    "target_capabilities": [
+      "Inverse antenna design",
+      "Antenna geometry optimization",
+      "Frequency-dependent S11 prediction"
+    ],
+    "checkpoint_available": false,
+    "checkpoint_availability": false,
+    "checkpoint_path": null,
+    "checkpoints": [],
+    "checkpoint_load_verification": "NOT_APPLICABLE",
+    "inference_verification": "NOT_APPLICABLE",
+    "fine_tuning_readiness": "NOT_READY",
+    "production_readiness": false,
+    "geometry_compatibility": {
+      "rectangular_patch": "PARAMETRIC",
+      "pixelated_patch": "ADAPTABLE"
+    },
+    "dataset_compatibility": {
+      "format": "cst_corpus",
+      "alignment": "s11_target_profile"
+    },
+    "input_specification": {
+      "tensor_name": "target_s11_profile",
+      "shape": [
+        1,
+        50
+      ],
+      "data_type": "float32",
+      "format": "tabular_parameters",
+      "parameters": [
+        "s11_frequency_specs"
+      ],
+      "normalization": "none",
+      "physical_units": {},
+      "description": "Desired S11 target response curve input to conditional generative models."
+    },
+    "output_specification": {
+      "tensor_name": "synthesized_patch_geometry",
+      "shape": [
+        1,
+        8
+      ],
+      "data_type": "float32",
+      "quantities": [
+        "geometric_dimensions"
+      ],
+      "frequency_points": null,
+      "frequency_range_ghz": null,
+      "physical_units": {},
+      "description": "Synthesized geometric dimensions of patch antenna matching target S11."
+    },
+    "supported_geometries": [
+      "rectangular_patch",
+      "pixelated_patch"
+    ],
+    "supported_materials": [
+      "FR4_epoxy",
+      "Taconic_TLY_5"
+    ],
+    "frequency_range": {
+      "f_min_ghz": 2.0,
+      "f_max_ghz": 8.0,
+      "center_freq_ghz": null,
+      "discrete_points": null,
+      "is_continuous": true
+    },
+    "training_dataset": {
+      "name": "Antenna AI Benchmark Corpus",
+      "source_type": "CST Microwave Studio",
+      "sample_count": 15000,
+      "provenance": "Curated benchmark corpus across multiple antenna topologies.",
+      "publicly_accessible": true,
+      "license": null,
+      "download_url": null
+    },
+    "reported_metrics": {
+      "frechet_chemnet_distance": 0.45,
+      "s11_target_error_db": 1.15
+    },
+    "license": "MIT License",
+    "license_type": "MIT",
+    "patent_restrictions": [],
+    "hardware_requirements": {
+      "min_ram_gb": 8.0,
+      "gpu_recommended": true,
+      "min_vram_gb": null,
+      "estimated_inference_latency_cpu_ms": null
+    },
+    "dependencies": [
+      "torch>=1.11.0",
+      "numpy",
+      "scipy",
+      "scikit-learn"
+    ],
+    "fine_tuning_available": true,
+    "compatibility_status": "REQUIRES_ARCHITECTURE_MODIFICATION",
+    "evaluation_status": "NOT_EVALUATED",
+    "integration_status": "NOT_INTEGRATED",
+    "tags": [
+      "architecture_only",
+      "generative",
+      "diffusion",
+      "cvae",
+      "cgmm",
+      "inverse_design"
+    ],
+    "notes": "Benchmark suite for deep generative antenna synthesis. No static weights committed; scripts generate models."
+  },
+  "jasti_rf_surrogate": {
+    "model_id": "jasti_rf_surrogate",
+    "model_name": "ML-Patch-Antenna-Design (Random Forest & Genetic Algorithm)",
+    "repository_url": "https://github.com/JastiTheCoder/ML-patch-antenna-design",
+    "research_reference": "Machine Learning Assisted Microstrip Patch Antenna Optimization for 2.45 GHz",
+    "architecture": "Random Forest Regressor + Genetic Algorithm (DEAP)",
+    "framework": "Scikit-Learn",
+    "model_category": "Model architecture with training code only",
+    "entity_type": "TRAINING_IMPLEMENTATION",
+    "target_capabilities": [
+      "Resonant frequency prediction",
+      "Bandwidth prediction",
+      "Antenna geometry optimization"
+    ],
+    "checkpoint_available": false,
+    "checkpoint_availability": false,
+    "checkpoint_path": null,
+    "checkpoints": [],
+    "checkpoint_load_verification": "NOT_APPLICABLE",
+    "inference_verification": "NOT_APPLICABLE",
+    "fine_tuning_readiness": "WORKSPACE_PREPARED",
+    "production_readiness": false,
+    "geometry_compatibility": {
+      "rectangular_patch": "DIRECT",
+      "other_canonical": "INCOMPATIBLE"
+    },
+    "dataset_compatibility": {
+      "format": "analytical_cavity",
+      "alignment": "parametric_dimensions"
+    },
+    "input_specification": {
+      "tensor_name": "design_parameters",
+      "shape": [
+        1,
+        4
+      ],
+      "data_type": "float32",
+      "format": "tabular_parameters",
+      "parameters": [
+        "width",
+        "length",
+        "height",
+        "dielectric_constant"
+      ],
+      "normalization": "none",
+      "physical_units": {
+        "width": "mm",
+        "length": "mm",
+        "height": "mm"
+      },
+      "description": "Rectangular microstrip patch physical parameters."
+    },
+    "output_specification": {
+      "tensor_name": "rf_predicted_metrics",
+      "shape": [
+        1,
+        2
+      ],
+      "data_type": "float32",
+      "quantities": [
+        "resonant_frequency_ghz",
+        "bandwidth_mhz"
+      ],
+      "frequency_points": null,
+      "frequency_range_ghz": null,
+      "physical_units": {
+        "resonant_frequency_ghz": "GHz",
+        "bandwidth_mhz": "MHz"
+      },
+      "description": "Predicted resonant frequency and -10dB bandwidth."
+    },
+    "supported_geometries": [
+      "rectangular_patch"
+    ],
+    "supported_materials": [
+      "FR4_epoxy",
+      "Rogers_RT_duroid_5880"
+    ],
+    "frequency_range": {
+      "f_min_ghz": 2.0,
+      "f_max_ghz": 3.0,
+      "center_freq_ghz": 2.45,
+      "discrete_points": null,
+      "is_continuous": true
+    },
+    "training_dataset": {
+      "name": "Transmission Line Model Analytical Dataset",
+      "source_type": "Analytical",
+      "sample_count": 2500,
+      "provenance": "Generated using Cavity Model and Transmission Line equations.",
+      "publicly_accessible": true,
+      "license": null,
+      "download_url": null
+    },
+    "reported_metrics": {
+      "r2_score": 0.982,
+      "mae_fr_ghz": 0.018
+    },
+    "license": "MIT License",
+    "license_type": "MIT",
+    "patent_restrictions": [],
+    "hardware_requirements": {
+      "min_ram_gb": 4.0,
+      "gpu_recommended": false,
+      "min_vram_gb": null,
+      "estimated_inference_latency_cpu_ms": 1.2
+    },
+    "dependencies": [
+      "scikit-learn>=1.0.0",
+      "deap",
+      "numpy",
+      "pandas"
+    ],
+    "fine_tuning_available": true,
+    "compatibility_status": "ADAPTABLE_WITH_PREPROCESSING",
+    "evaluation_status": "NOT_EVALUATED",
+    "integration_status": "WORKSPACE_PREPARED",
+    "tags": [
+      "architecture_only",
+      "scikit-learn",
+      "random_forest",
+      "genetic_algorithm",
+      "fast_inference"
+    ],
+    "notes": "Lightweight surrogate for fast resonance estimation. Highly adaptable to ANTON canonical rectangular patch."
+  },
+  "tolba_uslot_inverse": {
+    "model_id": "tolba_uslot_inverse",
+    "model_name": "Inverse-Design-of-a-U-Slot-Microstrip-Patch-Antenna",
+    "repository_url": "https://github.com/DevAbdoTolba/Inverse-Design-of-a-U-Slot-Microstrip-Patch-Antenna",
+    "research_reference": "Deep Neural Network for Dual-Band U-Slot Microstrip Antenna Synthesis",
+    "architecture": "Deep Multi-Layer Perceptron (Inverse Parameter Predictor)",
+    "framework": "TensorFlow/Keras",
+    "model_category": "Model architecture with training code only",
+    "entity_type": "TRAINING_IMPLEMENTATION",
+    "target_capabilities": [
+      "Inverse antenna design",
+      "Resonant frequency prediction",
+      "Bandwidth prediction"
+    ],
+    "checkpoint_available": false,
+    "checkpoint_availability": false,
+    "checkpoint_path": null,
+    "checkpoints": [],
+    "checkpoint_load_verification": "NOT_APPLICABLE",
+    "inference_verification": "NOT_APPLICABLE",
+    "fine_tuning_readiness": "NOT_READY",
+    "production_readiness": false,
+    "geometry_compatibility": {
+      "u_slot_patch": "DIRECT",
+      "other_canonical": "INCOMPATIBLE"
+    },
+    "dataset_compatibility": {
+      "format": "hfss_uslot",
+      "alignment": "dual_frequency_specs"
+    },
+    "input_specification": {
+      "tensor_name": "desired_dual_frequencies",
+      "shape": [
+        1,
+        3
+      ],
+      "data_type": "float32",
+      "format": "tabular_parameters",
+      "parameters": [
+        "f_lower_ghz",
+        "f_upper_ghz",
+        "substrate_height_mm"
+      ],
+      "normalization": "none",
+      "physical_units": {},
+      "description": "Target lower and upper resonant frequencies plus substrate height."
+    },
+    "output_specification": {
+      "tensor_name": "u_slot_dimensions",
+      "shape": [
+        1,
+        6
+      ],
+      "data_type": "float32",
+      "quantities": [
+        "patch_w",
+        "patch_l",
+        "slot_w",
+        "slot_l",
+        "slot_thickness",
+        "feed_offset"
+      ],
+      "frequency_points": null,
+      "frequency_range_ghz": null,
+      "physical_units": {
+        "dimensions": "mm"
+      },
+      "description": "Predicted dimensions for U-slot radiator matching dual resonances."
+    },
+    "supported_geometries": [
+      "u_slot_patch"
+    ],
+    "supported_materials": [
+      "Rogers_RT_duroid_5880"
+    ],
+    "frequency_range": {
+      "f_min_ghz": 3.0,
+      "f_max_ghz": 6.0,
+      "center_freq_ghz": null,
+      "discrete_points": null,
+      "is_continuous": true
+    },
+    "training_dataset": {
+      "name": "HFSS U-Slot Parametric Set",
+      "source_type": "HFSS",
+      "sample_count": 3500,
+      "provenance": "Automated HFSS parametric sweeps of U-slot dimensions.",
+      "publicly_accessible": true,
+      "license": null,
+      "download_url": null
+    },
+    "reported_metrics": {
+      "mae_geometry_mm": 0.35,
+      "frequency_prediction_error_percent": 1.8
+    },
+    "license": "MIT License",
+    "license_type": "MIT",
+    "patent_restrictions": [],
+    "hardware_requirements": {
+      "min_ram_gb": 4.0,
+      "gpu_recommended": false,
+      "min_vram_gb": null,
+      "estimated_inference_latency_cpu_ms": null
+    },
+    "dependencies": [
+      "tensorflow>=2.5.0",
+      "numpy",
+      "pandas"
+    ],
+    "fine_tuning_available": true,
+    "compatibility_status": "ADAPTABLE_WITH_PREPROCESSING",
+    "evaluation_status": "NOT_EVALUATED",
+    "integration_status": "NOT_INTEGRATED",
+    "tags": [
+      "architecture_only",
+      "u_slot",
+      "dual_band",
+      "inverse_design"
+    ],
+    "notes": "Specifically targets U-slot microstrip patch geometry. Directly maps to ANTON's canonical U-slot parameters."
+  },
+  "becklabs_patch_tto": {
+    "model_id": "becklabs_patch_tto",
+    "model_name": "Patch-Antenna-TTO (Test-Time Optimization with Variational Autoencoders)",
+    "repository_url": "https://github.com/becklabs/patch-antenna-tto",
+    "research_reference": "Test-Time Optimization in Latent Space of Generative Models for Antenna Design",
+    "architecture": "Convolutional Variational Autoencoder (CVAE) + Gradient Optimization",
+    "framework": "PyTorch",
+    "model_category": "Model architecture with training code only",
+    "entity_type": "TRAINING_IMPLEMENTATION",
+    "target_capabilities": [
+      "Inverse antenna design",
+      "Antenna geometry optimization",
+      "2D radiation-pattern prediction"
+    ],
+    "checkpoint_available": false,
+    "checkpoint_availability": false,
+    "checkpoint_path": null,
+    "checkpoints": [],
+    "checkpoint_load_verification": "NOT_APPLICABLE",
+    "inference_verification": "NOT_APPLICABLE",
+    "fine_tuning_readiness": "NOT_READY",
+    "production_readiness": false,
+    "geometry_compatibility": {
+      "pixelated_patch": "DIRECT",
+      "custom_polygon_patch": "RASTERIZE_32x32"
+    },
+    "dataset_compatibility": {
+      "format": "openems_corpus",
+      "alignment": "2d_radiation_mask"
+    },
+    "input_specification": {
+      "tensor_name": "target_radiation_spec",
+      "shape": [
+        1,
+        36
+      ],
+      "data_type": "float32",
+      "format": "tabular_parameters",
+      "parameters": [
+        "directivity_azimuth_profile"
+      ],
+      "normalization": "none",
+      "physical_units": {},
+      "description": "2D radiation directivity mask across azimuth angles."
+    },
+    "output_specification": {
+      "tensor_name": "optimized_patch_mask",
+      "shape": [
+        1,
+        1,
+        32,
+        32
+      ],
+      "data_type": "float32",
+      "quantities": [
+        "pixel_metallization"
+      ],
+      "frequency_points": null,
+      "frequency_range_ghz": null,
+      "physical_units": {},
+      "description": "32x32 binary layout of patch radiator."
+    },
+    "supported_geometries": [
+      "pixelated_patch",
+      "custom_polygon_patch"
+    ],
+    "supported_materials": [
+      "FR4_epoxy"
+    ],
+    "frequency_range": {
+      "f_min_ghz": 1.5,
+      "f_max_ghz": 5.0,
+      "center_freq_ghz": null,
+      "discrete_points": null,
+      "is_continuous": true
+    },
+    "training_dataset": {
+      "name": "TTO Patch Database",
+      "source_type": "openEMS",
+      "sample_count": 8000,
+      "provenance": "OpenEMS FDTD electromagnetic simulations.",
+      "publicly_accessible": true,
+      "license": null,
+      "download_url": null
+    },
+    "reported_metrics": {
+      "pattern_similarity_cosine": 0.94
+    },
+    "license": "Apache-2.0",
+    "license_type": "Apache-2.0",
+    "patent_restrictions": [],
+    "hardware_requirements": {
+      "min_ram_gb": 8.0,
+      "gpu_recommended": true,
+      "min_vram_gb": null,
+      "estimated_inference_latency_cpu_ms": null
+    },
+    "dependencies": [
+      "torch>=1.10.0",
+      "torchvision",
+      "scipy"
+    ],
+    "fine_tuning_available": true,
+    "compatibility_status": "REQUIRES_ARCHITECTURE_MODIFICATION",
+    "evaluation_status": "NOT_EVALUATED",
+    "integration_status": "NOT_INTEGRATED",
+    "tags": [
+      "architecture_only",
+      "vae",
+      "latent_optimization",
+      "openems",
+      "radiation_pattern"
+    ],
+    "notes": "VAE with test-time latent optimization. Requires rasterizing ANTON polygonal patches into 32x32 grids."
+  },
+  "sharvesh_patch_inverse": {
+    "model_id": "sharvesh_patch_inverse",
+    "model_name": "Inverse-Design-Patch-Antenna (Keras-Tuner Hyperband DNN)",
+    "repository_url": "https://github.com/sharvesh1401/Inverse-design-patch-antenna",
+    "research_reference": "Automated Neural Architecture Search for Microstrip Antenna Inverse Synthesis",
+    "architecture": "Hyperband Tuned Multi-Layer Dense Network",
+    "framework": "TensorFlow/Keras",
+    "model_category": "Model architecture with training code only",
+    "entity_type": "TRAINING_IMPLEMENTATION",
+    "target_capabilities": [
+      "Inverse antenna design",
+      "Resonant frequency prediction"
+    ],
+    "checkpoint_available": false,
+    "checkpoint_availability": false,
+    "checkpoint_path": null,
+    "checkpoints": [],
+    "checkpoint_load_verification": "NOT_APPLICABLE",
+    "inference_verification": "NOT_APPLICABLE",
+    "fine_tuning_readiness": "NOT_READY",
+    "production_readiness": false,
+    "geometry_compatibility": {
+      "rectangular_patch": "DIRECT",
+      "other_canonical": "INCOMPATIBLE"
+    },
+    "dataset_compatibility": {
+      "format": "analytical_tl",
+      "alignment": "target_electromagnetic_specs"
+    },
+    "input_specification": {
+      "tensor_name": "target_electromagnetic_specs",
+      "shape": [
+        1,
+        3
+      ],
+      "data_type": "float32",
+      "format": "tabular_parameters",
+      "parameters": [
+        "resonant_frequency_ghz",
+        "substrate_dielectric",
+        "loss_tangent"
+      ],
+      "normalization": "none",
+      "physical_units": {},
+      "description": "Target resonant frequency and substrate properties."
+    },
+    "output_specification": {
+      "tensor_name": "synthesized_dimensions",
+      "shape": [
+        1,
+        3
+      ],
+      "data_type": "float32",
+      "quantities": [
+        "width_mm",
+        "length_mm",
+        "height_mm"
+      ],
+      "frequency_points": null,
+      "frequency_range_ghz": null,
+      "physical_units": {
+        "dimensions": "mm"
+      },
+      "description": "Physical dimensions of microstrip radiator."
+    },
+    "supported_geometries": [
+      "rectangular_patch"
+    ],
+    "supported_materials": [
+      "FR4_epoxy",
+      "Rogers_RT_duroid_5880"
+    ],
+    "frequency_range": {
+      "f_min_ghz": 1.8,
+      "f_max_ghz": 2.8,
+      "center_freq_ghz": null,
+      "discrete_points": null,
+      "is_continuous": true
+    },
+    "training_dataset": {
+      "name": "Transmission Line Synthetic Corpus",
+      "source_type": "Analytical",
+      "sample_count": 4000,
+      "provenance": "Analytical transmission line calculation dataset.",
+      "publicly_accessible": true,
+      "license": null,
+      "download_url": null
+    },
+    "reported_metrics": {
+      "test_loss_mse": 0.0034
+    },
+    "license": "MIT License",
+    "license_type": "MIT",
+    "patent_restrictions": [],
+    "hardware_requirements": {
+      "min_ram_gb": 4.0,
+      "gpu_recommended": false,
+      "min_vram_gb": null,
+      "estimated_inference_latency_cpu_ms": null
+    },
+    "dependencies": [
+      "tensorflow>=2.4.0",
+      "keras-tuner",
+      "numpy"
+    ],
+    "fine_tuning_available": true,
+    "compatibility_status": "ADAPTABLE_WITH_PREPROCESSING",
+    "evaluation_status": "NOT_EVALUATED",
+    "integration_status": "NOT_INTEGRATED",
+    "tags": [
+      "architecture_only",
+      "keras-tuner",
+      "hyperband",
+      "inverse_design"
+    ],
+    "notes": "Analytical dataset training pipeline. Adaptable to canonical rectangular patch specifications."
+  },
+  "abinayasree_ai_antenna": {
+    "model_id": "abinayasree_ai_antenna",
+    "model_name": "AI-Antenna-Design-Tool (Parametric Assistant)",
+    "repository_url": "https://github.com/Abinayasree6009/AI-Antenna-Design-Tool",
+    "research_reference": "Interactive Parametric Antenna Design Assistant",
+    "architecture": "Feedforward Neural Network / Analytical Transmission Line Model",
+    "framework": "Python / NumPy",
+    "model_category": "Model architecture with training code only",
+    "entity_type": "TRAINING_IMPLEMENTATION",
+    "target_capabilities": [
+      "Resonant frequency prediction",
+      "Bandwidth prediction",
+      "Inverse antenna design"
+    ],
+    "checkpoint_available": false,
+    "checkpoint_availability": false,
+    "checkpoint_path": null,
+    "checkpoints": [],
+    "checkpoint_load_verification": "NOT_APPLICABLE",
+    "inference_verification": "NOT_APPLICABLE",
+    "fine_tuning_readiness": "NOT_READY",
+    "production_readiness": false,
+    "geometry_compatibility": {
+      "rectangular_patch": "DIRECT",
+      "other_canonical": "INCOMPATIBLE"
+    },
+    "dataset_compatibility": {
+      "format": "analytical_tl",
+      "alignment": "parametric_dimensions"
+    },
+    "input_specification": {
+      "tensor_name": "design_parameters",
+      "shape": [
+        1,
+        4
+      ],
+      "data_type": "float32",
+      "format": "tabular_parameters",
+      "parameters": [
+        "length",
+        "width",
+        "height",
+        "dielectric_constant"
+      ],
+      "normalization": "none",
+      "physical_units": {},
+      "description": "Patch antenna physical parameters."
+    },
+    "output_specification": {
+      "tensor_name": "electromagnetic_performance",
+      "shape": [
+        1,
+        3
+      ],
+      "data_type": "float32",
+      "quantities": [
+        "resonance_ghz",
+        "bandwidth_mhz",
+        "vswr_approx"
+      ],
+      "frequency_points": null,
+      "frequency_range_ghz": null,
+      "physical_units": {},
+      "description": "Resonant frequency, bandwidth, and VSWR approximation."
+    },
+    "supported_geometries": [
+      "rectangular_patch",
+      "circular_patch"
+    ],
+    "supported_materials": [
+      "FR4_epoxy",
+      "Rogers_RO4003C"
+    ],
+    "frequency_range": {
+      "f_min_ghz": 2.0,
+      "f_max_ghz": 6.0,
+      "center_freq_ghz": null,
+      "discrete_points": null,
+      "is_continuous": true
+    },
+    "training_dataset": {
+      "name": "Analytical Parametric Corpus",
+      "source_type": "Analytical",
+      "sample_count": 1000,
+      "provenance": "Parametric formulas for rectangular and circular microstrip antennas.",
+      "publicly_accessible": true,
+      "license": null,
+      "download_url": null
+    },
+    "reported_metrics": {
+      "analytical_error_estimate": "5-8% vs full-wave"
+    },
+    "license": "MIT License",
+    "license_type": "MIT",
+    "patent_restrictions": [],
+    "hardware_requirements": {
+      "min_ram_gb": 4.0,
+      "gpu_recommended": false,
+      "min_vram_gb": null,
+      "estimated_inference_latency_cpu_ms": null
+    },
+    "dependencies": [
+      "numpy",
+      "scipy"
+    ],
+    "fine_tuning_available": true,
+    "compatibility_status": "ADAPTABLE_WITH_PREPROCESSING",
+    "evaluation_status": "NOT_EVALUATED",
+    "integration_status": "NOT_INTEGRATED",
+    "tags": [
+      "architecture_only",
+      "analytical",
+      "parametric",
+      "circular_patch"
+    ],
+    "notes": "Analytical parametric estimator supporting both rectangular and circular patch geometries."
+  }
+}

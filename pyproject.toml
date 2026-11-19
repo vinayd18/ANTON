@@ -5,23 +5,66 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "anton"
 version = "0.1.0"
-description = "Universal microstrip patch antenna geometry engine"
+description = "Universal microstrip patch antenna geometry engine & AI design platform"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
+authors = [
+    {name = "ANTON Core Engineering Team"}
+]
+keywords = ["antenna", "microstrip", "electromagnetics", "cad", "hfss", "machine-learning"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
 dependencies = [
-    "numpy",
-    "scipy",
-    "shapely",
-    "sympy",
-    "pydantic>=2",
-    "matplotlib",
-    "cadquery",
+    "pydantic>=2.0",
+    "numpy>=1.24.0",
+    "shapely>=2.0.0",
+    "sympy>=1.12",
+    "matplotlib>=3.7.0",
+    "cadquery>=2.1",
     "nbformat>=5.0",
+    "scipy>=1.10.0",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest"]
+core = [
+    "pydantic>=2.0",
+    "numpy>=1.24.0",
+    "shapely>=2.0.0",
+    "sympy>=1.12",
+]
+cad = [
+    "cadquery>=2.1",
+]
+visualization = [
+    "matplotlib>=3.7.0",
+]
+notebook = [
+    "nbformat>=5.0",
+]
+data = [
+    "scipy>=1.10.0",
+    "pandas>=2.0.0",
+    "openpyxl>=3.1.0",
+]
+ml = [
+    "scikit-learn>=1.0.0",
+    "h5py>=3.8.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "coverage>=7.0.0",
+]
+all = [
+    "anton[core,cad,visualization,notebook,data,ml,dev]",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

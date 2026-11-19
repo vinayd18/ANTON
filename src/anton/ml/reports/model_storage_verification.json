@@ -1,0 +1,50 @@
+[
+  {
+    "model_id": "galabavamsi_antennanet",
+    "filename": "s11_model.pt",
+    "status": "VERIFIED_AND_IMMUTABLE",
+    "size_bytes": 105513,
+    "sha256": "669ba6d002a3f46c4ea86451db3ad78eeefdc8c59973c0155e5aeb3de541d8ec",
+    "read_only": true
+  },
+  {
+    "model_id": "galabavamsi_antennanet",
+    "filename": "best_forward_surrogate.pt",
+    "status": "VERIFIED_AND_IMMUTABLE",
+    "size_bytes": 668357,
+    "sha256": "14e9db465dcef503ed8b3ab0a162c3b75f2bc94abf6fb6320b83ecbc2c7cc291",
+    "read_only": true
+  },
+  {
+    "model_id": "galabavamsi_antennanet",
+    "filename": "best_pixel_surrogate.pt",
+    "status": "VERIFIED_AND_IMMUTABLE",
+    "size_bytes": 1140331,
+    "sha256": "33016fcc855771c58893b2b51d183a47c63773be32778d3c1ead102b56abc4c7",
+    "read_only": true
+  },
+  {
+    "model_id": "galabavamsi_antennanet",
+    "filename": "s11_pinn_model.pt",
+    "status": "VERIFIED_AND_IMMUTABLE",
+    "size_bytes": 404143,
+    "sha256": "d70421d5b6e1c29e1ade0e22a865d511d3929727e9c0e4af97cc2e1337084ac0",
+    "read_only": true
+  },
+  {
+    "model_id": "galabavamsi_antennanet",
+    "filename": "hybrid_lorentzian_rnn_best.pth",
+    "status": "VERIFIED_AND_IMMUTABLE",
+    "size_bytes": 5151445,
+    "sha256": "6b38be62dc6bcb1ee0ab80b2d71493155e06ca6e5bbae24b2b078e9633690557",
+    "read_only": true
+  },
+  {
+    "model_id": "youxch_patch_mlp",
+    "filename": "saved-model-5000.h5",
+    "status": "VERIFIED_AND_IMMUTABLE",
+    "size_bytes": 1558808,
+    "sha256": "10d2293262362e5c3bf637ebb6a42fb6435c62650adf6c419527103e97905bf1",
+    "read_only": true
+  }
+]

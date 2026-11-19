@@ -1,0 +1,410 @@
+{
+  "total_evaluated": 10,
+  "status_breakdown": {
+    "DIRECTLY_COMPATIBLE": 2,
+    "ADAPTABLE_WITH_PREPROCESSING": 7,
+    "REQUIRES_ARCHITECTURE_MODIFICATION": 0,
+    "NOT_COMPATIBLE": 1,
+    "INSUFFICIENT_INFORMATION": 0
+  },
+  "model_evaluations": {
+    "galabavamsi_antennanet": {
+      "overall_status": "DIRECTLY_COMPATIBLE",
+      "overall_score": 81.1,
+      "dimension_scores": {
+        "Geometry Representation": 5.6,
+        "Parameter Extraction": 10.0,
+        "Material Compatibility": 6.0,
+        "Frequency Range": 9.0,
+        "Input Tensor Format": 8.5,
+        "Output Tensor Format": 9.0,
+        "S11 Representation": 9.5,
+        "Radiation Metrics": 4.0,
+        "Framework Compatibility": 9.5,
+        "Checkpoint Availability": 10.0
+      },
+      "supported_anton_geometries": [
+        "rectangular_patch"
+      ],
+      "unsupported_anton_geometries": [
+        "circular_patch",
+        "triangular_patch",
+        "hexagonal_patch",
+        "u_slot_patch",
+        "inset_feed_patch",
+        "annular_patch",
+        "custom_polygon_patch"
+      ],
+      "required_preprocessing": [
+        "Parametric extraction: extract ['patch_width_mm', 'patch_length_mm', 'substrate_height_mm', 'relative_permittivity'] from canonical ANTON layers and objects.",
+        "Material property mapping: verify target substrate permittivity matches training domain.",
+        "Input tensor assembly: construct shape [1, 4] with minmax scaling."
+      ],
+      "adaptation_recommendations": [
+        "Model does NOT support: ['circular_patch', 'triangular_patch', 'hexagonal_patch', 'u_slot_patch', 'inset_feed_patch', 'annular_patch', 'custom_polygon_patch']. Do not assume rectangular models generalize.",
+        "Do not claim radiation pattern or gain prediction; model targets impedance/S11 only."
+      ],
+      "blockers": [],
+      "summary": "Evaluated 'galabavamsi_antennanet': Overall Score 81.1/100. Classified as DIRECTLY_COMPATIBLE. Pretrained weights: VERIFIED."
+    },
+    "youxch_patch_mlp": {
+      "overall_status": "DIRECTLY_COMPATIBLE",
+      "overall_score": 82.5,
+      "dimension_scores": {
+        "Geometry Representation": 5.6,
+        "Parameter Extraction": 8.3,
+        "Material Compatibility": 6.0,
+        "Frequency Range": 9.0,
+        "Input Tensor Format": 8.5,
+        "Output Tensor Format": 9.0,
+        "S11 Representation": 9.5,
+        "Radiation Metrics": 9.0,
+        "Framework Compatibility": 7.5,
+        "Checkpoint Availability": 10.0
+      },
+      "supported_anton_geometries": [
+        "rectangular_patch"
+      ],
+      "unsupported_anton_geometries": [
+        "circular_patch",
+        "triangular_patch",
+        "hexagonal_patch",
+        "u_slot_patch",
+        "inset_feed_patch",
+        "annular_patch",
+        "custom_polygon_patch"
+      ],
+      "required_preprocessing": [
+        "Parametric extraction: extract ['substrate_height', 'scale_x', 'scale_y', 'offset_y', 'scale_slot', 'uw3'] from canonical ANTON layers and objects.",
+        "Material property mapping: verify target substrate permittivity matches training domain.",
+        "Input tensor assembly: construct shape [1, 6] with minmax scaling."
+      ],
+      "adaptation_recommendations": [
+        "Model does NOT support: ['circular_patch', 'triangular_patch', 'hexagonal_patch', 'u_slot_patch', 'inset_feed_patch', 'annular_patch', 'custom_polygon_patch']. Do not assume rectangular models generalize.",
+        "Recommend exporting Keras .h5 / SavedModel to ONNX for runtime execution."
+      ],
+      "blockers": [],
+      "summary": "Evaluated 'youxch_patch_mlp': Overall Score 82.5/100. Classified as DIRECTLY_COMPATIBLE. Pretrained weights: VERIFIED."
+    },
+    "udaykdk_pixelant": {
+      "overall_status": "ADAPTABLE_WITH_PREPROCESSING",
+      "overall_score": 78.0,
+      "dimension_scores": {
+        "Geometry Representation": 7.5,
+        "Parameter Extraction": 10.0,
+        "Material Compatibility": 6.0,
+        "Frequency Range": 9.0,
+        "Input Tensor Format": 8.5,
+        "Output Tensor Format": 9.0,
+        "S11 Representation": 9.5,
+        "Radiation Metrics": 4.0,
+        "Framework Compatibility": 9.5,
+        "Checkpoint Availability": 5.0
+      },
+      "supported_anton_geometries": [
+        "rectangular_patch",
+        "circular_patch",
+        "triangular_patch",
+        "hexagonal_patch",
+        "u_slot_patch",
+        "inset_feed_patch",
+        "annular_patch",
+        "custom_polygon_patch"
+      ],
+      "unsupported_anton_geometries": [],
+      "required_preprocessing": [
+        "2D rasterizer: project continuous polygons onto discrete binary pixel matrix.",
+        "Parametric extraction: extract ['binary_pixels'] from canonical ANTON layers and objects.",
+        "Material property mapping: verify target substrate permittivity matches training domain.",
+        "Input tensor assembly: construct shape [1, 1, 16, 16] with binary scaling."
+      ],
+      "adaptation_recommendations": [
+        "Do not claim radiation pattern or gain prediction; model targets impedance/S11 only.",
+        "Model requires complete training on verified dataset before inference is possible."
+      ],
+      "blockers": [],
+      "summary": "Evaluated 'udaykdk_pixelant': Overall Score 78.0/100. Classified as ADAPTABLE_WITH_PREPROCESSING. Pretrained weights: UNAVAILABLE."
+    },
+    "metu_simpl_microstrip": {
+      "overall_status": "NOT_COMPATIBLE",
+      "overall_score": 67.6,
+      "dimension_scores": {
+        "Geometry Representation": 5.6,
+        "Parameter Extraction": 10.0,
+        "Material Compatibility": 6.0,
+        "Frequency Range": 9.0,
+        "Input Tensor Format": 8.5,
+        "Output Tensor Format": 9.0,
+        "S11 Representation": 9.5,
+        "Radiation Metrics": 4.0,
+        "Framework Compatibility": 3.0,
+        "Checkpoint Availability": 3.0
+      },
+      "supported_anton_geometries": [
+        "rectangular_patch"
+      ],
+      "unsupported_anton_geometries": [
+        "circular_patch",
+        "triangular_patch",
+        "hexagonal_patch",
+        "u_slot_patch",
+        "inset_feed_patch",
+        "annular_patch",
+        "custom_polygon_patch"
+      ],
+      "required_preprocessing": [
+        "Parametric extraction: extract ['patch_length', 'patch_width', 'substrate_height', 'feed_x', 'feed_y'] from canonical ANTON layers and objects.",
+        "Material property mapping: verify target substrate permittivity matches training domain.",
+        "Input tensor assembly: construct shape [1, 5] with none scaling."
+      ],
+      "adaptation_recommendations": [
+        "Model does NOT support: ['circular_patch', 'triangular_patch', 'hexagonal_patch', 'u_slot_patch', 'inset_feed_patch', 'annular_patch', 'custom_polygon_patch']. Do not assume rectangular models generalize.",
+        "Do not claim radiation pattern or gain prediction; model targets impedance/S11 only."
+      ],
+      "blockers": [],
+      "summary": "Evaluated 'metu_simpl_microstrip': Overall Score 67.6/100. Classified as NOT_COMPATIBLE. Pretrained weights: UNAVAILABLE."
+    },
+    "vish1comp_antenna_benchmark": {
+      "overall_status": "ADAPTABLE_WITH_PREPROCESSING",
+      "overall_score": 66.1,
+      "dimension_scores": {
+        "Geometry Representation": 5.6,
+        "Parameter Extraction": 0.0,
+        "Material Compatibility": 6.0,
+        "Frequency Range": 9.0,
+        "Input Tensor Format": 8.5,
+        "Output Tensor Format": 9.0,
+        "S11 Representation": 9.5,
+        "Radiation Metrics": 4.0,
+        "Framework Compatibility": 9.5,
+        "Checkpoint Availability": 5.0
+      },
+      "supported_anton_geometries": [
+        "rectangular_patch"
+      ],
+      "unsupported_anton_geometries": [
+        "circular_patch",
+        "triangular_patch",
+        "hexagonal_patch",
+        "u_slot_patch",
+        "inset_feed_patch",
+        "annular_patch",
+        "custom_polygon_patch"
+      ],
+      "required_preprocessing": [
+        "Parametric extraction: extract ['s11_frequency_specs'] from canonical ANTON layers and objects.",
+        "Material property mapping: verify target substrate permittivity matches training domain.",
+        "Input tensor assembly: construct shape [1, 50] with none scaling."
+      ],
+      "adaptation_recommendations": [
+        "Model does NOT support: ['circular_patch', 'triangular_patch', 'hexagonal_patch', 'u_slot_patch', 'inset_feed_patch', 'annular_patch', 'custom_polygon_patch']. Do not assume rectangular models generalize.",
+        "Do not claim radiation pattern or gain prediction; model targets impedance/S11 only.",
+        "Model requires complete training on verified dataset before inference is possible."
+      ],
+      "blockers": [],
+      "summary": "Evaluated 'vish1comp_antenna_benchmark': Overall Score 66.1/100. Classified as ADAPTABLE_WITH_PREPROCESSING. Pretrained weights: UNAVAILABLE."
+    },
+    "jasti_rf_surrogate": {
+      "overall_status": "ADAPTABLE_WITH_PREPROCESSING",
+      "overall_score": 73.6,
+      "dimension_scores": {
+        "Geometry Representation": 5.6,
+        "Parameter Extraction": 10.0,
+        "Material Compatibility": 6.0,
+        "Frequency Range": 9.0,
+        "Input Tensor Format": 8.5,
+        "Output Tensor Format": 9.0,
+        "S11 Representation": 7.0,
+        "Radiation Metrics": 4.0,
+        "Framework Compatibility": 9.5,
+        "Checkpoint Availability": 5.0
+      },
+      "supported_anton_geometries": [
+        "rectangular_patch"
+      ],
+      "unsupported_anton_geometries": [
+        "circular_patch",
+        "triangular_patch",
+        "hexagonal_patch",
+        "u_slot_patch",
+        "inset_feed_patch",
+        "annular_patch",
+        "custom_polygon_patch"
+      ],
+      "required_preprocessing": [
+        "Parametric extraction: extract ['width', 'length', 'height', 'dielectric_constant'] from canonical ANTON layers and objects.",
+        "Material property mapping: verify target substrate permittivity matches training domain.",
+        "Input tensor assembly: construct shape [1, 4] with none scaling."
+      ],
+      "adaptation_recommendations": [
+        "Model does NOT support: ['circular_patch', 'triangular_patch', 'hexagonal_patch', 'u_slot_patch', 'inset_feed_patch', 'annular_patch', 'custom_polygon_patch']. Do not assume rectangular models generalize.",
+        "Do not claim radiation pattern or gain prediction; model targets impedance/S11 only.",
+        "Model requires complete training on verified dataset before inference is possible."
+      ],
+      "blockers": [],
+      "summary": "Evaluated 'jasti_rf_surrogate': Overall Score 73.6/100. Classified as ADAPTABLE_WITH_PREPROCESSING. Pretrained weights: UNAVAILABLE."
+    },
+    "tolba_uslot_inverse": {
+      "overall_status": "ADAPTABLE_WITH_PREPROCESSING",
+      "overall_score": 71.6,
+      "dimension_scores": {
+        "Geometry Representation": 5.6,
+        "Parameter Extraction": 10.0,
+        "Material Compatibility": 6.0,
+        "Frequency Range": 9.0,
+        "Input Tensor Format": 8.5,
+        "Output Tensor Format": 9.0,
+        "S11 Representation": 7.0,
+        "Radiation Metrics": 4.0,
+        "Framework Compatibility": 7.5,
+        "Checkpoint Availability": 5.0
+      },
+      "supported_anton_geometries": [
+        "u_slot_patch"
+      ],
+      "unsupported_anton_geometries": [
+        "rectangular_patch",
+        "circular_patch",
+        "triangular_patch",
+        "hexagonal_patch",
+        "inset_feed_patch",
+        "annular_patch",
+        "custom_polygon_patch"
+      ],
+      "required_preprocessing": [
+        "Parametric extraction: extract ['f_lower_ghz', 'f_upper_ghz', 'substrate_height_mm'] from canonical ANTON layers and objects.",
+        "Material property mapping: verify target substrate permittivity matches training domain.",
+        "Input tensor assembly: construct shape [1, 3] with none scaling."
+      ],
+      "adaptation_recommendations": [
+        "Model does NOT support: ['rectangular_patch', 'circular_patch', 'triangular_patch', 'hexagonal_patch', 'inset_feed_patch', 'annular_patch', 'custom_polygon_patch']. Do not assume rectangular models generalize.",
+        "Do not claim radiation pattern or gain prediction; model targets impedance/S11 only.",
+        "Recommend exporting Keras .h5 / SavedModel to ONNX for runtime execution.",
+        "Model requires complete training on verified dataset before inference is possible."
+      ],
+      "blockers": [],
+      "summary": "Evaluated 'tolba_uslot_inverse': Overall Score 71.6/100. Classified as ADAPTABLE_WITH_PREPROCESSING. Pretrained weights: UNAVAILABLE."
+    },
+    "becklabs_patch_tto": {
+      "overall_status": "ADAPTABLE_WITH_PREPROCESSING",
+      "overall_score": 73.6,
+      "dimension_scores": {
+        "Geometry Representation": 5.6,
+        "Parameter Extraction": 10.0,
+        "Material Compatibility": 6.0,
+        "Frequency Range": 9.0,
+        "Input Tensor Format": 8.5,
+        "Output Tensor Format": 9.0,
+        "S11 Representation": 7.0,
+        "Radiation Metrics": 4.0,
+        "Framework Compatibility": 9.5,
+        "Checkpoint Availability": 5.0
+      },
+      "supported_anton_geometries": [
+        "custom_polygon_patch"
+      ],
+      "unsupported_anton_geometries": [
+        "rectangular_patch",
+        "circular_patch",
+        "triangular_patch",
+        "hexagonal_patch",
+        "u_slot_patch",
+        "inset_feed_patch",
+        "annular_patch"
+      ],
+      "required_preprocessing": [
+        "Parametric extraction: extract ['directivity_azimuth_profile'] from canonical ANTON layers and objects.",
+        "Material property mapping: verify target substrate permittivity matches training domain.",
+        "Input tensor assembly: construct shape [1, 36] with none scaling."
+      ],
+      "adaptation_recommendations": [
+        "Model does NOT support: ['rectangular_patch', 'circular_patch', 'triangular_patch', 'hexagonal_patch', 'u_slot_patch', 'inset_feed_patch', 'annular_patch']. Do not assume rectangular models generalize.",
+        "Do not claim radiation pattern or gain prediction; model targets impedance/S11 only.",
+        "Model requires complete training on verified dataset before inference is possible."
+      ],
+      "blockers": [],
+      "summary": "Evaluated 'becklabs_patch_tto': Overall Score 73.6/100. Classified as ADAPTABLE_WITH_PREPROCESSING. Pretrained weights: UNAVAILABLE."
+    },
+    "sharvesh_patch_inverse": {
+      "overall_status": "ADAPTABLE_WITH_PREPROCESSING",
+      "overall_score": 69.6,
+      "dimension_scores": {
+        "Geometry Representation": 5.6,
+        "Parameter Extraction": 10.0,
+        "Material Compatibility": 6.0,
+        "Frequency Range": 7.0,
+        "Input Tensor Format": 8.5,
+        "Output Tensor Format": 9.0,
+        "S11 Representation": 7.0,
+        "Radiation Metrics": 4.0,
+        "Framework Compatibility": 7.5,
+        "Checkpoint Availability": 5.0
+      },
+      "supported_anton_geometries": [
+        "rectangular_patch"
+      ],
+      "unsupported_anton_geometries": [
+        "circular_patch",
+        "triangular_patch",
+        "hexagonal_patch",
+        "u_slot_patch",
+        "inset_feed_patch",
+        "annular_patch",
+        "custom_polygon_patch"
+      ],
+      "required_preprocessing": [
+        "Parametric extraction: extract ['resonant_frequency_ghz', 'substrate_dielectric', 'loss_tangent'] from canonical ANTON layers and objects.",
+        "Material property mapping: verify target substrate permittivity matches training domain.",
+        "Input tensor assembly: construct shape [1, 3] with none scaling."
+      ],
+      "adaptation_recommendations": [
+        "Model does NOT support: ['circular_patch', 'triangular_patch', 'hexagonal_patch', 'u_slot_patch', 'inset_feed_patch', 'annular_patch', 'custom_polygon_patch']. Do not assume rectangular models generalize.",
+        "Do not claim radiation pattern or gain prediction; model targets impedance/S11 only.",
+        "Recommend exporting Keras .h5 / SavedModel to ONNX for runtime execution.",
+        "Model requires complete training on verified dataset before inference is possible."
+      ],
+      "blockers": [],
+      "summary": "Evaluated 'sharvesh_patch_inverse': Overall Score 69.6/100. Classified as ADAPTABLE_WITH_PREPROCESSING. Pretrained weights: UNAVAILABLE."
+    },
+    "abinayasree_ai_antenna": {
+      "overall_status": "ADAPTABLE_WITH_PREPROCESSING",
+      "overall_score": 67.8,
+      "dimension_scores": {
+        "Geometry Representation": 6.2,
+        "Parameter Extraction": 10.0,
+        "Material Compatibility": 6.0,
+        "Frequency Range": 9.0,
+        "Input Tensor Format": 8.5,
+        "Output Tensor Format": 9.0,
+        "S11 Representation": 7.0,
+        "Radiation Metrics": 4.0,
+        "Framework Compatibility": 3.0,
+        "Checkpoint Availability": 5.0
+      },
+      "supported_anton_geometries": [
+        "rectangular_patch",
+        "circular_patch"
+      ],
+      "unsupported_anton_geometries": [
+        "triangular_patch",
+        "hexagonal_patch",
+        "u_slot_patch",
+        "inset_feed_patch",
+        "annular_patch",
+        "custom_polygon_patch"
+      ],
+      "required_preprocessing": [
+        "Parametric extraction: extract ['length', 'width', 'height', 'dielectric_constant'] from canonical ANTON layers and objects.",
+        "Material property mapping: verify target substrate permittivity matches training domain.",
+        "Input tensor assembly: construct shape [1, 4] with none scaling."
+      ],
+      "adaptation_recommendations": [
+        "Model does NOT support: ['triangular_patch', 'hexagonal_patch', 'u_slot_patch', 'inset_feed_patch', 'annular_patch', 'custom_polygon_patch']. Do not assume rectangular models generalize.",
+        "Do not claim radiation pattern or gain prediction; model targets impedance/S11 only.",
+        "Model requires complete training on verified dataset before inference is possible."
+      ],
+      "blockers": [],
+      "summary": "Evaluated 'abinayasree_ai_antenna': Overall Score 67.8/100. Classified as ADAPTABLE_WITH_PREPROCESSING. Pretrained weights: UNAVAILABLE."
+    }
+  }
+}

@@ -34,3 +34,20 @@ htmlcov/
 
 # Test simulation outputs
 simulation_outputs/
+
+# Machine learning model weights and checkpoints (large binaries tracked via manifests)
+*.pt
+*.pth
+*.h5
+*.hdf5
+*.ckpt
+*.safetensors
+*.onnx
+*.weights
+*.bin
+
+# Local ML training logs and temporary workspace outputs
+**/checkpoints/
+**/logs/
+**/wandb/
+

@@ -1,0 +1,58 @@
+{
+  "geometry_loading": {
+    "operation": "Canonical Geometry Loading (8 designs)",
+    "iterations": 50,
+    "total_time_ms": 5655.787,
+    "avg_time_ms": 113.1157,
+    "peak_memory_kb": 1159.0
+  },
+  "geometry_serialization": {
+    "operation": "Geometry Serialization (8 designs)",
+    "iterations": 50,
+    "total_time_ms": 196.001,
+    "avg_time_ms": 3.92,
+    "peak_memory_kb": 166.63
+  },
+  "geometry_validation": {
+    "operation": "Geometry Validation (8 designs)",
+    "iterations": 50,
+    "total_time_ms": 3923.884,
+    "avg_time_ms": 78.4777,
+    "peak_memory_kb": 82.06
+  },
+  "model_registry_loading": {
+    "operation": "Model Registry Default Catalog Loading",
+    "iterations": 50,
+    "total_time_ms": 1086.286,
+    "avg_time_ms": 21.7257,
+    "peak_memory_kb": 87.62
+  },
+  "model_metadata_queries": {
+    "operation": "Model Metadata Queries (Filter & Search)",
+    "iterations": 100,
+    "total_time_ms": 43.421,
+    "avg_time_ms": 0.4342,
+    "peak_memory_kb": 1.42
+  },
+  "checkpoint_discovery": {
+    "operation": "Checkpoint Discovery & Safe Header Inspection",
+    "iterations": 50,
+    "total_time_ms": 2371.633,
+    "avg_time_ms": 47.4327,
+    "peak_memory_kb": 150.05
+  },
+  "dataset_metadata_loading": {
+    "operation": "Dataset Metadata Loading",
+    "iterations": 100,
+    "total_time_ms": 0.987,
+    "avg_time_ms": 0.0099,
+    "peak_memory_kb": 0.23
+  },
+  "compatibility_assessment": {
+    "operation": "Compatibility Assessment (10 models across 10 dimensions)",
+    "iterations": 50,
+    "total_time_ms": 3586.713,
+    "avg_time_ms": 71.7343,
+    "peak_memory_kb": 40.33
+  }
+}

@@ -1,0 +1,30 @@
+# Antenna-Net Manual Fine-Tuning Hyperparameters
+experiment_name: "antennanet_finetuning_v1"
+model_id: "galabavamsi_antennanet"
+base_checkpoint_path: "external/galabavamsi_antennanet/s11_model.pt"
+
+training:
+  batch_size: 64
+  max_epochs: 150
+  early_stopping_patience: 15
+  learning_rate: 0.0005
+  lr_scheduler: "CosineAnnealingLR"
+  min_lr: 0.00001
+  weight_decay: 0.0001
+  freeze_feature_extractor: true
+  frozen_layer_count: 2
+
+loss_weights:
+  mse_s11: 1.0
+  resonance_frequency_penalty: 0.25
+  non_physical_positive_penalty: 10.0
+
+validation:
+  val_split: 0.2
+  test_split: 0.1
+  shuffle: true
+  random_seed: 42
+
+hardware:
+  device: "cuda" # or "cpu"
+  num_workers: 2

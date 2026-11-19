@@ -1,0 +1,19 @@
+# Jasti RF Surrogate Training Configuration
+experiment_name: "jasti_rf_training"
+model_id: "jasti_rf_surrogate"
+
+random_forest:
+  n_estimators: 200
+  max_depth: 15
+  min_samples_split: 4
+  min_samples_leaf: 2
+  random_state: 42
+  n_jobs: -1
+
+genetic_algorithm:
+  target_frequency_ghz: 2.45
+  population_size: 100
+  generations: 50
+  crossover_prob: 0.7
+  mutation_prob: 0.2
+

@@ -1,0 +1,74 @@
+{
+  "geometry_loading": {
+    "operation": "Canonical Geometry Loading (8 designs)",
+    "baseline_avg_time_ms": 113.1157,
+    "optimized_avg_time_ms": 156.5499,
+    "baseline_peak_mem_kb": 1159.0,
+    "optimized_peak_mem_kb": 975.61,
+    "speedup_factor": 0.72,
+    "time_reduction_percent": -38.4
+  },
+  "geometry_serialization": {
+    "operation": "Geometry Serialization (8 designs)",
+    "baseline_avg_time_ms": 3.92,
+    "optimized_avg_time_ms": 7.2626,
+    "baseline_peak_mem_kb": 166.63,
+    "optimized_peak_mem_kb": 166.63,
+    "speedup_factor": 0.54,
+    "time_reduction_percent": -85.3
+  },
+  "geometry_validation": {
+    "operation": "Geometry Validation (8 designs)",
+    "baseline_avg_time_ms": 78.4777,
+    "optimized_avg_time_ms": 125.5345,
+    "baseline_peak_mem_kb": 82.06,
+    "optimized_peak_mem_kb": 82.14,
+    "speedup_factor": 0.63,
+    "time_reduction_percent": -60.0
+  },
+  "model_registry_loading": {
+    "operation": "Model Registry Default Catalog Loading",
+    "baseline_avg_time_ms": 21.7257,
+    "optimized_avg_time_ms": 28.8474,
+    "baseline_peak_mem_kb": 87.62,
+    "optimized_peak_mem_kb": 95.14,
+    "speedup_factor": 0.75,
+    "time_reduction_percent": -32.8
+  },
+  "model_metadata_queries": {
+    "operation": "Model Metadata Queries (Filter & Search)",
+    "baseline_avg_time_ms": 0.4342,
+    "optimized_avg_time_ms": 1.1084,
+    "baseline_peak_mem_kb": 1.42,
+    "optimized_peak_mem_kb": 1.42,
+    "speedup_factor": 0.39,
+    "time_reduction_percent": -155.3
+  },
+  "checkpoint_discovery": {
+    "operation": "Checkpoint Discovery & Safe Header Inspection",
+    "baseline_avg_time_ms": 47.4327,
+    "optimized_avg_time_ms": 12.4403,
+    "baseline_peak_mem_kb": 150.05,
+    "optimized_peak_mem_kb": 3.29,
+    "speedup_factor": 3.81,
+    "time_reduction_percent": 73.8
+  },
+  "dataset_metadata_loading": {
+    "operation": "Dataset Metadata Loading",
+    "baseline_avg_time_ms": 0.0099,
+    "optimized_avg_time_ms": 0.0099,
+    "baseline_peak_mem_kb": 0.23,
+    "optimized_peak_mem_kb": 0.23,
+    "speedup_factor": 1.0,
+    "time_reduction_percent": 0.0
+  },
+  "compatibility_assessment": {
+    "operation": "Compatibility Assessment (10 models across 10 dimensions)",
+    "baseline_avg_time_ms": 71.7343,
+    "optimized_avg_time_ms": 60.3076,
+    "baseline_peak_mem_kb": 40.33,
+    "optimized_peak_mem_kb": 40.16,
+    "speedup_factor": 1.19,
+    "time_reduction_percent": 15.9
+  }
+}

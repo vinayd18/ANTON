@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANTON — Pretrained Model Registry & Compatibility Audit</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --purple: #a855f7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 24px; }
+    .container { max-width: 1400px; margin: 0 auto; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    h1 { font-size: 24px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .badge-stage { background: #0369a1; color: #e0f2fe; padding: 4px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+    .stat-num { font-size: 28px; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+    
+    .filter-bar { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    input[type="text"], select { background: #0f172a; border: 1px solid var(--border); color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 14px; }
+    input[type="text"] { flex-grow: 1; min-width: 250px; }
+    
+    .models-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 20px; }
+    .model-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+    .model-card:hover { border-color: var(--accent); }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .model-title { font-size: 17px; font-weight: 600; color: #fff; }
+    .model-id { font-size: 12px; color: var(--text-muted); font-family: monospace; }
+    .cat-badge { font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; }
+    .cat-a { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid var(--success); }
+    .cat-b { background: rgba(56, 189, 248, 0.2); color: var(--accent); border: 1px solid var(--accent); }
+    .cat-c { background: rgba(168, 85, 247, 0.2); color: var(--purple); border: 1px solid var(--purple); }
+    .cat-d { background: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid var(--warning); }
+    
+    .tags-container { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+    .tag { background: #0f172a; border: 1px solid #334155; font-size: 11px; padding: 2px 6px; border-radius: 4px; color: #cbd5e1; }
+    .tag-patent { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border-color: var(--danger); font-weight: 600; }
+    
+    .card-details { font-size: 13px; color: #cbd5e1; line-height: 1.5; margin-bottom: 16px; }
+    .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #334155; padding-top: 12px; }
+    .btn { background: var(--accent); color: #0f172a; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+    .btn:hover { background: var(--accent-hover); }
+    .btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .btn-outline:hover { background: rgba(56, 189, 248, 0.1); }
+    
+    /* Modal */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 100; justify-content: center; align-items: center; }
+    .modal-content { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; width: 800px; max-width: 90%; max-height: 85vh; overflow-y: auto; padding: 24px; position: relative; }
+    .modal-close { position: absolute; top: 16px; right: 16px; background: transparent; border: none; color: #94a3b8; font-size: 20px; cursor: pointer; }
+    
+    .score-meter { height: 8px; border-radius: 4px; background: #334155; overflow: hidden; margin-top: 6px; }
+    .score-fill { height: 100%; background: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>ANTON — Pretrained Model Registry <span class="badge-stage">STAGE 3.0</span></h1>
+        <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">Standardized Discovery, Licensing Compliance, Compatibility Audit and Model Catalog</p>
+      </div>
+      <div>
+        <a href="#coverage" class="btn btn-outline" onclick="showCoverage()">Coverage Matrix</a>
+      </div>
+    </header>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num" id="total-models">10</div>
+        <div class="stat-label">Total Audited Candidates</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color: var(--success);" id="verified-weights">2</div>
+        <div class="stat-label">Category A (Pretrained Weights)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color: var(--accent);" id="arch-only">7</div>
+        <div class="stat-label">Category B (Architecture Only)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color: var(--danger);" id="patent-alerts">1</div>
+        <div class="stat-label">Patent Encumbered (Indian Pat. 572928)</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-bar">
+      <input type="text" id="search-input" placeholder="Search models by name, architecture, geometry, license, tags..." oninput="filterModels()">
+      
+      <select id="geometry-filter" onchange="filterModels()">
+        <option value="ALL">All Geometries</option>
+        <option value="rectangular_patch">Rectangular Patch</option>
+        <option value="circular_patch">Circular Patch</option>
+        <option value="triangular_patch">Triangular Patch (0)</option>
+        <option value="hexagonal_patch">Hexagonal Patch (0)</option>
+        <option value="u_slot_patch">U-Slot Patch</option>
+        <option value="inset_fed_patch">Inset-Fed Patch</option>
+        <option value="annular_patch">Annular Patch (0)</option>
+        <option value="pixelated_patch">Pixelated Patch</option>
+      </select>
+
+      <select id="capability-filter" onchange="filterModels()">
+        <option value="ALL">All Capabilities</option>
+        <option value="S11_PREDICTION">S11 Prediction</option>
+        <option value="RESONANT_FREQUENCY_PREDICTION">Resonant Frequency</option>
+        <option value="BANDWIDTH_PREDICTION">Bandwidth</option>
+        <option value="GAIN_PREDICTION">Gain</option>
+        <option value="INVERSE_DESIGN">Inverse Design</option>
+        <option value="GEOMETRY_OPTIMIZATION">Geometry Optimization</option>
+      </select>
+
+      <select id="category-filter" onchange="filterModels()">
+        <option value="ALL">All Categories</option>
+        <option value="Category A">Category A (Pretrained Weights)</option>
+        <option value="Category B">Category B (Architecture Only)</option>
+        <option value="Category C">Category C (Dataset Only)</option>
+      </select>
+    </div>
+
+    <!-- Models Grid -->
+    <div class="models-grid" id="models-container">
+      <!-- Populated via JavaScript from reports/model_registry_catalog.json -->
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="modal" id="detail-modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script>
+    let catalog = {};
+    let compatibility = {};
+
+    async function loadData() {
+      try {
+        const respCat = await fetch("../reports/model_registry_catalog.json");
+        catalog = await respCat.json();
+      } catch (e) {
+        console.warn("Could not load relative catalog; using embedded verified data");
+        // Fallback embedded metadata
+        catalog = {
+          "galabavamsi_antennanet": {
+            "model_id": "galabavamsi_antennanet",
+            "model_name": "Antenna-Net (PINN and Recurrent Surrogate)",
+            "model_category": "Pretrained model with downloadable verified weights",
+            "framework": "PyTorch",
+            "architecture": "Lorentzian PINN / LRNN (LSTM) + Forward Surrogate",
+            "checkpoint_available": true,
+            "license": "MIT License",
+            "patent_restrictions": [],
+            "supported_geometries": ["rectangular_patch", "pixelated_patch"],
+            "target_capabilities": ["Frequency-dependent S11 prediction", "Resonant frequency prediction", "Bandwidth prediction", "Inverse antenna design"],
+            "notes": "Verified 5 checkpoints (.pt/.pth). Ready in workspaces/antennanet_workspace/."
+          },
+          "youxch_patch_mlp": {
+            "model_id": "youxch_patch_mlp",
+            "model_name": "Inverse-Design-of-Patch-Antennas (Keras MLP)",
+            "model_category": "Pretrained model with downloadable verified weights",
+            "framework": "TensorFlow/Keras",
+            "architecture": "5-layer Dense MLP with BatchNormalization",
+            "checkpoint_available": true,
+            "license": "MIT License",
+            "patent_restrictions": [],
+            "supported_geometries": ["rectangular_patch", "inset_fed_patch"],
+            "target_capabilities": ["Frequency-dependent S11 prediction", "Gain prediction", "Inverse antenna design"],
+            "notes": "Verified saved-model-5000.h5 (1.56 MB). Ready in workspaces/youxch_workspace/."
+          },
+          "udaykdk_pixelant": {
+            "model_id": "udaykdk_pixelant",
+            "model_name": "PixelAnt (Tandem Neural Network)",
+            "model_category": "Model architecture with training code only",
+            "framework": "PyTorch",
+            "architecture": "Tandem Neural Network (Forward CNN + Inverse Generator)",
+            "checkpoint_available": false,
+            "license": "MIT (No Patent Grant)",
+            "patent_restrictions": ["Indian Patent No. 572928 (Granted Oct 30, 2025; 'Method Of Designing Ultra Compact Single Band Antennas', IIT Madras)"],
+            "supported_geometries": ["pixelated_patch"],
+            "target_capabilities": ["Frequency-dependent S11 prediction", "Resonant frequency prediction", "Inverse antenna design", "Antenna geometry optimization"],
+            "notes": "PATENT RESTRICTED: Requires commercial license from IIT Madras."
+          },
+          "metu_simpl_microstrip": {
+            "model_id": "metu_simpl_microstrip",
+            "model_name": "METU-SIMPL Microstrip HFSS Dataset",
+            "model_category": "Dataset without a pretrained model",
+            "framework": "Simulation Dataset (Excel / AEDT)",
+            "architecture": "Authentic ANSYS HFSS Full-Wave Simulations",
+            "checkpoint_available": false,
+            "license": "Academic Attribution",
+            "patent_restrictions": [],
+            "supported_geometries": ["rectangular_patch", "inset_fed_patch"],
+            "target_capabilities": ["Frequency-dependent S11 prediction", "Input impedance prediction", "Resonant frequency prediction"],
+            "notes": "Ground-truth benchmark dataset."
+          },
+          "jasti_rf_surrogate": {
+            "model_id": "jasti_rf_surrogate",
+            "model_name": "ML-Patch-Antenna-Design (Random Forest & GA)",
+            "model_category": "Model architecture with training code only",
+            "framework": "Scikit-Learn",
+            "architecture": "Random Forest Regressor + Genetic Algorithm (DEAP)",
+            "checkpoint_available": false,
+            "license": "MIT License",
+            "patent_restrictions": [],
+            "supported_geometries": ["rectangular_patch"],
+            "target_capabilities": ["Resonant frequency prediction", "Bandwidth prediction", "Antenna geometry optimization"],
+            "notes": "Fast surrogate for 2.45 GHz. Ready in workspaces/jasti_workspace/."
+          }
+        };
+      }
+      renderModels(Object.values(catalog));
+    }
+
+    function renderModels(models) {
+      const container = document.getElementById("models-container");
+      container.innerHTML = "";
+
+      models.forEach(m => {
+        let catClass = "cat-b";
+        let catShort = "Category B";
+        if (m.model_category.includes("Pretrained")) { catClass = "cat-a"; catShort = "Category A (Weights)"; }
+        else if (m.model_category.includes("Dataset")) { catClass = "cat-c"; catShort = "Category C (Dataset)"; }
+        else if (m.model_category.includes("Research")) { catClass = "cat-d"; catShort = "Category D"; }
+
+        const card = document.createElement("div");
+        card.className = "model-card";
+        card.innerHTML = `
+          <div>
+            <div class="card-header">
+              <div>
+                <div class="model-title">${m.model_name}</div>
+                <div class="model-id">${m.model_id}</div>
+              </div>
+              <span class="cat-badge ${catClass}">${catShort}</span>
+            </div>
+            
+            <div style="font-size: 13px; color: var(--accent); margin-bottom: 6px;">
+              <strong>Framework:</strong> ${m.framework} | <strong>Arch:</strong> ${m.architecture}
+            </div>
+
+            <div class="tags-container">
+              ${m.supported_geometries.map(g => `<span class="tag">${g}</span>`).join("")}
+              ${m.patent_restrictions && m.patent_restrictions.length > 0 ? `<span class="tag tag-patent">[!] Indian Patent 572928</span>` : `<span class="tag" style="color: var(--success); border-color: var(--success);">Clean License</span>`}
+            </div>
+
+            <div class="card-details">
+              <strong>Capabilities:</strong> ${m.target_capabilities.slice(0, 3).join(", ")}${m.target_capabilities.length > 3 ? "..." : ""}<br>
+              <strong>License:</strong> ${m.license}
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <span style="font-size: 12px; color: ${m.checkpoint_available ? "var(--success)" : "var(--text-muted)"}">
+              ${m.checkpoint_available ? "✔ Pretrained Checkpoints Verified" : "○ Architecture / Dataset"}
+            </span>
+            <button class="btn btn-outline" onclick="openDetails('${m.model_id}')">Inspect</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterModels() {
+      const query = document.getElementById("search-input").value.toLowerCase();
+      const geom = document.getElementById("geometry-filter").value;
+      const cap = document.getElementById("capability-filter").value;
+      const cat = document.getElementById("category-filter").value;
+
+      const filtered = Object.values(catalog).filter(m => {
+        const text = `${m.model_id} ${m.model_name} ${m.architecture} ${m.framework} ${m.license} ${m.notes}`.toLowerCase();
+        if (query && !text.includes(query)) return false;
+        if (geom !== "ALL" && !m.supported_geometries.includes(geom)) return false;
+        if (cap !== "ALL" && !m.target_capabilities.some(c => c.toUpperCase().includes(cap))) return false;
+        if (cat !== "ALL" && !m.model_category.includes(cat.replace("Category ", ""))) return false;
+        return true;
+      });
+
+      renderModels(filtered);
+    }
+
+    function openDetails(modelId) {
+      const m = catalog[modelId];
+      if (!m) return;
+      const mb = document.getElementById("modal-body");
+      mb.innerHTML = `
+        <h2 style="color: #fff; margin-bottom: 8px;">${m.model_name}</h2>
+        <p style="font-family: monospace; color: var(--accent); margin-bottom: 16px;">${m.model_id} | ${m.repository_url || ""}</p>
+        
+        <h3 style="font-size: 14px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">Architecture & Framework</h3>
+        <p style="margin-bottom: 16px; font-size: 14px;">${m.architecture} (${m.framework})</p>
+
+        <h3 style="font-size: 14px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">License & Legal Compliance</h3>
+        <p style="margin-bottom: 8px; font-size: 14px;"><strong>Declared License:</strong> ${m.license}</p>
+        ${m.patent_restrictions && m.patent_restrictions.length > 0 ? `
+          <div style="background: rgba(239,68,68,0.15); border: 1px solid var(--danger); padding: 12px; border-radius: 6px; margin-bottom: 16px; font-size: 13px; color: #fca5a5;">
+            <strong>PATENT WARNING:</strong><br>
+            ${m.patent_restrictions.join("<br>")}
+          </div>
+        ` : `<p style="color: var(--success); margin-bottom: 16px; font-size: 13px;">✔ No patent encumbrances detected. Open-source commercial modification permitted.</p>`}
+
+        <h3 style="font-size: 14px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">Supported Antenna Geometries</h3>
+        <p style="margin-bottom: 16px; font-size: 14px;">${m.supported_geometries.join(", ")}</p>
+
+        <h3 style="font-size: 14px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">Target Capabilities</h3>
+        <ul style="margin-bottom: 16px; padding-left: 20px; font-size: 14px;">
+          ${m.target_capabilities.map(c => `<li>${c}</li>`).join("")}
+        </ul>
+
+        <h3 style="font-size: 14px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">Notes & Fine-Tuning Workspace</h3>
+        <p style="font-size: 14px; color: #cbd5e1;">${m.notes}</p>
+      `;
+      document.getElementById("detail-modal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("detail-modal").style.display = "none";
+    }
+
+    function showCoverage() {
+      alert("Geometry Coverage:\n- Rectangular Patch: 7 models\n- Inset-Fed Patch: 2 models\n- Circular Patch: 1 model\n- U-Slot Patch: 1 model\n- Pixelated Patch: 4 models\n- Triangular, Hexagonal, Annular: 0 models (Identified Gaps)");
+    }
+
+    window.onload = loadData;
+  </script>
+</body>
+</html>
+

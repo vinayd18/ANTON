@@ -1,0 +1,91 @@
+{
+  "manifest_version": "1.0.0",
+  "generated_date": "2026-11-14",
+  "description": "ANTON Stage 3.0 Verified Pretrained Model Download & Storage Manifest",
+  "immutability_policy": {
+    "read_only_enforced": true,
+    "automatic_overwriting_prohibited": true,
+    "manual_finetuning_isolation": "workspaces/"
+  },
+  "verified_models": [
+    {
+      "model_id": "galabavamsi_antennanet",
+      "model_name": "Antenna-Net",
+      "repository_url": "https://github.com/Galabavamsi/Antenna-Net",
+      "license": "MIT License",
+      "license_type": "MIT",
+      "patent_restricted": false,
+      "category": "Pretrained model with downloadable verified weights",
+      "storage_directory": "models/external/galabavamsi_antennanet",
+      "checkpoints": [
+        {
+          "filename": "s11_model.pt",
+          "file_size_bytes": 105513,
+          "framework": "PyTorch",
+          "download_url": "https://raw.githubusercontent.com/Galabavamsi/Antenna-Net/main/metaprototyping/Test3/s11_model.pt",
+          "target_capability": "Frequency-dependent S11 prediction",
+          "input_format": "tabular [W, L, h, er]",
+          "output_format": "s11_db (101 points)"
+        },
+        {
+          "filename": "best_forward_surrogate.pt",
+          "file_size_bytes": 668357,
+          "framework": "PyTorch",
+          "download_url": "https://raw.githubusercontent.com/Galabavamsi/Antenna-Net/main/inverse_network/best_forward_surrogate.pt",
+          "target_capability": "Forward surrogate S11 prediction",
+          "input_format": "tabular [W, L, h, er]",
+          "output_format": "s11_db profile"
+        },
+        {
+          "filename": "best_pixel_surrogate.pt",
+          "file_size_bytes": 1140331,
+          "framework": "PyTorch",
+          "download_url": "https://raw.githubusercontent.com/Galabavamsi/Antenna-Net/main/inverse_network/best_pixel_surrogate.pt",
+          "target_capability": "Frequency-dependent S11 prediction",
+          "input_format": "12x12 binary pixel matrix",
+          "output_format": "s11_db (101 points)"
+        },
+        {
+          "filename": "s11_pinn_model.pt",
+          "file_size_bytes": 404143,
+          "framework": "PyTorch",
+          "download_url": "https://raw.githubusercontent.com/Galabavamsi/Antenna-Net/main/metaprototyping/Test3/s11_pinn_model.pt",
+          "target_capability": "Lorentzian Physics-Informed S11 prediction",
+          "input_format": "tabular [W, L, h, er] + frequency",
+          "output_format": "lorentzian_s11_response"
+        },
+        {
+          "filename": "hybrid_lorentzian_rnn_best.pth",
+          "file_size_bytes": 5151445,
+          "framework": "PyTorch",
+          "download_url": "https://raw.githubusercontent.com/Galabavamsi/Antenna-Net/main/LRNN_network/hybrid_lorentzian_rnn_best.pth",
+          "target_capability": "Recurrent S11 frequency sweep prediction",
+          "input_format": "sequential frequency steps",
+          "output_format": "s11_db trajectory"
+        }
+      ]
+    },
+    {
+      "model_id": "youxch_patch_mlp",
+      "model_name": "Inverse-Design-of-Patch-Antennas",
+      "repository_url": "https://github.com/youxch/Inverse-design-of-patch-antennas",
+      "license": "MIT License",
+      "license_type": "MIT",
+      "patent_restricted": false,
+      "category": "Pretrained model with downloadable verified weights",
+      "storage_directory": "models/external/youxch_patch_mlp",
+      "checkpoints": [
+        {
+          "filename": "saved-model-5000.h5",
+          "file_size_bytes": 1558808,
+          "framework": "Keras/HDF5",
+          "sha256_checksum": "10d2293262362e5c3bf637ebb6a42fb6435c62650adf6c419527103e97905bf1",
+          "download_url": "https://raw.githubusercontent.com/youxch/Inverse-design-of-patch-antennas/main/saved-model-5000.h5",
+          "target_capability": "Frequency-dependent S11 prediction & Gain prediction",
+          "input_format": "tabular [h, Scale_X, Scale_Y, Offset_y, Scale_Slot, Uw_3]",
+          "output_format": "s11_db (101 points in 2-3 GHz) + broadside_gain"
+        }
+      ]
+    }
+  ]
+}
