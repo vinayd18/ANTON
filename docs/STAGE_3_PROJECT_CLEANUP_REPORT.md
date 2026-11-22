@@ -45,3 +45,4 @@ As required by Section 14, operations were benchmarked before and after optimiza
    Backend API models directly leverage `src/anton/datasets/` core classes, preventing duplicated schemas between backend and core libraries.
 3. **Pure-Python Matrix Forward Pass**:
    The Youxch MLP forward pass was implemented directly in pure NumPy (1.07 ms CPU latency), avoiding any reliance on unsupported TensorFlow builds on Python 3.13 on Windows.
+

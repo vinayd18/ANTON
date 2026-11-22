@@ -369,3 +369,4 @@ class HfssCsvImporter:
             gain_total_dbi=gains,
             normalization_peak_dbi=max(gains) if gains else None,
         )
+

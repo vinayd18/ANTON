@@ -330,3 +330,4 @@ class DatasetRecord(BaseModel):
         """Computes deterministic SHA-256 hash of canonical geometry JSON."""
         geo_str = json.dumps(self.geometry, sort_keys=True)
         return hashlib.sha256(geo_str.encode("utf-8")).hexdigest()
+

@@ -82,3 +82,4 @@ class FrequencyGridAligner:
         resampled_re = self.resample_curve(source_freqs, s11_re)
         resampled_im = self.resample_curve(source_freqs, s11_im)
         return resampled_re, resampled_im
+

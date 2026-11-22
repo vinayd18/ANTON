@@ -261,3 +261,4 @@ class ElectromagneticValidator:
             )
 
         return issues
+

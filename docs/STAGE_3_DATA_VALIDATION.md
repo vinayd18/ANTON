@@ -72,3 +72,4 @@ stateDiagram-v2
 - **`INCOMPLETE`**: Missing essential fields (e.g. sweep truncated before completion, missing substrate height).
 - **`REJECTED`**: Severely invalid data (NaN, negative permittivity, non-passive response). Excluded from training workflows.
 - **`UNVERIFIED`**: Initial status prior to automated validation execution.
+

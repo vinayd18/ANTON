@@ -67,3 +67,4 @@ To prevent test-set distribution leakage into feature normalization:
 | `AntennaNetAdapter` | `s11_model.pt`, `best_forward_surrogate.pt` | $[W, L, h, \varepsilon_r]$ ($4\text{-dim}$) | $S_{11,\text{dB}}$ resampled to $101$ pts over $[1.0, 6.0]\,\text{GHz}$ | Rejects non-rectangular geometries. Rejects sweeps narrower than $[1.0, 6.0]\,\text{GHz}$. |
 | `YouxchAdapter` | `saved-model-5000.h5` | 22-dimensional geometric/ratio vector | $[S_{11,\text{dB}}(101), \text{Gain}(101)]$ ($202\text{-dim}$) | Rejects non-patch geometries. Requires coverage of $[2.0, 8.0]\,\text{GHz}$. |
 | `GenericAdapter` | Custom models & Jasti RNN | Parametric vector + optional 2D raster mask | Configurable resampled $S_{11}$ or Complex S11 | User-configurable frequency grids and parameter mappings. |
+

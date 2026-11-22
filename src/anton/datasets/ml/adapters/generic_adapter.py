@@ -74,3 +74,4 @@ class GenericAdapter:
             result["gain_dbi"] = self.aligner.resample_curve(outputs.frequencies_ghz, outputs.gain_dbi)
 
         return result
+

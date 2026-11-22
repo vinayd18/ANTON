@@ -158,3 +158,4 @@ def test_far_field_pattern_2d_validation():
             angles_deg=[-90.0, 0.0, 90.0],
             gain_total_dbi=[-5.0, 6.2],  # Length 2 != Length 3
         )
+

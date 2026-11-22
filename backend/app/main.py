@@ -71,3 +71,4 @@ def models_ui():
         with open(ui_path, "r", encoding="utf-8") as f:
             return f.read()
     return "<h1>ANTON Model Registry UI</h1>"
+

@@ -189,3 +189,4 @@ def test_antennanet_adapter():
 
     with pytest.raises(ValueError):
         adapter.prepare_sample(rec_circ)
+

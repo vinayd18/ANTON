@@ -69,3 +69,4 @@ def atomic_write(file_path: str, content: Union[str, bytes], mode: str = "w") ->
         raise
 
     return compute_sha256(file_path)
+

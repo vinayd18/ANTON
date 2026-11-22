@@ -78,3 +78,4 @@ class QualityClassifier:
             status = QualityStatus.VERIFIED
 
         return status, issues, passed_checks
+

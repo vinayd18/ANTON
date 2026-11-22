@@ -88,3 +88,4 @@ For all imported frequency curves, ANTON executes quadratic-interpolated local m
 3. The contiguous $-10\,\text{dB}$ impedance bandwidth interval $[f_{\text{low}}, f_{\text{high}}]$ is determined using linear edge interpolation.
 4. Fractional bandwidth is computed as:
    $$\text{FBW} = \frac{f_{\text{high}} - f_{\text{low}}}{f_{\text{res}}} \times 100\%$$
+

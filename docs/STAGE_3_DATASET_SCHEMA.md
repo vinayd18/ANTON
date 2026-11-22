@@ -159,3 +159,4 @@ A complete record binds identity, Stage 1 canonical geometry, materials, simulat
   "quality_status": "VERIFIED"
 }
 ```
+

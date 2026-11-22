@@ -152,3 +152,4 @@ class DuplicateDetector:
             "duplicate_source_file_groups": duplicate_source_files,
             "near_duplicate_pairs": near_duplicate_pairs,
         }
+

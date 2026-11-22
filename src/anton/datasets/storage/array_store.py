@@ -123,3 +123,4 @@ class ArrayStore:
                 del f[path]
                 return True
         return False
+

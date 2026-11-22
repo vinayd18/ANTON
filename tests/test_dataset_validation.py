@@ -157,3 +157,4 @@ def test_validation_report_generator():
     md = rep_gen.format_markdown_report(report)
     assert "Validation Report" in md
     assert "VERIFIED" in md
+

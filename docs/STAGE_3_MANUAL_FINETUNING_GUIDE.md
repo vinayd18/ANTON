@@ -88,3 +88,4 @@ Before deploying any fine-tuned model, evaluate its performance on the hold-out 
 When registering the fine-tuned checkpoint into ANTON's Model Registry:
 - Pydantic validator `validate_production_readiness` strictly prevents setting `production_readiness=True` unless full-wave verification is proven with reported metrics on authentic EM data.
 - Specify `entity_type: PRETRAINED_MODEL` and document the training dataset provenance and commit hash.
+

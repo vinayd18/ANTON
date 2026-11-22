@@ -62,3 +62,4 @@ def get_model_compatibility(model_id: str) -> Dict[str, Any]:
         "fine_tuning_available": m.get("fine_tuning_available"),
         "production_readiness": m.get("production_readiness"),
     }
+

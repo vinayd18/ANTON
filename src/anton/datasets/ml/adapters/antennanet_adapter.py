@@ -109,3 +109,4 @@ class AntennaNetAdapter:
             return np.empty((0, 4), dtype=np.float32), np.empty((0, self.NUM_POINTS), dtype=np.float32), []
 
         return np.stack(x_list, axis=0), np.stack(y_list, axis=0), valid_ids
+

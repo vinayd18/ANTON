@@ -124,3 +124,4 @@ class ValidationReportGenerator:
                 md.append(f"1. {r}")
 
         return "\n".join(md)
+

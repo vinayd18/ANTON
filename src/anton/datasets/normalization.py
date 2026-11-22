@@ -236,3 +236,4 @@ def detect_resonances_and_bandwidth(
     fbw_pct = (bw_ghz / primary_res) * 100.0 if primary_res > 0 else 0.0
 
     return sorted_res_freqs, round(bw_mhz, 3), round(fbw_pct, 3)
+

@@ -335,3 +335,4 @@ class AntennaAiBenchmarkAdapter:
             quality_status=QualityStatus.VERIFIED,
             tags=["antenna_ai_benchmark", "cst", "magnitude_only"],
         )
+

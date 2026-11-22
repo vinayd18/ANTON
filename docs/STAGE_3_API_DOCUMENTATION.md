@@ -126,3 +126,4 @@ Retrieves detailed metadata for a specific model.
 #### `GET /api/ml/models/{model_id}/compatibility`
 Retrieves geometry and input tensor compatibility constraints for a specific model.
 - **Response**: `200 OK` with compatibility assessment dictionary.
+

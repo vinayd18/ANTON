@@ -97,3 +97,4 @@ def load_antennanet_dataloaders(
 if __name__ == "__main__":
     t_loader, v_loader, te_loader, sc, man = load_antennanet_dataloaders()
     print("AntennaNet Dataloader loaded:", man)
+

@@ -142,3 +142,4 @@ class StandardScaler:
         scaler.std_ = np.array(d["std"])
         scaler.is_fitted = d["is_fitted"]
         return scaler
+

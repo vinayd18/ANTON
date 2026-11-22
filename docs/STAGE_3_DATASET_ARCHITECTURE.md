@@ -96,3 +96,4 @@ The storage and ingestion subsystems incorporate defense-in-depth security pract
 - **Upload Size Bounds**: Strict limits ($50\,\text{MB}$) prevent memory exhaustion attacks.
 - **Safe Serialization**: Zero untrusted `pickle` deserialization. All transfers utilize standard JSON, HDF5, CSV, or NumPy `.npz`.
 - **Atomic Operations**: All file writing uses temporary file replacement (`os.replace`) to prevent file corruption during sudden system shutdowns.
+
