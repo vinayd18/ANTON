@@ -5,9 +5,10 @@ import sys
 from pathlib import Path
 import pytest
 
-# Ensure src is on sys.path
+# Ensure src and project root are on sys.path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
+sys.path.insert(0, str(PROJECT_ROOT))
 
 from anton.core.geometry_engine import AntonEngine
 from anton.core.units import Units

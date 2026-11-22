@@ -46,8 +46,9 @@ simulation_outputs/
 *.weights
 *.bin
 
-# Local ML training logs and temporary workspace outputs
-**/checkpoints/
-**/logs/
-**/wandb/
+# Local dataset stores and exports
+data/datasets/*.db
+data/datasets/*.db-wal
+data/datasets/*.db-shm
+data/datasets/exports/
 

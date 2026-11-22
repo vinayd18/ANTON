@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANTON — Electromagnetic Dataset Engineering & Management</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --purple: #a855f7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 24px; }
+    .container { max-width: 1400px; margin: 0 auto; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    h1 { font-size: 24px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .badge-stage { background: #0369a1; color: #e0f2fe; padding: 4px 10px; border-radius: 9999px; font-size: 12px; font-weight: 600; }
+    
+    .nav-tabs { display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid var(--border); }
+    .nav-tab { padding: 10px 18px; font-size: 14px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; }
+    .nav-tab:hover { color: var(--text); }
+    .nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+    .stat-num { font-size: 26px; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+    .card-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #fff; }
+
+    .filter-bar { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    input[type="text"], input[type="number"], select { background: #0f172a; border: 1px solid var(--border); color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 14px; }
+    input[type="text"] { flex-grow: 1; min-width: 220px; }
+    
+    .btn { background: var(--accent); color: #0f172a; border: none; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.15s; }
+    .btn:hover { background: var(--accent-hover); }
+    .btn-secondary { background: var(--border); color: #fff; }
+    .btn-secondary:hover { background: #475569; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+    th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { color: var(--text-muted); font-weight: 600; background: rgba(15, 23, 42, 0.6); }
+    tr:hover td { background: rgba(56, 189, 248, 0.04); }
+
+    .status-badge { display: inline-block; padding: 3px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
+    .status-verified { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .status-warning { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .status-incomplete { background: rgba(148, 163, 184, 0.15); color: var(--text-muted); border: 1px solid rgba(148, 163, 184, 0.3); }
+    .status-rejected { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { margin-bottom: 14px; }
+    .form-label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
+    .form-input { width: 100%; }
+
+    /* Modal styling */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; }
+    .modal.active { display: flex; }
+    .modal-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; width: 850px; max-width: 95%; max-height: 90vh; overflow-y: auto; padding: 24px; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+    .modal-close { cursor: pointer; color: var(--text-muted); font-size: 20px; font-weight: bold; }
+    .modal-close:hover { color: #fff; }
+
+    pre { background: #0f172a; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 13px; color: #cbd5e1; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+        ANTON Electromagnetic Datasets
+        <span class="badge-stage">STAGE 3.0 DATA ENGINE</span>
+      </h1>
+      <div style="display: flex; gap: 10px;">
+        <a href="/ui/models" class="btn btn-secondary">Model Registry</a>
+        <button class="btn" onclick="openImportModal()">+ Import Simulation</button>
+      </div>
+    </header>
+
+    <!-- Top KPI Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-total-records">0</div>
+        <div class="stat-label">Total Records</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-unique-designs">0</div>
+        <div class="stat-label">Unique Antenna Designs</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color: var(--success);" id="stat-verified">0</div>
+        <div class="stat-label">Verified EM Records</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color: var(--purple);" id="stat-complex-s11">0</div>
+        <div class="stat-label">Complex S11 Available</div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+      <div class="nav-tab active" onclick="switchTab('tab-dashboard')">Dashboard</div>
+      <div class="nav-tab" onclick="switchTab('tab-explorer')">Record Explorer</div>
+      <div class="nav-tab" onclick="switchTab('tab-import')">Import Simulation / Measurement</div>
+      <div class="nav-tab" onclick="switchTab('tab-ml-prep')">ML Preparation & Splitter</div>
+    </div>
+
+    <!-- TAB 1: DASHBOARD -->
+    <div id="tab-dashboard" class="tab-content active">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Geometry Family Distribution</div>
+          <div id="family-dist-list">Loading distribution...</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Data Source Breakdown</div>
+          <div id="source-dist-list">Loading sources...</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Quality Assurance Status</div>
+        <div id="quality-dist-list">Loading quality metrics...</div>
+      </div>
+    </div>
+
+    <!-- TAB 2: RECORD EXPLORER -->
+    <div id="tab-explorer" class="tab-content">
+      <div class="filter-bar">
+        <input type="text" id="filter-search" placeholder="Search by Record ID, Design ID, or Tags..." oninput="applyFilters()">
+        <select id="filter-family" onchange="applyFilters()">
+          <option value="">All Geometry Families</option>
+          <option value="RECTANGULAR_PATCH">Rectangular Patch</option>
+          <option value="CIRCULAR_PATCH">Circular Patch</option>
+          <option value="INSET_FED_PATCH">Inset-Fed Patch</option>
+          <option value="U_SLOT_PATCH">U-Slot Patch</option>
+          <option value="TRIANGULAR_PATCH">Triangular Patch</option>
+          <option value="HEXAGONAL_PATCH">Hexagonal Patch</option>
+        </select>
+        <select id="filter-quality" onchange="applyFilters()">
+          <option value="">All Quality Statuses</option>
+          <option value="VERIFIED">Verified</option>
+          <option value="ACCEPTED_WITH_WARNINGS">Accepted With Warnings</option>
+          <option value="INCOMPLETE">Incomplete</option>
+          <option value="REJECTED">Rejected</option>
+          <option value="UNVERIFIED">Unverified</option>
+        </select>
+        <button class="btn btn-secondary" onclick="loadRecords()">Refresh</button>
+      </div>
+
+      <div class="card" style="padding: 0; overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Record ID</th>
+              <th>Design / Geometry</th>
+              <th>Family</th>
+              <th>Frequency Range</th>
+              <th>Points</th>
+              <th>Complex S11</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="records-table-body">
+            <tr><td colspan="8" style="text-align: center; color: var(--text-muted); padding: 30px;">Loading records from storage...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: IMPORT WIZARD -->
+    <div id="tab-import" class="tab-content">
+      <div class="card" style="max-width: 800px; margin: 0 auto;">
+        <div class="card-title">Ingest Simulation or Measurement Data</div>
+        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">
+          Import exported Touchstone (.s1p, .s2p) or CSV frequency sweep tables from HFSS, CST Studio Suite, or lab VNAs.
+        </p>
+
+        <form id="import-form" onsubmit="handleImport(event)">
+          <div class="form-group">
+            <label class="form-label">Simulation / Response File (.s1p, .s2p, .csv, .txt)</label>
+            <input type="file" id="import-file" required style="color: #fff;">
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Geometry Family</label>
+              <select id="import-family" class="form-input">
+                <option value="RECTANGULAR_PATCH">Rectangular Patch</option>
+                <option value="INSET_FED_PATCH">Inset-Fed Patch</option>
+                <option value="CIRCULAR_PATCH">Circular Patch</option>
+                <option value="TRIANGULAR_PATCH">Triangular Patch</option>
+                <option value="HEXAGONAL_PATCH">Hexagonal Patch</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Data Source Origin</label>
+              <select id="import-source" class="form-input">
+                <option value="HFSS_SIMULATION">HFSS Simulation</option>
+                <option value="CST_SIMULATION">CST Simulation</option>
+                <option value="EXPERIMENTAL_MEASUREMENT">Experimental Measurement</option>
+                <option value="PUBLISHED_DATASET">Published Dataset</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Patch Width (mm)</label>
+              <input type="number" step="0.01" id="import-width" value="30.0" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Patch Length (mm)</label>
+              <input type="number" step="0.01" id="import-length" value="30.0" class="form-input">
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Substrate Height (mm)</label>
+              <input type="number" step="0.01" id="import-height" value="1.6" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Relative Permittivity (εr)</label>
+              <input type="number" step="0.01" id="import-epsr" value="4.4" class="form-input">
+            </div>
+          </div>
+
+          <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 12px;">
+            <button type="submit" class="btn" id="btn-import-submit">Upload & Validate Record</button>
+          </div>
+        </form>
+        <div id="import-result" style="margin-top: 16px;"></div>
+      </div>
+    </div>
+
+    <!-- TAB 4: ML PREPARATION & EXPORT -->
+    <div id="tab-ml-prep" class="tab-content">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Prepare Leakage-Free Dataset Split</div>
+          <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">
+            Partitions records strictly by antenna geometry hash to prevent frequency response leakage into validation/test splits.
+          </p>
+          <div class="form-group">
+            <label class="form-label">Train Split Ratio: <span id="lbl-train-ratio">0.70</span></label>
+            <input type="range" min="0.5" max="0.9" step="0.05" value="0.70" class="form-input" id="split-train" oninput="updateSplitLabels()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Validation Split Ratio: <span id="lbl-val-ratio">0.15</span></label>
+            <input type="range" min="0.05" max="0.3" step="0.05" value="0.15" class="form-input" id="split-val" oninput="updateSplitLabels()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Random Seed</label>
+            <input type="number" id="split-seed" value="42" class="form-input">
+          </div>
+          <button class="btn" onclick="executeSplit()" style="margin-top: 10px;">Run Geometry-Safe Split</button>
+          <div id="split-result" style="margin-top: 14px;"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Export Dataset Package</div>
+          <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">
+            Download verified datasets for manual training or external electromagnetic evaluation.
+          </p>
+          <div class="form-group">
+            <label class="form-label">Export Format</label>
+            <select id="export-format" class="form-input">
+              <option value="json">JSON (Full Canonical Metadata & Responses)</option>
+              <option value="numpy">NumPy Archive (.npz arrays)</option>
+              <option value="hdf5">HDF5 Container (.h5)</option>
+              <option value="csv">CSV (Frequency Response Curves)</option>
+            </select>
+          </div>
+          <button class="btn btn-secondary" onclick="executeExport()">Generate & Download Export</button>
+          <div id="export-result" style="margin-top: 14px;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="modal" id="detail-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title" style="color: #fff;">Record Detail</h3>
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+      </div>
+      <div id="modal-content">Loading...</div>
+    </div>
+  </div>
+
+  <script>
+    let allRecords = [];
+
+    async function loadStats() {
+      try {
+        const res = await fetch('/api/datasets/statistics');
+        const data = await res.json();
+        document.getElementById('stat-total-records').innerText = data.total_records || 0;
+        document.getElementById('stat-unique-designs').innerText = data.unique_geometries || 0;
+        document.getElementById('stat-verified').innerText = (data.quality_status_distribution && data.quality_status_distribution.VERIFIED) || 0;
+        document.getElementById('stat-complex-s11').innerText = (data.available_outputs && data.available_outputs.complex_s11_count) || 0;
+
+        // Populate distributions
+        renderDistributions(data);
+      } catch (err) {
+        console.error("Failed to load stats:", err);
+      }
+    }
+
+    function renderDistributions(data) {
+      const famContainer = document.getElementById('family-dist-list');
+      if (data.geometry_family_distribution) {
+        let html = '';
+        for (const [k, v] of Object.entries(data.geometry_family_distribution)) {
+          html += `<div style="display:flex; justify-content:space-between; padding: 6px 0; border-bottom: 1px solid var(--border);"><span>${k}</span><b>${v}</b></div>`;
+        }
+        famContainer.innerHTML = html || '<p style="color:var(--text-muted)">No records yet.</p>';
+      }
+
+      const srcContainer = document.getElementById('source-dist-list');
+      if (data.source_type_distribution) {
+        let html = '';
+        for (const [k, v] of Object.entries(data.source_type_distribution)) {
+          html += `<div style="display:flex; justify-content:space-between; padding: 6px 0; border-bottom: 1px solid var(--border);"><span>${k}</span><b>${v}</b></div>`;
+        }
+        srcContainer.innerHTML = html || '<p style="color:var(--text-muted)">No sources yet.</p>';
+      }
+
+      const qContainer = document.getElementById('quality-dist-list');
+      if (data.quality_status_distribution) {
+        let html = '<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">';
+        for (const [k, v] of Object.entries(data.quality_status_distribution)) {
+          html += `<div style="background:#0f172a; padding: 12px; border-radius: 6px; border: 1px solid var(--border);"><div class="status-badge status-${k.toLowerCase().includes('verified') ? 'verified' : (k.toLowerCase().includes('warning') ? 'warning' : 'rejected')}">${k}</div><div style="font-size: 20px; font-weight: bold; margin-top: 8px;">${v}</div></div>`;
+        }
+        html += '</div>';
+        qContainer.innerHTML = html;
+      }
+    }
+
+    async function loadRecords() {
+      try {
+        const res = await fetch('/api/datasets/records?limit=100');
+        const data = await res.json();
+        allRecords = data.records || [];
+        renderRecordsTable(allRecords);
+      } catch (err) {
+        console.error("Failed to load records:", err);
+      }
+    }
+
+    function renderRecordsTable(records) {
+      const tbody = document.getElementById('records-table-body');
+      if (!records || records.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--text-muted); padding: 30px;">No electromagnetic records in dataset. Import a simulation file above.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = records.map(r => `
+        <tr>
+          <td><code style="color: var(--accent);">${r.record_id}</code></td>
+          <td><b>${r.design_id}</b><br><small style="color: var(--text-muted);">${r.geometry_hash ? r.geometry_hash.slice(0, 8) : ''}</small></td>
+          <td>${r.geometry_family}</td>
+          <td>${r.min_freq_ghz ? r.min_freq_ghz.toFixed(2) : '-'} – ${r.max_freq_ghz ? r.max_freq_ghz.toFixed(2) : '-'} GHz</td>
+          <td>${r.num_freq_points || '-'}</td>
+          <td>${r.has_complex_s11 ? '<span style="color: var(--success);">Yes (Re/Im)</span>' : '<span style="color: var(--text-muted);">Mag only</span>'}</td>
+          <td><span class="status-badge status-${r.quality_status.toLowerCase().includes('verified') ? 'verified' : (r.quality_status.toLowerCase().includes('warning') ? 'warning' : 'rejected')}">${r.quality_status}</span></td>
+          <td><button class="btn btn-secondary" style="padding: 4px 10px; font-size: 12px;" onclick="viewRecord('${r.record_id}')">Details</button></td>
+        </tr>
+      `).join('');
+    }
+
+    function applyFilters() {
+      const q = document.getElementById('filter-search').value.toLowerCase();
+      const fam = document.getElementById('filter-family').value;
+      const qual = document.getElementById('filter-quality').value;
+
+      const filtered = allRecords.filter(r => {
+        if (fam && r.geometry_family !== fam) return false;
+        if (qual && r.quality_status !== qual) return false;
+        if (q && !(r.record_id.toLowerCase().includes(q) || r.design_id.toLowerCase().includes(q))) return false;
+        return true;
+      });
+      renderRecordsTable(filtered);
+    }
+
+    async function viewRecord(recordId) {
+      document.getElementById('detail-modal').classList.add('active');
+      document.getElementById('modal-title').innerText = `Record: ${recordId}`;
+      const content = document.getElementById('modal-content');
+      content.innerHTML = '<p style="color: var(--text-muted);">Loading record details...</p>';
+
+      try {
+        const [metaRes, qualRes, respRes] = await Promise.all([
+          fetch(`/api/datasets/records/${recordId}`),
+          fetch(`/api/datasets/records/${recordId}/quality`),
+          fetch(`/api/datasets/records/${recordId}/responses`),
+        ]);
+        const meta = await metaRes.json();
+        const qual = await qualRes.json();
+        const resp = await respRes.json();
+
+        content.innerHTML = `
+          <div style="margin-bottom: 16px;">
+            <b>Geometry Family:</b> ${meta.antenna_identity.geometry_family} | 
+            <b>Source:</b> ${meta.antenna_identity.data_source} | 
+            <b>Status:</b> <span class="status-badge status-${meta.quality_status.toLowerCase().includes('verified') ? 'verified' : 'warning'}">${meta.quality_status}</span>
+          </div>
+
+          <h4 style="margin: 14px 0 6px 0; color: #fff;">Electromagnetic Response Summary</h4>
+          <div style="background: #0f172a; padding: 12px; border-radius: 6px; font-size: 13px;">
+            <div><b>Frequency Grid:</b> ${resp.frequencies_ghz ? resp.frequencies_ghz.length : 0} points (${resp.frequencies_ghz ? resp.frequencies_ghz[0].toFixed(3) : 0} to ${resp.frequencies_ghz ? resp.frequencies_ghz[resp.frequencies_ghz.length-1].toFixed(3) : 0} GHz)</div>
+            <div><b>Resonances:</b> ${meta.outputs.resonant_frequencies_ghz ? meta.outputs.resonant_frequencies_ghz.join(', ') + ' GHz' : 'None detected below -10 dB'}</div>
+            <div><b>-10 dB Bandwidth:</b> ${meta.outputs.impedance_bandwidth_mhz ? meta.outputs.impedance_bandwidth_mhz + ' MHz (' + meta.outputs.bandwidth_percentage + '%)' : 'N/A'}</div>
+            <div><b>Complex S11:</b> ${meta.outputs.has_complex_s11 ? 'Available (Real + Imag)' : 'Magnitude Only'}</div>
+          </div>
+
+          <h4 style="margin: 14px 0 6px 0; color: #fff;">Validation Quality Report</h4>
+          <div style="background: #0f172a; padding: 12px; border-radius: 6px; font-size: 13px;">
+            <div style="color: var(--success);">Passed Checks: ${qual.passed_checks ? qual.passed_checks.join(', ') : 'None'}</div>
+            ${qual.failed_checks && qual.failed_checks.length ? `<div style="color: var(--danger); margin-top: 6px;">Failed Checks: ${JSON.stringify(qual.failed_checks)}</div>` : ''}
+            ${qual.warnings && qual.warnings.length ? `<div style="color: var(--warning); margin-top: 6px;">Warnings: ${JSON.stringify(qual.warnings)}</div>` : ''}
+          </div>
+
+          <h4 style="margin: 14px 0 6px 0; color: #fff;">Canonical Geometry Specification</h4>
+          <pre>${JSON.stringify(meta.geometry, null, 2)}</pre>
+        `;
+      } catch (err) {
+        content.innerHTML = `<p style="color: var(--danger);">Failed to load details: ${err.message}</p>`;
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('detail-modal').classList.remove('active');
+    }
+
+    async function handleImport(e) {
+      e.preventDefault();
+      const fileInput = document.getElementById('import-file');
+      if (!fileInput.files.length) return;
+
+      const file = fileInput.files[0];
+      const resDiv = document.getElementById('import-result');
+      resDiv.innerHTML = '<span style="color: var(--accent);">Reading file and running physical validation...</span>';
+
+      const reader = new FileReader();
+      reader.onload = async function() {
+        const payload = {
+          file_content: reader.result,
+          is_base64: false,
+          filename: file.name,
+          geometry_family: document.getElementById('import-family').value,
+          source_type: document.getElementById('import-source').value,
+          patch_width_mm: parseFloat(document.getElementById('import-width').value),
+          patch_length_mm: parseFloat(document.getElementById('import-length').value),
+          substrate_thickness_mm: parseFloat(document.getElementById('import-height').value),
+          permittivity_r: parseFloat(document.getElementById('import-epsr').value),
+          loss_tangent: 0.02,
+          z0_ohm: 50.0
+        };
+
+        try {
+          const res = await fetch('/api/datasets/import', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          const result = await res.json();
+          if (res.ok) {
+            resDiv.innerHTML = `<div style="color: var(--success); background: rgba(16,185,129,0.1); padding: 12px; border-radius: 6px;">Imported Record: <b>${result.record_id}</b> | Status: <b>${result.quality_status}</b> (${result.frequency_points} points).</div>`;
+            loadStats();
+            loadRecords();
+          } else {
+            resDiv.innerHTML = `<div style="color: var(--danger);">${result.detail || 'Import failed'}</div>`;
+          }
+        } catch (err) {
+          resDiv.innerHTML = `<div style="color: var(--danger);">Network error: ${err.message}</div>`;
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function updateSplitLabels() {
+      const train = parseFloat(document.getElementById('split-train').value);
+      const val = parseFloat(document.getElementById('split-val').value);
+      document.getElementById('lbl-train-ratio').innerText = train.toFixed(2);
+      document.getElementById('lbl-val-ratio').innerText = val.toFixed(2);
+    }
+
+    async function executeSplit() {
+      const train = parseFloat(document.getElementById('split-train').value);
+      const val = parseFloat(document.getElementById('split-val').value);
+      const test = Math.max(0.01, 1.0 - train - val);
+      const seed = parseInt(document.getElementById('split-seed').value);
+
+      const div = document.getElementById('split-result');
+      div.innerHTML = '<span style="color: var(--accent);">Splitting dataset and checking for geometry leakage...</span>';
+
+      try {
+        const res = await fetch('/api/datasets/prepare', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ train_ratio: train, val_ratio: val, test_ratio: test, random_seed: seed })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          const m = data.manifest;
+          div.innerHTML = `
+            <div style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); padding: 12px; border-radius: 6px; font-size: 13px;">
+              <b style="color: var(--success);">Leakage-Free Split Prepared:</b> ${data.dataset_id}<br>
+              Train: <b>${m.train_count}</b> | Val: <b>${m.val_count}</b> | Test: <b>${m.test_count}</b><br>
+              <small style="color: var(--text-muted);">Unique Geometry Groups: ${m.unique_geometry_groups} | Leakage Verification: ${m.leakage_verification}</small>
+            </div>
+          `;
+        } else {
+          div.innerHTML = `<span style="color: var(--danger);">${data.detail}</span>`;
+        }
+      } catch (err) {
+        div.innerHTML = `<span style="color: var(--danger);">${err.message}</span>`;
+      }
+    }
+
+    async function executeExport() {
+      const fmt = document.getElementById('export-format').value;
+      const div = document.getElementById('export-result');
+      div.innerHTML = '<span style="color: var(--accent);">Exporting dataset...</span>';
+
+      try {
+        const res = await fetch('/api/datasets/export', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ format: fmt })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          div.innerHTML = `
+            <div style="margin-top: 10px;">
+              <a href="${data.download_url}" class="btn" style="display:inline-block; text-decoration:none;">Download ${data.format.toUpperCase()} Package (${data.record_count} records)</a>
+            </div>
+          `;
+        } else {
+          div.innerHTML = `<span style="color: var(--danger);">${data.detail}</span>`;
+        }
+      } catch (err) {
+        div.innerHTML = `<span style="color: var(--danger);">${err.message}</span>`;
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    // Initial load
+    loadStats();
+    loadRecords();
+  </script>
+</body>
+</html>
