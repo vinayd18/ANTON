@@ -21,3 +21,4 @@ with open(out_dir / "model_compatibility_report.json", "w", encoding="utf-8") as
     json.dump(compatibility, f, indent=2)
 
 print("Exported updated reports to src/anton/ml/reports/")
+

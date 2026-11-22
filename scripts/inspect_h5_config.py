@@ -17,3 +17,4 @@ with h5py.File(h5_path, "r") as f:
             tc = tc.decode("utf-8")
         print("Training Config:")
         print(tc[:500])
+

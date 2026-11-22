@@ -9,3 +9,4 @@ for mod in modules:
         print(f"{mod}: {ver}")
     except ImportError as e:
         print(f"{mod}: NOT INSTALLED ({e})")
+

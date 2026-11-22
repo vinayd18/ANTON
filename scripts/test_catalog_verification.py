@@ -18,3 +18,4 @@ pretrained = reg.filter_by_entity_type(ModelEntityType.PRETRAINED_MODEL)
 datasets = reg.filter_by_entity_type(ModelEntityType.DATASET)
 training_impls = reg.filter_by_entity_type(ModelEntityType.TRAINING_IMPLEMENTATION)
 print(f"Summary: {len(pretrained)} PRETRAINED_MODEL, {len(datasets)} DATASET, {len(training_impls)} TRAINING_IMPLEMENTATION")
+

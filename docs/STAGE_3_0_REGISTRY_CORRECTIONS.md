@@ -97,3 +97,4 @@ In `src/anton/ml/registry/model_registry.py`, an inverted query index `_entity_t
 This guarantees:
 - $O(1)$ query time when filtering models by entity type via `registry.filter_by_entity_type(ModelEntityType.PRETRAINED_MODEL)`.
 - Instant separation of benchmarks and training code from actual executable weights.
+

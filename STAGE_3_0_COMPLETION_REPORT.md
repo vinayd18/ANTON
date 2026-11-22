@@ -2,7 +2,7 @@
 ## Pretrained Model Discovery, Compatibility Audit and Model Registry
 
 **Date**: November 14, 2026  
-**Status**: COMPLETE — ALL AUDITS & TESTS PASSED (111 / 111 Passing)  
+**Status**: COMPLETE — ALL AUDITS & TESTS PASSED (124 / 124 Passing)  
 **Author**: Antigravity Technical Lead & Deep Learning Architecture Team  
 
 ---
@@ -52,7 +52,7 @@ A critical empirical finding of this audit is that **only two repositories out o
 All other candidate repositories represent **architectures with training scripts** (Category B) or **raw simulation databases** (Category C). Claims that dozens of off-the-shelf pretrained models exist for arbitrary patch antennas are scientifically inaccurate; most published papers open-source only code, requiring local training.
 
 ### Download & Immutability Verification
-All verified Category A checkpoints have been downloaded via [download_verified_checkpoints.py](file:///c:/Users/adewa/Pictures/Anton%202/scripts/download_verified_checkpoints.py), verified against cryptographic hashes, stored in both `src/anton/ml/external/` and `backend/app/ml/external/`, and locked with read-only filesystem attributes:
+All verified Category A checkpoints have been downloaded via [download_verified_checkpoints.py](file:///c:/Users/adewa/Pictures/Anton%202/scripts/download_verified_checkpoints.py), verified against cryptographic hashes, stored centrally in `src/anton/ml/external/` (with thin path adapters in `backend/app/ml/external/`), and locked with read-only filesystem attributes:
 
 | Checkpoint Name | File Size | SHA-256 Checksum | Framework | File Path | Permissions |
 |---|---|---|---|---|---|

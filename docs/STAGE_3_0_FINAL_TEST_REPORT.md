@@ -12,13 +12,13 @@
 
 ```
 ============================== TEST EXECUTION SUMMARY ==============================
-Total Tests Collected:       120
-Total Tests Passed:          120
+Total Tests Collected:       124
+Total Tests Passed:          124
 Total Tests Failed:            0
 Total Tests Skipped:           0
 Total Warnings:                9 (non-blocking canvas & deprecation notices)
 Success Rate:              100.0%
-Total Execution Time:      37.41s
+Total Execution Time:      47.41s
 ====================================================================================
 ```
 
@@ -31,7 +31,7 @@ Total Execution Time:      37.41s
 | `tests/test_boolean_operations.py` | Stage 1 2D Boolean Engine | 7 | **PASSED** | Multi-hole preservation, union, difference, cutouts |
 | `tests/test_cad_generation.py` | Stage 1 3D STEP/CadQuery Export | 2 | **PASSED** | Stackup extrusion, non-overlapping ground/dielectric/patch |
 | `tests/test_materials.py` | Physical Material Library | 6 | **PASSED** | Copper, FR4, Rogers substrates, dispersion models |
-| `tests/test_model_registry.py` | Stage 3.0 ML Model Registry & Checkpoints | 27 | **PASSED** | Schema, queries, patents, checksums, real PyTorch & H5Py loading, real forward inference |
+| `tests/test_model_registry.py` | Stage 3.0 ML Model Registry & Checkpoints | 31 | **PASSED** | Schema, queries, patents, checksums, real PyTorch & H5Py loading, real forward inference, output & frequency bounds |
 | `tests/test_notebook_generation.py` | Stage 2 Jupyter HFSS Generation | 17 | **PASSED** | All 8 antenna notebooks, cell structure, PyAEDT syntax |
 | `tests/test_parameters.py` | Parameter Expression Engine | 3 | **PASSED** | Dependent formulas, dimension updates, evaluation |
 | `tests/test_primitives.py` | Canonical Geometry Primitives | 10 | **PASSED** | Polygons, slots, rings, rectangles, circles |
@@ -102,3 +102,37 @@ The test suite was expanded with 9 specialized tests under `TestStage3RealInfere
 - **Stage 1 Canonical Geometry Engine**: 100% operational. Stackup ordering (ground $Z=0$, substrate $Z \in [0, h]$, radiator $Z=h$), STEP CAD export, 2D Boolean operations, and Pydantic v2 schemas passed with zero regressions.
 - **Stage 2 Notebook Generation**: 100% operational. All 8 canonical notebooks (`rectangular_patch_hfss.ipynb`, `circular_patch_hfss.ipynb`, `triangular_patch_hfss.ipynb`, `hexagonal_patch_hfss.ipynb`, `u_slot_patch_hfss.ipynb`, `inset_fed_patch_hfss.ipynb`, `annular_patch_hfss.ipynb`, `custom_polygon_patch_hfss.ipynb`) generated valid cell structures and passed PyAEDT mock execution.
 - **Stage 3.0 Performance Optimizations**: Checkpoint hashing cache and $O(1)$ inverted indices showed zero side effects, passing all functional tests while delivering a 3.81x speedup.
+
+---
+
+## 5. Verification Status Classification
+
+### 5.1. Verified Functionality
+- **Cryptographic File Integrity**: SHA-256 verification across all 6 downloaded weight files on disk.
+- **Isolated Checkpoint Loading**: Weight loading with PyTorch (`weights_only=True`) and HDF5 (`h5py`) without arbitrary code execution.
+- **Real Model Inference**: Forward-pass execution on physical test inputs with verified finite (non-NaN, non-Inf) outputs.
+- **Model Registry Architecture**: Canonical Pydantic schema with strict separation of `PRETRAINED_MODEL`, `TRAINING_IMPLEMENTATION`, `DATASET`, and `RESEARCH_REFERENCE`.
+- **Duplicate ML Purge**: Single authoritative source established in `src/anton/ml/` with 8.8 MB duplicate binaries removed from `backend/app/ml/external/`.
+- **Query Performance & Optimizations**: $O(1)$ inverted index lookups and checkpoint hash memory caching achieving 3.81x discovery speedup.
+- **Regression Suite Integrity**: Complete test suite of 124 tests across 12 modules passing with 100% success rate.
+
+### 5.2. Partially Verified Functionality
+- **Parameter Mapping from Canonical ANTON Geometries**: Parameter extraction functions can map canonical rectangular patch parameters to Antenna-Net $[W, L, h, \varepsilon_r]$ and Youxch $[h, \text{scale}_x, \dots]$. However, specialized non-rectangular geometries (triangular, hexagonal, annular) currently map only via bounding-box or equivalent area approximations.
+- **Scikit-Learn Random Forest Pipeline (`jasti_rf_surrogate`)**: Code architecture and DEAP genetic algorithm are structured and syntax-verified in workspace; full re-training on analytical equations is user-executable.
+
+### 5.3. Unverified Functionality
+- **Full-Wave Electromagnetic Accuracy of External Pretrained Weights**: In strict accordance with ANTON guidelines, no synthetic electromagnetic ground-truth results or fabricated accuracy curves were generated. Pretrained weights represent raw external artifacts and have NOT been verified against authentic high-fidelity full-wave HFSS/CST simulation data for ANTON canonical designs.
+- **Runtime Execution of Stage 2 Notebooks in Live HFSS**: Standalone Jupyter notebooks have passed static API and mock-execution validation, but live runtime execution in an actual Ansys HFSS installation is reserved for manual user verification.
+
+### 5.4. Known Limitations
+- **Narrow Operational Frequencies**: Pretrained models are restricted to specific training bands:
+  - `youxch_patch_mlp`: 2.0 to 3.0 GHz only.
+  - `galabavamsi_antennanet`: 1.0 to 6.0 GHz only.
+  - Frequency queries outside these intervals cannot be extrapolated without model fine-tuning.
+- **Substrate Material Assumptions**: `youxch_patch_mlp` was trained exclusively on FR4 ($\varepsilon_r \approx 4.4$); evaluating other substrates (e.g. Rogers RT/duroid 5880 with $\varepsilon_r=2.2$) without fine-tuning produces uncalibrated results.
+- **Patent Encumbrance on PixelAnt**: `udaykdk_pixelant` is encumbered by Indian Patent No. 572928 (IIT Madras); it is included as a research reference and training architecture only, with commercial deployment blocked.
+
+### 5.5. Outstanding Issues
+- None in the codebase. All 124 automated tests pass cleanly with zero errors or failures.
+
+

@@ -34,3 +34,4 @@ with h5py.File("src/anton/ml/external/youxch_patch_mlp/saved-model-5000.h5", "r"
                         print(f"    {subk}/{dset}: {subgrp[dset].shape}")
                 elif isinstance(subgrp, h5py.Dataset):
                     print(f"    {subk}: {subgrp.shape}")
+

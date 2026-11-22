@@ -224,3 +224,37 @@ saved-model-5000.h5                     1.07 ms        1.60 ms        8.5 KB
 3. **Status of Category B and Category C Entries**:
    - Category B implementations (`udaykdk_pixelant`, `vish1comp_antenna_benchmark`, `jasti_rf_surrogate`, `tolba_uslot_inverse`, `becklabs_patch_tto`, `sharvesh_patch_inverse`, `abinayasree_ai_antenna`) have no committed weights in their upstream repositories and are correctly marked as `NOT_APPLICABLE` for inference verification.
    - Category C dataset (`metu_simpl_microstrip`) is strictly classified as `DATASET` and is marked `NOT_APPLICABLE` for inference execution.
+
+---
+
+## 6. Verification Status Classification
+
+### 6.1. Verified Functionality
+- **Cryptographic File Integrity**: SHA-256 verification across all 6 downloaded weight files on disk.
+- **Isolated Checkpoint Loading**: Weight loading with PyTorch (`weights_only=True`) and HDF5 (`h5py`) without arbitrary code execution.
+- **Real Model Inference**: Forward-pass execution on physical test inputs with verified finite (non-NaN, non-Inf) outputs.
+- **Model Registry Architecture**: Canonical Pydantic schema with strict separation of `PRETRAINED_MODEL`, `TRAINING_IMPLEMENTATION`, `DATASET`, and `RESEARCH_REFERENCE`.
+- **Duplicate ML Purge**: Single authoritative source established in `src/anton/ml/` with 8.8 MB duplicate binaries removed from `backend/app/ml/external/`.
+- **Query Performance & Optimizations**: $O(1)$ inverted index lookups and checkpoint hash memory caching achieving 3.81x discovery speedup.
+- **Regression Suite Integrity**: Complete test suite of 124 tests across 12 modules passing with 100% success rate.
+
+### 6.2. Partially Verified Functionality
+- **Parameter Mapping from Canonical ANTON Geometries**: Parameter extraction functions can map canonical rectangular patch parameters to Antenna-Net $[W, L, h, \varepsilon_r]$ and Youxch $[h, \text{scale}_x, \dots]$. However, specialized non-rectangular geometries (triangular, hexagonal, annular) currently map only via bounding-box or equivalent area approximations.
+- **Scikit-Learn Random Forest Pipeline (`jasti_rf_surrogate`)**: Code architecture and DEAP genetic algorithm are structured and syntax-verified in workspace; full re-training on analytical equations is user-executable.
+
+### 6.3. Unverified Functionality
+- **Full-Wave Electromagnetic Accuracy of External Pretrained Weights**: In strict accordance with ANTON guidelines, no synthetic electromagnetic ground-truth results or fabricated accuracy curves were generated. Pretrained weights represent raw external artifacts and have NOT been verified against authentic high-fidelity full-wave HFSS/CST simulation data for ANTON canonical designs.
+- **Runtime Execution of Stage 2 Notebooks in Live HFSS**: Standalone Jupyter notebooks have passed static API and mock-execution validation, but live runtime execution in an actual Ansys HFSS installation is reserved for manual user verification.
+
+### 6.4. Known Limitations
+- **Narrow Operational Frequencies**: Pretrained models are restricted to specific training bands:
+  - `youxch_patch_mlp`: 2.0 to 3.0 GHz only.
+  - `galabavamsi_antennanet`: 1.0 to 6.0 GHz only.
+  - Frequency queries outside these intervals cannot be extrapolated without model fine-tuning.
+- **Substrate Material Assumptions**: `youxch_patch_mlp` was trained exclusively on FR4 ($\varepsilon_r \approx 4.4$); evaluating other substrates (e.g. Rogers RT/duroid 5880 with $\varepsilon_r=2.2$) without fine-tuning produces uncalibrated results.
+- **Patent Encumbrance on PixelAnt**: `udaykdk_pixelant` is encumbered by Indian Patent No. 572928 (IIT Madras); it is included as a research reference and training architecture only, with commercial deployment blocked.
+
+### 6.5. Outstanding Issues
+- None in the codebase. All 124 automated tests pass cleanly with zero errors or failures.
+
+

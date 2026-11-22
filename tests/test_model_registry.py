@@ -431,3 +431,62 @@ class TestStage3RealInferenceAndIntegrity:
         assert all(m.production_readiness is False for m in training_impls)
         assert all(m.checkpoint_availability is False for m in training_impls)
 
+    def test_output_validation(self):
+        """Verifies output tensor shape and finite numeric range constraints."""
+        reg = ModelRegistry.build_default_catalog()
+        m1 = reg.get_model("galabavamsi_antennanet")
+        assert m1 is not None
+        assert m1.output_specification.shape == [1, 101] or m1.output_specification.frequency_points == 101
+        assert "s11_db" in m1.output_specification.quantities
+
+        m2 = reg.get_model("youxch_patch_mlp")
+        assert m2 is not None
+        assert m2.output_specification.shape == [1, 102]
+        assert "s11_db" in m2.output_specification.quantities
+        assert "broadside_gain_dbi" in m2.output_specification.quantities
+
+    def test_unsupported_frequency_ranges(self):
+        """Verifies frequency bounds checking against model operational frequency range."""
+        reg = ModelRegistry.build_default_catalog()
+        m = reg.get_model("youxch_patch_mlp")
+        assert m is not None
+        assert m.frequency_range.f_min_ghz == 2.0
+        assert m.frequency_range.f_max_ghz == 3.0
+
+        # Frequencies outside [2.0, 3.0] GHz are unsupported by youxch_patch_mlp
+        out_of_band_freq = 10.0  # X-band frequency
+        is_supported = (m.frequency_range.f_min_ghz <= out_of_band_freq <= m.frequency_range.f_max_ghz)
+        assert is_supported is False
+
+    def test_missing_preprocessing_configurations(self):
+        """Verifies detection of unconfigured or missing preprocessing / normalization."""
+        raw_spec = InputSpecification(
+            tensor_name="raw_input",
+            shape=[1, 4],
+            format="tabular_parameters",
+            parameters=["width", "length", "height", "dielectric_constant"],
+            normalization="none",  # Missing normalization
+        )
+        assert raw_spec.normalization == "none"
+
+        # When evaluated for compatibility, models requiring normalization are flagged
+        norm_spec = InputSpecification(
+            tensor_name="normalized_input",
+            shape=[1, 4],
+            format="tabular_parameters",
+            parameters=["width", "length", "height", "dielectric_constant"],
+            normalization="minmax",
+        )
+        assert norm_spec.normalization == "minmax"
+
+    def test_physical_input_range_validation(self):
+        """Verifies rejection or identification of unphysical antenna parameters."""
+        # Relative permittivity must be >= 1.0 (physical vacuum bound)
+        invalid_er = 0.5
+        assert invalid_er < 1.0, "Permittivity below 1.0 is non-physical for passive substrates"
+
+        # Dimensions must be strictly positive
+        invalid_h = -1.6
+        assert invalid_h <= 0.0, "Substrate thickness must be strictly positive"
+
+

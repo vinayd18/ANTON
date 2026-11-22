@@ -11,3 +11,4 @@ def get_checkpoint_path(relative_path: str) -> Path:
     if not p.exists():
         raise FileNotFoundError(f"Checkpoint not found at canonical location: {p}")
     return p
+
